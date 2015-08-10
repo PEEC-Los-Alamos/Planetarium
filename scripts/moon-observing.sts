@@ -1,0 +1,53 @@
+# The moon
+
+flag ecliptic_line off
+flag atmosphere off
+flag landscape off
+flag star_twinkle off
+flag show_tui_datetime on
+flag planet_names off
+
+zoom auto initial
+select planet Moon
+flag track_object on
+wait duration 2
+
+# Full moon:
+date local 2016-01-23T18:46:00
+
+timerate rate 0
+zoom fov 1.5 duration 4
+wait duration 10
+zoom fov .25 duration 1
+wait duration 6
+# Go to somewhere a bit before first quarter:
+date local 2016-01-16T00:00:00
+wait duration 5
+
+# Show how the shadow progresses
+timerate rate 7000
+wait duration 30
+timerate rate 0
+
+# Lunar eclipse!
+zoom fov 3 duration 4
+wait duration 5
+date local 2015-09-27T17:00:00
+timerate rate 400
+wait duration 30
+
+# Show libration
+zoom fov 2 duration 4
+timerate rate 500000
+wait duration 30
+
+# Show Orientale
+# A table of times when the libration is favorable for viewing it
+# just before new moon:
+# http://www.packerlighting.com/Lunar_Articles/Moon%20Article%205of6.html
+# Sure would be nice to find good predictions for full moon times!
+timerate rate 0
+zoom fov .6 duration 4
+date local 2016-02-04T01:00:00
+wait duration 30
+

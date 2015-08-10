@@ -1,0 +1,26 @@
+###
+### Solar System
+###
+### View the Solar System from above.
+###
+### Similar to solar_system_view.sts distributed with nightshade
+### except that it stays on a wide view instead of zooming in,
+### and starts with no motion then goes to slow motion.
+###
+clear
+wait duration 2
+set home_planet "Solar System Observer"
+select planet Sun pointer off
+flag track_object on
+flag planet_orbits on
+flag planet_names on
+flag object_trails on
+zoom fov 1.78 duration 3
+timerate rate 10000000
+
+# wait duration 10
+# zoom fov 0.06 duration 3
+# wait duration 3
+# timerate rate 1000000
+
+

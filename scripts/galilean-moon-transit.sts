@@ -1,0 +1,58 @@
+# Show Jupiter's moons and a Galilean moon/shadow transit ... by Akkana
+
+flag ecliptic_line off
+flag atmosphere off
+flag landscape off
+flag star_twinkle off
+flag show_tui_datetime on
+flag planet_names off
+
+zoom auto initial
+
+date local 2015-08-13T23:20:00
+
+select planet Jupiter pointer off
+timerate rate 0
+#zoom fov 180 duration 2
+flag track_object on
+wait duration 5
+
+# Zoom in to show the dance of Jupiter's moons
+zoom fov .15 duration 5
+timerate rate 2500
+wait duration 5
+# This isn't actually a wait -- it just gets us to the end
+# of the 5-second zoom we just did.
+
+flag planet_names on
+wait duration 8
+flag planet_names off
+wait duration 4
+
+# Zoom in farther to show a double moon/shadow transit, Ganymede and Europa:
+zoom fov 0.02 duration 2
+timerate rate 500
+# Wait until all moons and shadows have exited:
+# wait duration 45
+# Or stop just as the last shadow is exiting:
+# want to stop at 4:28:52 but there's no way to do that in StratoScript.
+# So this duration is totally dependent on all the durations that came before.
+wait duration 38.56
+
+# Stop to illustrate Ganymede's shadow just exiting:
+timerate rate 0
+wait duration 8
+
+# Stop, go back:
+timerate rate -23000
+wait duration 1.3
+
+# Now show a view you'd see in a modest telescope:
+zoom fov .16 duration 1
+timerate rate 1200
+
+# Turn the pointer back on since we're returning control to the operator
+# (maybe not necessary?)
+select pointer on
+
+

@@ -1,0 +1,19 @@
+# Display the changing ring tilt of Saturn
+
+flag atmosphere off
+flag landscape off
+flag star_twinkle off
+flag show_tui_datetime on
+flag planet_names off
+
+flag ecliptic_line on
+
+select planet Saturn
+flag track_object on
+
+zoom fov .06 duration 1
+
+timerate rate 60000000
+
+
+
