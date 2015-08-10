@@ -1,0 +1,37 @@
+
+> On 8.Aug 2015, at 16:17, Akkana Peck <akkana@shallowsky.com> wrote:
+> 
+> I've made us a Nighthade notes page on PEEC's development website:
+> http://dev.peecnature.org/nightshade/Notes.html
+> 
+> So far, these are only my notes. Galen, Patricia (and Paul if you
+> have any), can you send me your notes and I'll integrate them?
+> 
+> Also, if you have scripts you want to share, send those to me too,
+> and I can put them there too. I've put Galen's June show and my
+> shorter scripts there already, and you can download them from:
+> http://dev.peecnature.org/nightshade/
+> Galen, I'd love to see the other scripts you have, especially
+> if you've found a way to look down at Earth from above ... maybe
+> I can use that for the moon.
+> 
+> We could have a prettier page on the main PEEC site if we wanted,
+> with regular PEEC headers and all that. I'm not sure there's much
+> point unless one of you is interested in co-maintaining the page,
+> (you'd need to get Wordpress access from Jen).
+> 
+> Have any of you used a version control system? A VCS (the most
+> popular one is called git) lets you keep track of changes so you
+> can always roll back to a working version if you do something to
+> your script that breaks it, and it makes it easier for several
+> people to make changes to the same script. It's pretty easy to
+> learn the basics (though getting fluent with all git's ins and outs
+> is a lot harder). There's a public site called GitHub where I could
+> set up an account for us, if anybody is interested in trying that,
+> and then any of us (as long as you sign up for a GitHub account)
+> could add scripts or notes on using nightshade, merge changes to
+> someone else's script, or see what's changed recently. Let me know
+> if you're interested in trying it.
+> 
+>        ...Akkana
+

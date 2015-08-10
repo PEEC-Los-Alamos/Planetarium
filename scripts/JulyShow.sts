@@ -1,0 +1,337 @@
+# script for July planetarium show -- Galen Gisler
+clear
+
+# set normal defaults
+flag atmosphere on
+flag landscape off
+flag star_twinkle off
+flag show_tui_datetime on
+flag cardinal_points on
+flag constellation_pick on
+set max_mag_star_name 2
+set max_mag_nebula_name 9
+set auto_move_duration 10
+timerate rate 0
+
+# set to evening of presentation date
+date local 2015-07-05T21:00:00
+wait duration 20
+
+# pause here, ask about planets
+flag planet_names on
+wait duration 10
+flag ecliptic_line on
+wait duration 10
+flag ecliptic_line off
+wait duration 10
+flag planet_names off
+wait duration 2
+
+# later - darken the sky and point out constellations
+timerate rate 300  # five minutes per second
+wait duration 9
+timerate rate 0  # back to zero time rate
+date local T21:45:00
+wait duration 10
+select constellation UMa
+flag constellation_drawing on
+wait duration 10
+select constellation UMi
+wait duration 10
+select constellation Leo
+wait duration 10
+select constellation Boo
+wait duration 10
+select constellation Vir
+wait duration 10
+flag star_names on
+# point out spring triangle
+wait duration 10
+select constellation Sco
+wait duration 10
+select constellation Sgr
+wait duration 10
+select constellation Lib
+wait duration 10
+flag ecliptic_line on
+wait duration 10
+# point out zodiac & ecliptic
+flag ecliptic_line off
+select constellation Cyg
+wait duration 10
+select constellation Lyr
+wait duration 10
+select constellation Aql
+wait duration 10
+# point out summer triangle
+deselect
+flag constellation_drawing off
+flag star_names off
+
+# show Mercury early Monday morning July 6th
+date local 2015-07-05T21:45:00  # to rotate through the night
+flag planet_names on
+flag ecliptic_line on
+timerate rate 1200     # twenty minutes per second
+wait duration 21.75    # to stop at 5 am
+timerate rate 0        # back to zero time rate
+wait duration 10
+timerate rate 300      # 5 minutes per second
+wait duration 9        # let it go 45 minutes
+timerate rate 0        # back to zero time rate
+wait duration 10
+
+# show Venus & Moon on the 18th evening
+flag planet_names off
+flag ecliptic_line off
+date local 2015-07-18T21:10:00
+wait duration 10
+# show Venus & Jupiter & Regulus on the 19th evening
+date local 2015-07-19T21:10:00
+wait duration 10
+flag planet_names off
+wait duration 2
+
+#### Zoom in on Saturn #####################
+flag atmosphere off
+date local 2015-07-05T22:00:00
+timerate rate 0  # back to zero time rate
+wait duration 5
+
+select planet Saturn
+wait duration 5
+flag track_object on
+wait duration 10
+zoom fov 0.1 duration 5
+wait duration 10
+# Point out moons
+flag planet_names on
+wait duration 20
+#show motion of moons
+timerate rate 1800  # thirty minutes per second
+wait duration 40
+timerate rate 0
+wait duration 10
+date local 2015-07-05T22:15:00
+wait duration 5
+deselect
+flag planet_names off
+zoom auto initial
+wait duration 10
+######################################
+
+#### Find some nice clusters ##############
+date local 2015-07-05T22:15:00
+timerate rate 0  # back to zero time rate
+wait duration 10
+
+# Now do clusters with 1 degree fov
+flag constellation_drawing on
+flag constellation_pick on
+select constellation Sgr
+select constellation Sco
+wait duration 5
+flag nebula_names on
+wait duration 5
+select hp 85927         # select Shaula to center on both constellations
+wait duration 5
+flag track_object on
+wait duration 10
+zoom fov 45 duration 5
+wait duration 20
+
+select hp 80763         # select Antares
+flag track_object on
+wait duration 10
+zoom fov 7 duration 5   # zoom to binocular view
+wait duration 20
+select nebula M4     # Globular Cluster
+flag track_object on
+wait duration 10
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom fov 60 duration 5
+wait duration 15
+
+select nebula M7     # Ptolemy's cluster (open cluster, naked-eye object)
+flag track_object on
+wait duration 10
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom fov 7 duration 5       # zoom out to binocular field
+wait duration 15
+
+select nebula M6     # Butterfly Cluster (open cluster)
+flag track_object on
+wait duration 10
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom fov 45 duration 5      # zoom out to constellation view
+wait duration 15
+
+select nebula M8    # Lagoon Nebula
+flag track_object on
+wait duration 10
+zoom fov 2 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom fov 7 duration 5       # zoom out to binocular field
+wait duration 15
+
+select nebula M20   # Triffid Nebula
+flag track_object on
+wait duration 10
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom fov 45 duration 5      # zoom out to constellation view
+wait duration 15
+
+select nebula M17    # Omega Nebula
+flag track_object on
+wait duration 10
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom fov 7 duration 5       # zoom out to binocular field
+wait duration 15
+
+select nebula M16    # Eagle Nebula
+flag track_object on
+wait duration 10
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom fov 45 duration 5      # zoom out to constellation view
+wait duration 15
+
+select nebula M22    # Globular Cluster
+flag track_object on
+wait duration 10
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom fov 60 duration 5      # zoom out to broad view
+wait duration 15
+
+select nebula M9    # Globular Cluster
+flag track_object on
+wait duration 10
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom fov 60 duration 5      # zoom out to broad view
+wait duration 15
+
+select nebula M54    # Globular Cluster
+flag track_object on
+wait duration 10
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom fov 60 duration 5      # zoom out to broad view
+wait duration 15
+
+flag constellation_drawing off
+flag nebula_names off
+zoom auto out
+
+#########################################
+
+#### Binocular binaries #################
+date local 2015-07-05T22:15:00
+timerate rate 0  # back to zero time rate
+wait duration 10
+
+# Now do some binocular binaries with 7 degree fov
+flag constellation_drawing on
+flag constellation_pick on
+select constellation UMa
+flag constellation_drawing on
+wait duration 10
+select hp 65378A     # Mizar
+flag track_object on
+wait duration 10
+zoom fov 7 duration 5
+wait duration 2
+deselect
+wait duration 10
+flag constellation_drawing off
+zoom auto out
+wait duration 15
+
+flag constellation_drawing on
+select constellation Sco    # although it's in Oph, Sco is closer
+wait duration 10
+select hp 80473A     # rho Oph
+flag track_object on
+wait duration 10
+zoom fov 7 duration 5
+wait duration 2
+deselect
+wait duration 10
+flag constellation_drawing off
+zoom auto out
+wait duration 15
+
+flag constellation_drawing on
+select constellation Lyr
+wait duration 10
+select hp 91926C      # Epsilon Lyrae
+flag track_object on
+wait duration 10
+zoom fov 7 duration 5
+wait duration 2
+deselect
+wait duration 10
+flag constellation_drawing off
+zoom auto out
+wait duration 15
+
+flag constellation_drawing on
+select constellation Lib
+wait duration 10
+select hp 72622      # Zubenelgenubi
+flag track_object on
+wait duration 10
+zoom fov 7 duration 5
+wait duration 2
+deselect
+wait duration 10
+flag constellation_drawing off
+zoom auto out
+
+flag constellation_drawing on
+select constellation Cyg
+wait duration 10
+select hp 95947  # Albireo -- this one needs very narrow field of view!
+flag track_object on
+wait duration 10
+zoom fov 0.5 duration 5
+wait duration 2
+deselect
+wait duration 10
+flag constellation_drawing off
+zoom auto out
+#########################################
+
+# Set back to tonight
+date local 2015-07-05T22:15:00
+wait duration 20
+
+# Set to next month's nighttime sky
+date local 2015-08-13T22:15:00
+wait duration 10

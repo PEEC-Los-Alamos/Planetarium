@@ -1,0 +1,18 @@
+# Showing Saturns's position and aspect through time - Galen Gisler
+
+clear
+flag atmosphere off
+flag landscape off
+flag show_tui_datetime on
+
+flag planet_names off
+select planet Saturn
+flag track_object on
+wait duration 10
+# first we look at Saturn's motion through the sky
+timerate rate 30000000       # about ten months per second
+wait duration 30
+
+# then we look close up at Saturn's tilt changing with time
+zoom fov 0.1 duration 10
+wait duration 30

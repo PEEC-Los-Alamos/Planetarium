@@ -1,0 +1,352 @@
+# script for August planetarium show -- Galen Gisler
+clear
+
+# set normal defaults
+flag atmosphere on
+flag landscape off
+flag star_twinkle off
+flag show_tui_datetime on
+flag cardinal_points on
+flag constellation_pick on
+set max_mag_star_name 2
+set max_mag_nebula_name 9
+set auto_move_duration 10
+set sky_culture western
+timerate rate 0
+
+# set to evening of August 12
+date local 2015-08-12T20:40:00
+wait duration 20
+
+# pause here, ask about planets and stars
+flag planet_names on
+wait duration 10
+flag ecliptic_line on
+wait duration 10
+flag ecliptic_line off
+wait duration 10
+flag planet_names off
+wait duration 2
+
+#### Zoom in on Mercury #####################
+# select planet Mercury
+# wait duration 5
+# flag track_object on
+# wait duration 10
+# zoom fov 0.1 duration 5
+# wait duration 10
+# deselect
+# zoom auto initial
+# wait duration 10
+######################################
+
+# later - darken the sky and point out constellations
+timerate rate 300  # five minutes per second
+wait duration 9    # gets us to 21:25
+timerate rate 0  # back to zero time rate
+#date local 2015-08-12T21:30:00
+wait duration 10
+select constellation UMa
+flag constellation_drawing on
+wait duration 10
+select constellation UMi
+wait duration 10
+select constellation Cas
+wait duration 10
+select constellation Cep
+wait duration 10
+select constellation Boo
+wait duration 10
+select constellation Vir
+wait duration 10
+wait duration 10
+select constellation Sco
+wait duration 10
+select constellation Sgr
+wait duration 10
+select constellation Cyg
+wait duration 10
+select constellation Lyr
+wait duration 10
+select constellation Aql
+wait duration 10
+flag star_names on
+wait duration 20
+# point out summer triangle
+deselect
+flag constellation_drawing off
+flag star_names off
+wait duration 5
+
+flag atmosphere off
+
+#### Zoom in on Saturn #####################
+flag planet_names on
+select planet Saturn
+wait duration 5
+flag track_object on
+wait duration 10
+zoom fov 0.1 duration 5
+# Point out moons
+wait duration 10
+#show motion of moons
+timerate rate 1800  # thirty minutes per second
+wait duration 48
+timerate rate 0
+wait duration 10
+deselect
+timerate rate 0  # back to zero time rate
+flag planet_names off
+zoom auto out
+wait duration 10
+date local 2015-08-12T21:30:00
+######################################
+
+#### Zoom in on Pluto #####################
+flag planet_names on
+select planet Pluto
+wait duration 5
+flag track_object on
+wait duration 10
+zoom fov 0.003 duration 5
+wait duration 10
+#show motion of moons
+timerate rate 86400  # one day per second
+wait duration 30
+deselect
+timerate rate 0  # back to zero time rate
+flag planet_names off
+zoom auto out
+wait duration 10
+date local 2015-08-12T21:30:00
+######################################
+
+#### Find some nice deep sky objects ##############
+date local 2015-08-12T21:30:00
+timerate rate 0  # back to zero time rate
+
+# Now do DSOs with 1 degree fov
+flag nebula_names on
+wait duration 10
+
+select nebula "Ring Nebula"      # Planetary Nebula
+flag track_object on
+wait duration 10
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 30
+zoom fov 75 duration 5       # zoom out to wider field
+wait duration 15
+
+select nebula M27              # Planetary Nebula
+flag track_object on
+wait duration 10
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom auto out       # zoom all the way out
+wait duration 15
+
+select nebula M11           # open cluster
+flag track_object on
+wait duration 10
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom fov 75 duration 5       # zoom out to wider field
+wait duration 15
+
+select nebula M10            # Globular cluster
+flag track_object on
+wait duration 10
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom fov 75 duration 5       # zoom out to wider field
+wait duration 15
+
+select nebula M12            # Globular cluster
+flag track_object on
+wait duration 10
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom fov 75 duration 5       # zoom out to wider field
+wait duration 15
+
+select nebula M5            # Globular cluster
+flag track_object on
+wait duration 10
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom auto out       # zoom all the way out
+wait duration 15
+
+flag constellation_pick on
+select constellation Her
+flag constellation_drawing on
+wait duration 10
+select nebula M92            # Globular cluster
+flag track_object on
+flag constellation_drawing off
+wait duration 5
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom fov 75 duration 5       # zoom out to wider field
+wait duration 15
+
+flag constellation_pick on
+select constellation Her
+flag constellation_drawing on
+wait duration 10
+select nebula M13           # Great Globular Cluster in Hercules
+flag track_object on
+flag constellation_drawing off
+wait duration 5
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 20
+zoom auto out       # zoom all the way out
+wait duration 15
+
+flag constellation_pick on
+select constellation UMa
+flag constellation_drawing on
+wait duration 10
+select nebula M51           # Whirlpool Galaxy
+flag track_object on
+flag constellation_drawing off
+wait duration 5
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 30
+zoom fov 75 duration 5       # zoom out to wider field
+wait duration 15
+
+flag constellation_pick on
+select constellation UMa
+flag constellation_drawing on
+wait duration 10
+select nebula M101    # Pinwheel Galaxy
+flag track_object on
+flag constellation_drawing off
+wait duration 5
+zoom fov 1 duration 5
+wait duration 2
+deselect
+wait duration 30
+zoom fov 75 duration 5       # zoom out to wider field
+wait duration 15
+
+flag nebula_names off
+
+#########################################
+
+#### Binocular binaries #################
+date local 2015-08-12T21:30:00
+timerate rate 0  # back to zero time rate
+wait duration 10
+
+# Now do some binocular binaries with 7 degree fov
+flag constellation_drawing on
+flag constellation_pick on
+select constellation UMa
+wait duration 10
+select hp 65378A     # Mizar
+flag track_object on
+flag constellation_drawing off
+wait duration 10
+zoom fov 7 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom auto out
+wait duration 15
+
+flag constellation_drawing on
+select constellation Sco    # although it's in Oph, Sco is closer
+wait duration 10
+select hp 80473A     # rho Oph
+flag track_object on
+flag constellation_drawing off
+wait duration 10
+zoom fov 7 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom auto out
+wait duration 15
+
+flag constellation_drawing on
+select constellation Lyr
+wait duration 10
+select hp 91926C      # Epsilon Lyrae
+flag track_object on
+flag constellation_drawing off
+wait duration 10
+zoom fov 7 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom auto out
+wait duration 15
+
+flag constellation_drawing on
+select constellation Lib
+wait duration 10
+select hp 72622      # Zubenelgenubi
+flag track_object on
+flag constellation_drawing off
+wait duration 10
+zoom fov 7 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom auto out
+
+flag constellation_drawing on
+select constellation Cyg
+wait duration 10
+select hp 95947  # Albireo -- this one needs very narrow field of view!
+flag track_object on
+flag constellation_drawing off
+wait duration 10
+zoom fov 0.5 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom auto out
+wait duration 15
+#########################################
+
+#########################################
+# Perseid Meteor Shower (100 times predicted rate)
+timerate rate 1200  # twenty minutes per second
+wait duration 12    # to rotate until 00:15
+#date local 2015-08-13T00:15:00
+timerate rate 1  # normal time rate
+set heading 135 duration 10
+flag constellation_drawing on
+flag constellation_pick on
+select constellation Per
+meteors zhr 1000
+wait duration 60
+flag constellation_drawing off
+wait duration 180
+#########################################
+
+# Allow this to continue while the show is off ...
+
+#########################################
+#########################################

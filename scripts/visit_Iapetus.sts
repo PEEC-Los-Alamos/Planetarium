@@ -1,0 +1,23 @@
+# visit Saturn's moon Iapetus -- Galen Gisler
+clear
+flag atmosphere off
+flag landscape off
+flag star_twinkle off
+flag show_tui_datetime on
+flag landscape off
+wait duration 2
+set home_planet Iapetus
+moveto lat 0 lon 180 duration 2
+select planet Saturn pointer off
+flag track_object on
+flag planet_names on
+wait duration 2
+zoom fov 10 duration 3
+timerate rate 10000
+wait duration 30
+timerate rate 100000
+wait duration 30
+
+
+
+
