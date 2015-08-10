@@ -1,0 +1,318 @@
+# script for June planetarium show
+clear
+flag atmosphere on
+flag star_twinkle off
+flag show_tui_datetime on
+flag cardinal_points on
+flag constellation_pick on
+set max_mag_star_name 2
+set auto_move_duration 10
+date local 2015-06-20T21:00:00
+timerate rate 0
+wait duration 20
+
+# pause here, ask about planets
+flag planet_names on
+wait duration 10
+flag ecliptic_line on
+wait duration 10
+flag ecliptic_line off
+wait duration 10
+flag planet_names off
+wait duration 2
+
+# now we go later at night to darken the sky and point out constellations
+timerate rate 300  # five minutes per second to move into darkness
+wait duration 9
+timerate rate 0  # back to zero time rate
+date local T21:45:00
+wait duration 10
+select constellation UMa
+flag constellation_drawing on
+wait duration 10
+select constellation UMi
+wait duration 10
+select constellation Leo
+wait duration 10
+select constellation Boo
+wait duration 10
+select constellation Vir
+wait duration 10
+flag star_names on
+# point out spring triangle, then summer triangle
+wait duration 10
+select constellation Sco
+wait duration 10
+select constellation Cyg
+wait duration 10
+select constellation Lyr
+wait duration 10
+select constellation Aql
+wait duration 10
+deselect
+flag constellation_drawing off
+flag star_names off
+
+# Now show Jupiter-Venus conjunction
+date relative +1   # June 14
+wait duration 10
+date relative +1   # June 15
+wait duration 2
+date relative +1   # June 16
+wait duration 2
+date relative +1   # June 17
+wait duration 2
+date relative +1   # June 18
+wait duration 2
+date relative +1   # June 19 -- note entry of moon
+wait duration 10
+date relative +1   # June 20
+wait duration 2
+date relative +1   # June 21
+wait duration 2
+date relative +1   # June 22
+wait duration 2
+date relative +1   # June 23
+wait duration 2
+date relative +1   # June 24
+wait duration 2
+date relative +1   # June 25
+wait duration 2
+date relative +1   # June 26 -- note closeness of conjunction
+wait duration 2
+date relative +1   # June 27
+wait duration 2
+date relative +1   # June 28
+wait duration 2
+date relative +1   # June 29
+wait duration 2
+date relative +1   # June 30
+wait duration 10
+date local 2015-06-30T21:45:00
+
+#### Zoom in on Venus and Jupiter on June 30 ##################################
+clear
+flag atmosphere off
+flag landscape off
+flag star_twinkle off
+flag show_tui_datetime on
+flag cardinal_points on
+flag constellation_pick on
+set max_mag_star_name 2
+set auto_move_duration 10
+date local 2015-06-30T21:45:00
+timerate rate 0  # back to zero time rate
+wait duration 5
+
+# Zoom in on Venus & Jupiter
+select planet Venus
+wait duration 5
+flag track_object on
+wait duration 10
+zoom fov 1.00 duration 5
+wait duration 10
+zoom fov 0.1 duration 5
+wait duration 10
+# talk about crescent Venus & Galileo
+deselect
+select planet Jupiter
+flag track_object on
+flag planet_names on
+wait duration 20
+#talk about Galileo and discovery of moons
+date relative +1   # July 1
+wait duration 2
+date relative +1   # July 2
+wait duration 2
+date relative +1   # July 3
+wait duration 2
+date relative +1   # July 4
+wait duration 2
+date relative +1   # July 5
+wait duration 2
+date relative +1   # July 6
+wait duration 2
+zoom fov 0.03 duration 5
+timerate rate 600  # ten minutes per second to see cloud top rotation
+wait duration 40   # stop with GRS in center
+timerate rate 0
+wait duration 10
+deselect
+flag planet_names off
+date local 2015-06-30T21:45:00
+zoom auto initial
+wait duration 10
+################################################################################
+
+# go to local solar noon in late May
+date local 2015-05-24T13:15:00
+wait duration 10-
+flag ecliptic_line on
+flag equator_line on
+flag tropic_lines on
+flag planet_names on
+# show solar motion through the skies
+date relative +1   # May 25
+wait duration 2
+date relative +1   # May 26
+wait duration 2
+date relative +1   # May 27
+wait duration 2
+date relative +1   # May 28
+wait duration 2
+date relative +1   # May 29
+wait duration 2
+date relative +1   # May 30
+wait duration 2
+date relative +1   # May 31
+wait duration 2
+date relative +1   # June 1
+wait duration 2
+date relative +1   # June 2
+wait duration 2
+date relative +1   # June 3
+wait duration 2
+date relative +1   # June 4
+wait duration 2
+date relative +1   # June 5
+wait duration 2
+date relative +1   # June 6
+wait duration 2
+date relative +1   # June 7
+wait duration 2
+date relative +1   # June 8
+wait duration 2
+date relative +1   # June 9
+wait duration 2
+date relative +1   # June 10
+wait duration 2
+date relative +1   # June 11
+wait duration 2
+date relative +1   # June 12
+wait duration 2
+date relative +1   # June 13
+wait duration 2
+date relative +1   # June 14
+wait duration 2
+date relative +1   # June 15
+wait duration 2
+date relative +1   # June 16
+wait duration 2
+date relative +1   # June 17
+wait duration 2
+date relative +1   # June 18
+wait duration 2
+date relative +1   # June 19
+wait duration 2
+date relative +1   # June 20
+wait duration 2
+date relative +1   # June 21
+wait duration 10
+date relative +1   # June 22
+wait duration 2
+date relative +1   # June 23
+wait duration 2
+date relative +1   # June 24
+wait duration 2
+date relative +1   # June 25
+wait duration 2
+date relative +1   # June 26
+wait duration 2
+date relative +1   # June 27
+wait duration 2
+date relative +1   # June 28
+wait duration 2
+date relative +1   # June 29
+wait duration 2
+date relative +1   # June 30
+wait duration 2
+date relative +1   # July 1
+wait duration 2
+date relative +1   # July 2
+wait duration 2
+date relative +1   # July 3
+wait duration 2
+date relative +1   # July 4
+wait duration 2
+date relative +1   # July 5
+wait duration 2
+date relative +1   # July 6
+wait duration 2
+date relative +1   # July 7
+wait duration 2
+date relative +1   # July 8
+wait duration 2
+date relative +1   # July 9
+wait duration 10
+flag planet_names off
+flag ecliptic_line off
+flag equator_line off
+flag tropic_lines off
+
+# Set back to tonight
+date local 2015-06-20T22:15:00
+wait duration 10
+
+#### Binocular binaries for June ##################################
+clear
+flag atmosphere off
+flag landscape off
+flag star_twinkle off
+flag show_tui_datetime on
+flag cardinal_points on
+flag constellation_pick on
+set max_mag_star_name 2
+set auto_move_duration 10
+date local 2015-06-20T22:15:00
+timerate rate 0  # back to zero time rate
+wait duration 10
+
+# Now do some binocular binaries with 7 degree fov
+flag constellation_pick on
+select constellation UMa
+flag constellation_drawing on
+wait duration 10
+select hp 65378A     # Mizar
+flag track_object on
+wait duration 10
+zoom fov 7 duration 5
+wait duration 2
+deselect
+wait duration 10
+flag constellation_drawing off
+zoom auto out
+wait duration 15
+flag constellation_drawing on
+select constellation Lyr
+wait duration 10
+select hp 91262      # Vega
+flag track_object on
+wait duration 10
+zoom fov 7 duration 5
+wait duration 2
+deselect
+wait duration 10
+flag constellation_drawing off
+zoom auto out
+wait duration 15
+flag constellation_drawing on
+select constellation Lib
+wait duration 10
+select hp 72622      # Zubenelgenubi
+flag track_object on
+wait duration 10
+zoom fov 7 duration 5
+wait duration 2
+deselect
+wait duration 10
+zoom auto out
+flag constellation_drawing off
+################################################################################
+
+# Set back to tonight
+date local 2015-06-20T22:15:00
+wait duration 20
+
+# Set to next month's nighttime sky
+date local 2015-07-13T22:15:00
+wait duration 10
