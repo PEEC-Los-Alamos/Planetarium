@@ -1,0 +1,153 @@
+<html>
+<head>
+<title>Nightshade Notes</title>
+<style type="text/css">
+th { text-align: left; padding-top: 1em; }
+</style>
+</head>
+
+<body>
+
+<h1>Nightshade Notes</h1>
+
+<p>
+Compiled by Akkana, Galen, Patricia and other planetarium volunteers.
+
+<h3>To run a script:</h3>
+<ul>
+<li>m for menu
+<li>uparrow a few times to get to scripts
+<li>rightarrow
+<li>downarrow to choose a script
+<li>m
+</ul>
+
+<h3>While running a script:</h3>
+<ul>
+<li>6 To pause/unpause a script
+<li>7 or Ctrl-C to end a script
+<li>K to resume
+<li>L Fast-forward (speed up script)
+<li>J Slow script down
+</ul>
+
+<p>
+h brings up a menu of (some) available keyboard commands,
+but a lot are missing.
+
+<h3>Key binding list:</h3>
+(from the source, ui.c)
+
+<table>
+<tr><th colspan=2>MOVEMENT AND SELECTION
+<tr><td>Arrow Keys	<td>Pan View
+<tr><td>Page Up	<td>Zoom In
+<tr><td>Page Down	<td>Zoom Out
+<tr><td>Left Click	<td>Select Object
+<tr><td>Right Click	<td>Unselect
+<tr><td>CTRL + Left Click	<td>Unselect
+<tr><td>\	<td>Zoom out (planet and satellites views)
+<tr><td>/	<td>Zoom to selected object
+<tr><td>SPACE	<td>Center on selected object
+
+<tr><th colspan=2>DISPLAY OPTIONS
+<tr><td>U	<td>Equatorial/altazimuthal mount
+<tr><td>F11	<td>Toggle fullscreen if possible.
+<tr><td>C	<td>Constellation Lines
+<tr><td>V	<td>Constellation Labels
+<tr><td>B	<td>Constellation Boundaries
+<tr><td>R	<td>Constellation Art
+<tr><td>E	<td>Equatorial Grid
+<tr><td>Z	<td>Meridian
+<tr><td>N	<td>Nebula Labels
+<tr><td>P	<td>Body Labels
+<tr><td>D	<td>Star Labels
+<tr><td>S	<td>Stars
+<tr><td>G	<td>Ground
+<tr><td>A	<td>Atmosphere
+<tr><td>F	<td>Fog
+<tr><td>Q	<td>Cardinal Points
+<tr><td>O	<td>Toggle Moon Scaling
+<tr><td>4 ,	<td>Ecliptic Line
+<tr><td>5 .	<td>Equator Line
+
+<tr><th colspan=2>DIALOGS AND OTHER CONTROLS
+<tr><td>H	<td>Help
+<tr><td>I	<td>About
+<tr><td>M	<td>Text Menu
+<tr><td>1	<td>Configuration
+<tr><td>CTRL + F	<td>Search for Object
+<tr><td>CTRL + G	<td>Go to Selected Body
+<tr><td>CTRL + R	<td>Toggle Script Recording
+<tr><td>CTRL + S	<td>Take Screenshot
+<tr><td>CTRL + SHIFT + V	<td>Toggle Video Frame Recording
+
+<tr><th colspan=2>TIME AND DATE
+<tr><td>6	<td>Pause Time
+<tr><td>7	<td>Stop Time
+<tr><td>8	<td>Return to Current Time
+<tr><td>J	<td>Decrease Time Rate
+<tr><td>K	<td>Real Time Rate
+<tr><td>L	<td>Increase Time Rate
+<tr><td>-	<td>Back 24 Hours
+<tr><td>=	<td>Forward 24 Hours
+<tr><td>[	<td>Back 7 Days
+<tr><td>]	<td>Forward 7 Days
+
+<tr><th colspan=2>AFTER SHIFT KEY '`' (backtick)
+<tr><td>Z	<td>Azimuthal Grid
+<tr><td>Q	<td>Galactic Grid
+<tr><td>P	<td>Body Orbits
+<tr><td>,	<td>Body Trails
+<tr><td>A	<td>Clouds
+<tr><td>SPACE	<td>Go to Selected Body
+<tr><td>8	<td>Load Default Configuration
+<tr><td>K	<td>Replay Last Script
+<tr><td>5	<td>Tropic Lines
+<tr><td>E	<td>Precession Circle
+
+<tr><th colspan=2>DURING SCRIPT PLAYBACK
+<tr><td>CTRL + C 	<td>End Script
+<tr><td>6	<td>Pause Script
+<tr><td>7	<td>End Script
+<tr><td>K	<td>Resume Script
+<tr><td>L	<td>Fast Forward Script
+
+<tr><th colspan=2>MISCELLANEOUS
+<tr><td>CTRL + D 	<td>Play demo script
+<tr><td>9	<td>Cycle through meteor shower rates
+<tr><td>CTRL + Q 	<td>Quit
+</table>
+
+<h2>A few other notes:</h2>
+
+<h3>Looking back at earth, the moon, etc.</h3>
+<p>
+The user guide says:
+<blockquote>
+"At very high altitudes you can look down on your home planet"
+</blockquote>
+but it doesn't give any hints how to do that, and I (Akkana) can't
+seem to get this to work no matter what I try.
+If I set the moon to be the home planet, then selecting the moon
+doesn't work and seems to confuse nightshade's idea of where it is,
+to the point where I usually have to restart to get things right again.
+
+<h3>Running scripts from a local folder</h3>
+<p>
+Nightshade has no provision to run scripts from a local directory,
+e.g. your home directory. The most straightforward way is to copy
+them into the system directory under /opt or /usr/local, wherever
+Nightshade is installed.
+<p>
+But from main.cpp:
+If ./data/ssystem.ini exists and is readable under the current directory,
+then Nightshade will look for scripts (and other data) in ./data/scripts
+else it uses /usr/local/share/nightshade/data/scripts/ (or equivalent
+in /opt). So if you want it to look in a local directory, make sure
+there's a ./data/scripts under the current directory when you start nightshade.
+Note: in that case it will ONLY find scripts there, and won't look for
+system-installed scripts.
+
+</body>
+</html>
