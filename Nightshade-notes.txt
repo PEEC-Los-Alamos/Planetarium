@@ -1,0 +1,127 @@
+Nightshade Notes
+
+Compiled by Akkana, Galen, Patricia and other planetarium volunteers.
+To run a script:
+    m for menu
+    uparrow a few times to get to scripts
+    rightarrow
+    downarrow to choose a script
+    m 
+
+Key bindings while running a script:
+    6 To pause/unpause a script
+    7 or Ctrl-C to end a script
+    K to resume
+    L Fast-forward (speed up script)
+    J Slow script down 
+
+h brings up a menu of (some) available keyboard commands, but a lot are missing.
+Key binding list:
+(from the source, ui.c)
+
+MOVEMENT AND SELECTION
+Arrow Keys 	Pan View
+Page Up 	Zoom In
+Page Down 	Zoom Out
+Left Click 	Select Object
+Right Click 	Unselect
+CTRL + Left Click 	Unselect
+\ 	Zoom out (planet and satellites views)
+/ 	Zoom to selected object
+SPACE 	Center on selected object
+
+DISPLAY OPTIONS
+U 	Equatorial/altazimuthal mount
+F11 	Toggle fullscreen if possible.
+C 	Constellation Lines
+V 	Constellation Labels
+B 	Constellation Boundaries
+R 	Constellation Art
+E 	Equatorial Grid
+Z 	Meridian
+N 	Nebula Labels
+P 	Body Labels
+D 	Star Labels
+S 	Stars
+G 	Ground
+A 	Atmosphere
+F 	Fog
+Q 	Cardinal Points
+O 	Toggle Moon Scaling
+4 , 	Ecliptic Line
+5 . 	Equator Line
+
+DIALOGS AND OTHER CONTROLS
+H 	Help
+I 	About
+M 	Text Menu
+1 	Configuration
+CTRL + F 	Search for Object
+CTRL + G 	Go to Selected Body
+CTRL + R 	Toggle Script Recording
+CTRL + S 	Take Screenshot
+CTRL + SHIFT + V 	Toggle Video Frame Recording
+
+TIME AND DATE
+6 	Pause Time
+7 	Stop Time
+8 	Return to Current Time
+J 	Decrease Time Rate
+K 	Real Time Rate
+L 	Increase Time Rate
+- 	Back 24 Hours
+= 	Forward 24 Hours
+[ 	Back 7 Days
+] 	Forward 7 Days
+
+AFTER SHIFT KEY '`' (backtick)
+Z 	Azimuthal Grid
+Q 	Galactic Grid
+P 	Body Orbits
+, 	Body Trails
+A 	Clouds
+SPACE 	Go to Selected Body
+8 	Load Default Configuration
+K 	Replay Last Script
+5 	Tropic Lines
+E 	Precession Circle
+
+DURING SCRIPT PLAYBACK
+CTRL + C 	End Script
+6 	Pause Script
+7 	End Script
+K 	Resume Script
+L 	Fast Forward Script
+
+MISCELLANEOUS
+CTRL + D 	Play demo script
+9 	Cycle through meteor shower rates
+CTRL + Q 	Quit
+A few other notes:
+Looking back at earth, the moon, etc.
+
+The user guide says:
+
+    "At very high altitudes you can look down on your home planet" 
+
+but it doesn't give any hints how to do that, and I (Akkana) can't
+seem to get this to work no matter what I try. If I set the moon to be
+the home planet, then selecting the moon doesn't work and seems to
+confuse nightshade's idea of where it is, to the point where I usually
+have to restart to get things right again.
+
+Running scripts from a local folder
+
+Nightshade has no provision to run scripts from a local directory,
+e.g. your home directory. The most straightforward way is to copy them
+into the system directory under /opt or /usr/local, wherever
+Nightshade is installed.
+
+But from main.cpp: If ./data/ssystem.ini exists and is readable under
+the current directory, then Nightshade will look for scripts (and
+other data) in ./data/scripts else it uses
+/usr/local/share/nightshade/data/scripts/ (or equivalent in /opt). So
+if you want it to look in a local directory, make sure there's a
+./data/scripts under the current directory when you start nightshade.
+Note: in that case it will ONLY find scripts there, and won't look for
+system-installed scripts. 
