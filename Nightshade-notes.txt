@@ -1,7 +1,8 @@
 Nightshade Notes
 
 Compiled by Akkana, Galen, Patricia and other planetarium volunteers.
-To run a script:
+
+TO RUN A SCRIPT:
     m for menu
     uparrow a few times to get to scripts
     rightarrow
@@ -15,9 +16,9 @@ Key bindings while running a script:
     L Fast-forward (speed up script)
     J Slow script down 
 
+KEY BINDING LIST:
 h brings up a menu of (some) available keyboard commands, but a lot are missing.
-Key binding list:
-(from the source, ui.c)
+These are from the source code, ui.c:
 
 MOVEMENT AND SELECTION
 Arrow Keys 	Pan View
@@ -100,6 +101,7 @@ CTRL + Q 	Quit
 A few other notes:
 Looking back at earth, the moon, etc.
 
+LOOKING DOWN ON A PLANET:
 The user guide says:
 
     "At very high altitudes you can look down on your home planet" 
@@ -110,7 +112,7 @@ the home planet, then selecting the moon doesn't work and seems to
 confuse nightshade's idea of where it is, to the point where I usually
 have to restart to get things right again.
 
-Running scripts from a local folder
+RUNNING SCRIPTS FROM A LOCAL FOLDER:
 
 Nightshade has no provision to run scripts from a local directory,
 e.g. your home directory. The most straightforward way is to copy them
