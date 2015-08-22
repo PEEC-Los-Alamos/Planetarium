@@ -127,3 +127,38 @@ if you want it to look in a local directory, make sure there's a
 ./data/scripts under the current directory when you start nightshade.
 Note: in that case it will ONLY find scripts there, and won't look for
 system-installed scripts. 
+
+CHANGING CONSTELLATION/ASTERISM LINES:
+
+The numbers in constellationship.fab in each sky_cultures directory
+are Hipparchus (I think) star numbers. I got this from the source
+code (constellation.cpp). So for example, if you look in
+star_names.fab you'll see 91262|Vega, and 91262 is one of the
+numbers in the Lyr line in constellationship.fab:
+
+Lyr 5  91262 91971 91971 92420 92420 93194 93194 92791 92791 91971
+
+The first number is the number of line segments; then each pair of 
+numbers represents one line segment.
+
+If you click on a star in Nightshade it will give you the Hipparchos
+number, so you're not limited to named stars.
+
+So, for example, suppose I want to change Lyra's boundaries so that
+in addition to the single tail going out to Vega, I want a second
+tail going out to epsilon Lyrae. I click on the star where the tail
+starts, and find out that's 91971. Then I click on epsilon, and it's
+91926. (That's actually epsilon Lyr 2, but either one is close
+enough for the purpose of constellation lines.)
+
+So that means I want a new line going from 91971 to 91926.
+So I edit /data/sky_cultures/western/constellationship.fab and 
+change that Lyr line to:
+
+Lyr 6  91262 91971 91971 92420 92420 93194 93194 92791 92791 91971 91971 91926
+
+The only trick is that western turned out not to be the default sky
+culture for me; I think western-color is, but I'm not sure,
+nightshade isn't telling me. But if I go to the Language tab in
+Configuration I can switch to Western and then I see my new
+constellation line.
