@@ -1,0 +1,278 @@
+# script for September short planetarium show -- Akkana Peck
+clear
+
+# set normal defaults
+zoom auto initial duration 1
+deselect
+flag atmosphere on
+flag landscape off
+flag star_twinkle off
+flag show_tui_datetime on
+flag cardinal_points on
+flag constellation_pick on
+set max_mag_star_name 2
+set max_mag_nebula_name 9
+# set auto_move_duration 10
+set sky_culture western
+timerate rate 1
+
+# set to evening of September 11
+date local 2015-09-11T19:30:00
+wait duration 7
+
+# pause here, ask about planets and stars
+flag planet_names on
+wait duration 1
+# Saturn, Neptune, Pluto and Ceres
+
+flag ecliptic_line on
+
+# PAUSE to talk about planets, the ecliptic and Saturn:
+script action pause
+
+flag ecliptic_line off
+wait duration 1
+
+###################################################
+# Saturn.
+
+# Talk about Saturn
+select planet Saturn
+flag track_object on
+wait duration 5
+
+# Zoom in to Saturn to talk about rings and moons.
+zoom fov 0.15 duration 3
+timerate rate 600
+wait duration 15
+
+# PAUSE to talk about Saturn:
+script action pause
+
+# Back to the whole-sky view
+timerate rate 1
+deselect
+zoom auto initial duration 3
+wait duration 5
+
+flag planet_names off
+
+# Set the date back, since we advanced it a lot while watching Saturn's moons.
+date local 2015-09-11T19:30:00
+
+#
+# Now let's show some constellations and deep-sky objects.
+#
+
+###################################################
+# Good stuff in the core of the Milky Way.
+# Start here because we were already showing Sgr for Saturn.
+
+# M6 and M7
+select constellation Sco
+flag constellation_drawing on
+
+# PAUSE to talk:
+script action pause
+
+# Apparently there's no way to leave only a single constellation drawn
+# while selecting something else; if I leave constellation drawing on
+# when selecting M8, ALL the constellation lines come on.
+flag constellation_drawing off
+select nebula M7
+wait duration 2
+
+# M6 and M7, screenshot (and contrast enhanced) from nightshade itself:
+image action load name m6-m7 filename m6-m7.png alpha 1 scale 75 coordinate_system dome scale 30 altitude 30 azimuth 240
+
+# PAUSE to talk:
+script action pause
+
+# Lagoon and Trifid:
+
+select constellation Sgr
+flag constellation_drawing on
+
+# PAUSE to talk:
+script action pause
+
+flag constellation_drawing off
+
+select nebula M8
+wait duration 2
+
+# Lagoon and Trifid from Ljubinko Jovanovic via Wikimedia Commons:
+image action load name lagoon-trifid filename 1024px-The_Trifid_Nebula_and_The_Lagoon_Nebula-border.jpg alpha 1 coordinate_system dome scale 40 altitude 55 azimuth 215
+
+# PAUSE to talk:
+script action pause
+
+# M22:
+select nebula M22
+wait duration 2
+
+# M22, screenshot from nightshade:
+image action load name m22 filename m22.png alpha 1 coordinate_system dome scale 30 altitude 40 azimuth 155
+
+# PAUSE to talk:
+script action pause
+
+# Fade out all three. This doesn't work.
+# image name lagoon-trifid alpha 0 duration 3
+# image name m6-m7 alpha 0 duration 3
+# image name m22 alpha 0 duration 3
+
+image name lagoon-trifid action drop
+image name m6-m7 action drop
+image name m22 action drop
+
+wait duration 2
+
+###################################################
+# Big Dipper, Polaris, Mizar and M51.
+
+# Show the Big Dipper, for orientation purposes.
+select constellation UMa
+flag constellation_drawing on
+
+# PAUSE to talk:
+script action pause
+
+select
+
+# Select Polaris
+select hp 11767
+wait duration 5
+flag constellation_drawing off
+
+# PAUSE to talk:
+script action pause
+
+# Select Mizar
+select hp 65378
+flag track_object on
+wait duration 7
+select pointer off
+zoom fov 20 duration 3
+wait duration 4
+
+# PAUSE to talk about Alcor and Mizar:
+script action pause
+
+# Switch selection to Alcor so the bullseye thingie won't interfere
+# with seeing Mizar as a double:
+# select hp 65477
+# flag track_object on
+
+# Zoom in to show that Mizar is itself a double:
+zoom fov .5 duration 3
+
+# PAUSE to talk about double stars in general:
+script action pause
+
+zoom auto initial duration 3
+deselect
+wait duration 5
+
+select nebula m51
+wait duration 2
+image action load name m51 filename 711px-M51_Hubble_Remix.jpg alpha 1 coordinate_system dome scale 35 altitude 25 azimuth 290
+wait duration 5
+
+# PAUSE to talk:
+script action pause
+
+select constellation Her
+flag constellation_drawing on
+wait duration 5
+flag constellation_drawing off
+select nebula M13
+wait duration 2
+# M13 from Portscan via Wikimedia Commons:
+# https://commons.wikimedia.org/wiki/File:Cumulo-globular-m13.JPG
+image action load name m13 filename 1024px-Cumulo-globular-m13.JPG alpha 1 coordinate_system dome scale 35 altitude 65 azimuth 200
+
+# PAUSE to talk:
+script action pause
+
+deselect
+image name m51 action drop
+image name m13 action drop
+wait duration 3
+
+###################################################
+# The Summer Triangle
+
+select constellation Cyg
+flag constellation_drawing on
+
+# PAUSE to talk
+script action pause
+
+# Select Albireo:
+select hp 95947
+flag track_object on
+wait duration 5
+zoom fov 1 duration 3
+select pointer off
+
+# PAUSE to talk
+script action pause
+
+zoom auto initial duration 3
+wait duration 5
+
+# Dumbell nebula:
+flag constellation_drawing off
+select nebula M27
+wait duration 2
+
+# Dumbell nebula, from Fryns on Wikimedia Commons:
+# https://commons.wikimedia.org/wiki/File:M27_Zoom.jpg
+image action load name m27 filename 1024px-M27_Zoom.jpg alpha 1 coordinate_system dome scale 30 altitude 45 azimuth 105
+
+# PAUSE to talk:
+script action pause
+
+# The Ring nebula:
+select constellation Lyr
+flag constellation_drawing on
+wait duration 5
+flag constellation_drawing off
+select nebula M57
+wait duration 2
+image action load name m57 filename Hubble_ring_m57.jpg alpha 1 coordinate_system dome scale 15 altitude 75 azimuth 270
+
+# PAUSE to talk:
+script action pause
+
+# Show Aquila and M11 just to finish out the Summer Triangle:
+select constellation Aql
+flag constellation_drawing on
+wait duration 5
+flag constellation_drawing off
+select nebula M11
+wait duration 2
+
+# M11 from Rawastrodata via Wikimedia Commons:
+# https://commons.wikimedia.org/wiki/File:The_Wild_Duck_Cluster_M11.jpg
+image action load name m11 filename The_Wild_Duck_Cluster_M11.jpg alpha 1 coordinate_system dome scale 25 altitude 27 azimuth 200
+
+# PAUSE to talk:
+script action pause
+
+# Now drop those three:
+image name m57 action drop
+image name m27 action drop
+image name m11 action drop
+
+# Finally, turn everything off.
+flag constellation_drawing off
+deselect
+
+# Leaving maybe the coolest object left: the Milky Way!
+
+
+# Notes:
+# M6 is thought to be about 1,600 light-years away,
+# while M7 is about half that far, at 800 light-years.
