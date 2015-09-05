@@ -10,23 +10,55 @@ flag star_twinkle off
 flag show_tui_datetime on
 flag cardinal_points on
 flag constellation_pick on
+flag planet names off
 set max_mag_star_name 2
 set max_mag_nebula_name 9
 # set auto_move_duration 10
 set sky_culture western
 timerate rate 1
 
-# set to evening of September 11
-date local 2015-09-11T19:30:00
-wait duration 7
+###################################################
+# The upcoming lunar eclipse.
+# Enters umbra:  7:07
+# Maximum:       8:47
+# Leaves umbra: 10:27
 
-# pause here, ask about planets and stars
+set moon_scale 5
+flag moon_scaled on
+date local 2015-09-27T18:48:00    # moonrise, already in penumbra
+timerate rate 0
+
+# Wait to start the show:
+script action pause
+
+# Run through the eclipse:
+timerate rate 240
+
+wait duration 60
+
+script action pause
+
+###################################################
+# Start the show for September 11, the show date.
+# Bandelier telescope viewing starts at 9,
+# and it's not very dark before then.
+
+timerate rate 1
+date local 2015-09-11T21:00
+flag moon_scaled off
+set moon_scale 1
+wait duration 3
+
+# pause here, talk about planets and stars
 flag planet_names on
-wait duration 1
 # Saturn, Neptune, Pluto and Ceres
+
+# Now, you may notice that the planets are all in a line:
+script action pause
 
 flag ecliptic_line on
 
+# That's called the ecliptic.
 # PAUSE to talk about planets, the ecliptic and Saturn:
 script action pause
 
@@ -43,7 +75,7 @@ wait duration 5
 
 # Zoom in to Saturn to talk about rings and moons.
 zoom fov 0.15 duration 3
-timerate rate 600
+timerate rate 1600
 wait duration 15
 
 # PAUSE to talk about Saturn:
@@ -52,13 +84,14 @@ script action pause
 # Back to the whole-sky view
 timerate rate 1
 deselect
+
+# Set the date back, since we advanced it a lot while watching Saturn's moons.
+date local 2015-09-11T21:00
+
 zoom auto initial duration 3
 wait duration 5
 
 flag planet_names off
-
-# Set the date back, since we advanced it a lot while watching Saturn's moons.
-date local 2015-09-11T19:30:00
 
 #
 # Now let's show some constellations and deep-sky objects.
@@ -71,38 +104,35 @@ date local 2015-09-11T19:30:00
 # M6 and M7
 select constellation Sco
 flag constellation_drawing on
+select
+select constellation Sgr
 
 # PAUSE to talk:
 script action pause
 
-# Apparently there's no way to leave only a single constellation drawn
-# while selecting something else; if I leave constellation drawing on
-# when selecting M8, ALL the constellation lines come on.
+deselect
 flag constellation_drawing off
-select nebula M7
-wait duration 2
 
-# M6 and M7, screenshot (and contrast enhanced) from nightshade itself:
-image action load name m6-m7 filename m6-m7.png alpha 1 scale 75 coordinate_system dome scale 30 altitude 30 azimuth 240
-
-# PAUSE to talk:
+# With constellation lines off, talk about scanning the area
+# in binoculars or just the naked eye, and Antares.
 script action pause
 
 # Lagoon and Trifid:
-
-select constellation Sgr
-flag constellation_drawing on
-
-# PAUSE to talk:
-script action pause
-
-flag constellation_drawing off
-
 select nebula M8
 wait duration 2
 
 # Lagoon and Trifid from Ljubinko Jovanovic via Wikimedia Commons:
-image action load name lagoon-trifid filename 1024px-The_Trifid_Nebula_and_The_Lagoon_Nebula-border.jpg alpha 1 coordinate_system dome scale 40 altitude 55 azimuth 215
+image action load name lagoon-trifid filename images/1024px-The_Trifid_Nebula_and_The_Lagoon_Nebula-border.jpg alpha 1 coordinate_system dome scale 40 altitude 60 azimuth 215
+
+# PAUSE to talk:
+script action pause
+
+# Open clusters M6 and M7:
+select nebula M7
+wait duration 2
+
+# M6 and M7, screenshot (and contrast enhanced) from nightshade itself:
+image action load name m6-m7 filename images/m6-m7.png alpha 1 scale 75 coordinate_system dome scale 30 altitude 30 azimuth 240
 
 # PAUSE to talk:
 script action pause
@@ -112,7 +142,7 @@ select nebula M22
 wait duration 2
 
 # M22, screenshot from nightshade:
-image action load name m22 filename m22.png alpha 1 coordinate_system dome scale 30 altitude 40 azimuth 155
+image action load name m22 filename images/m22.png alpha 1 coordinate_system dome scale 30 altitude 40 azimuth 155
 
 # PAUSE to talk:
 script action pause
@@ -129,7 +159,7 @@ image name m22 action drop
 wait duration 2
 
 ###################################################
-# Big Dipper, Polaris, Mizar and M51.
+# Big Dipper, Polaris, Cassiopeia, Mizar and M51.
 
 # Show the Big Dipper, for orientation purposes.
 select constellation UMa
@@ -142,16 +172,37 @@ select
 
 # Select Polaris
 select hp 11767
-wait duration 5
-flag constellation_drawing off
 
-# PAUSE to talk:
+# PAUSE to talk about Polaris:
 script action pause
 
+select
+
+select constellation Cas
+wait duration 5
+
+flag constellation_drawing off
+
+# Talk about Cassiopeia and cicumpolar constellations:
+timerate rate 1500
+flag object_trails on
+wait duration 20
+timerate rate 1
+script action pause
+
+# Back to original time.
+date local 2015-09-11T21:00
+deselect
+# zoom auto initial
+
 # Select Mizar
+select constellation UMa
+flag constellation_drawing on
 select hp 65378
 flag track_object on
 wait duration 7
+flag constellation_drawing off
+wait duration 3
 select pointer off
 zoom fov 20 duration 3
 wait duration 4
@@ -176,8 +227,7 @@ wait duration 5
 
 select nebula m51
 wait duration 2
-image action load name m51 filename 711px-M51_Hubble_Remix.jpg alpha 1 coordinate_system dome scale 35 altitude 25 azimuth 290
-wait duration 5
+image action load name m51 filename images/711px-M51_Hubble_Remix.jpg alpha 1 coordinate_system dome scale 35 altitude 25 azimuth 290
 
 # PAUSE to talk:
 script action pause
@@ -190,7 +240,7 @@ select nebula M13
 wait duration 2
 # M13 from Portscan via Wikimedia Commons:
 # https://commons.wikimedia.org/wiki/File:Cumulo-globular-m13.JPG
-image action load name m13 filename 1024px-Cumulo-globular-m13.JPG alpha 1 coordinate_system dome scale 35 altitude 65 azimuth 200
+image action load name m13 filename images/1024px-Cumulo-globular-m13.JPG alpha 1 coordinate_system dome scale 35 altitude 75 azimuth 200
 
 # PAUSE to talk:
 script action pause
@@ -229,7 +279,7 @@ wait duration 2
 
 # Dumbell nebula, from Fryns on Wikimedia Commons:
 # https://commons.wikimedia.org/wiki/File:M27_Zoom.jpg
-image action load name m27 filename 1024px-M27_Zoom.jpg alpha 1 coordinate_system dome scale 30 altitude 45 azimuth 105
+image action load name m27 filename images/1024px-M27_Zoom.jpg alpha 1 coordinate_system dome scale 30 altitude 45 azimuth 105
 
 # PAUSE to talk:
 script action pause
@@ -241,7 +291,7 @@ wait duration 5
 flag constellation_drawing off
 select nebula M57
 wait duration 2
-image action load name m57 filename Hubble_ring_m57.jpg alpha 1 coordinate_system dome scale 15 altitude 75 azimuth 270
+image action load name m57 filename images/Hubble_ring_m57.jpg alpha 1 coordinate_system dome scale 15 altitude 75 azimuth 270
 
 # PAUSE to talk:
 script action pause
@@ -256,7 +306,7 @@ wait duration 2
 
 # M11 from Rawastrodata via Wikimedia Commons:
 # https://commons.wikimedia.org/wiki/File:The_Wild_Duck_Cluster_M11.jpg
-image action load name m11 filename The_Wild_Duck_Cluster_M11.jpg alpha 1 coordinate_system dome scale 25 altitude 27 azimuth 200
+image action load name m11 filename images/The_Wild_Duck_Cluster_M11.jpg alpha 1 coordinate_system dome scale 25 altitude 27 azimuth 200
 
 # PAUSE to talk:
 script action pause
@@ -271,8 +321,40 @@ flag constellation_drawing off
 deselect
 
 # Leaving maybe the coolest object left: the Milky Way!
+# PAUSE to talk about it:
+# script action pause
 
+# Notes for specific objects:
 
-# Notes:
+# Lunar eclipses
+
+# Saturn
+
+# Pluto, Ceres
+
+# M8, M20
+
 # M6 is thought to be about 1,600 light-years away,
 # while M7 is about half that far, at 800 light-years.
+
+# M22
+# About 12 billion years old. About 70,000 stars?
+# One of the nearest globulars at 10,600 light-years away.
+# (Makes it useful for studying individual stars.)
+# Two black holes of between 10 and 20 solar masses each.
+
+# M51
+
+# M13
+# Visible with the naked eye on a really clear night; easy in binoc.
+# Several hundred thousand stars.
+# 11.65 billion years old.
+# 25,100 light-years away.
+# About 145 light-years in diameter.
+
+# M27
+# M57
+
+# M11, "wild duck cluster".
+# About 2900 stars.
+# 220 million years old.
