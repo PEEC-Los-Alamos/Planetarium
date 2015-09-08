@@ -316,6 +316,28 @@ image name m57 action drop
 image name m27 action drop
 image name m11 action drop
 
+# Andromeda
+select constellation Peg
+select
+select constellation And
+flag constellation_drawing on
+
+# PAUSE to talk about the Great Square of Pegasus:
+script action pause
+
+flag constellation_drawing off
+select nebula M31
+wait duration 2
+
+# M31 from Adam Evans via Wikimedia Commons:
+# https://commons.wikimedia.org/wiki/File:Andromeda_Galaxy_%28with_h-alpha%29.jpg
+image action load name m31 filename images/Andromeda_Galaxy_h-alpha.jpg alpha 1 coordinate_system dome scale 45 altitude 55 azimuth 80
+
+# PAUSE to talk about M31 -- and point out the Milky Way,
+# a very similar galaxy!
+script action pause
+
+###############################################################
 # Finally, turn everything off.
 flag constellation_drawing off
 deselect
@@ -358,3 +380,16 @@ deselect
 # M11, "wild duck cluster".
 # About 2900 stars.
 # 220 million years old.
+
+# M31
+# 1 trillion stars
+# 2.5 million light-years away
+# May collide with us in 3-4 billion years.
+
+# Milky Way
+# 200-400 billion in the Milky Way
+# Oldest known object in the halo, 13.8 billion years
+#    (about the same as the age of the universe!)
+# M4 is about 12.7 billion years.
+# The galactic disk is more like 8.8 billion years.
+
