@@ -13,9 +13,20 @@ flag constellation_pick on
 flag planet names off
 set max_mag_star_name 2
 set max_mag_nebula_name 9
-# set auto_move_duration 10
 set sky_culture western
 timerate rate 1
+
+# auto_move_duration seems to be how long it takes nightshade
+# to move to center an object while zooming it.
+# If it's 0, the view will jump instantly to center the object
+# before zooming.
+# If it's set to the same as or longer than the zoom duration,
+# then nightshade will zoom to a random patch of sky
+# and then later will pan, still zoomed way in, over to the object.
+# So be sure this is always set to substantially LESS than the zoom time.
+# Be sure to set it! The default value may be okay on any given computer
+# but then may turn out to be much longer in the planetarium.
+set auto_move_duration 1
 
 ###################################################
 # The upcoming lunar eclipse.
@@ -51,7 +62,7 @@ wait duration 3
 
 # pause here, talk about planets and stars
 flag planet_names on
-# Saturn, Neptune, Pluto and Ceres
+# Saturn, Uranus, Neptune, Pluto and Ceres
 
 # Now, you may notice that the planets are all in a line:
 script action pause
@@ -101,7 +112,6 @@ flag planet_names off
 # Good stuff in the core of the Milky Way.
 # Start here because we were already showing Sgr for Saturn.
 
-# M6 and M7
 select constellation Sco
 flag constellation_drawing on
 select
@@ -225,6 +235,7 @@ zoom auto initial duration 3
 deselect
 wait duration 5
 
+# Whirlpool galaxy:
 select nebula m51
 wait duration 2
 image action load name m51 filename images/711px-M51_Hubble_Remix.jpg alpha 1 coordinate_system dome scale 35 altitude 25 azimuth 290
@@ -232,6 +243,7 @@ image action load name m51 filename images/711px-M51_Hubble_Remix.jpg alpha 1 co
 # PAUSE to talk:
 script action pause
 
+# M13
 select constellation Her
 flag constellation_drawing on
 wait duration 5
@@ -263,7 +275,7 @@ script action pause
 select hp 95947
 flag track_object on
 wait duration 5
-zoom fov 1 duration 3
+zoom fov 1.2 duration 3
 select pointer off
 
 # PAUSE to talk
