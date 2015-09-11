@@ -2,6 +2,41 @@ Nightshade Notes
 
 Compiled by Akkana, Galen, Patricia and other planetarium volunteers.
 
+========= AT THE PLANETARIUM ============================
+
+TO PREPARE A USB STICK FOR THE PLANETARIUM:
+
+Scripts have to be in a folder named "scripts" on the USB stick
+for nightshade to see them.
+
+The web control panel has run, stop, pause buttons, which is handy
+because you can see whether your script is running or paused (which
+you can't tell when you're testing a script at home);
+but be VERY CAREFUL of the STOP button, because once you've stopped
+a script, it's stopped, and all you can do is restart from the beginning.
+
+========= SCRIPTING NOTES ===============
+
+The sky in the planetarium by default is rotated so people are looking
+at the southern sky. If you want to show something in the northern
+sky, like Polaris, this helps:
+  set heading 180 duration 4
+  wait duration 4
+
+auto_move_duration seems to be how long it takes nightshade
+to move to center an object while zooming it.
+If it's 0, the view will jump instantly to center the object
+before zooming.
+If it's set to the same as or longer than the zoom duration,
+then nightshade will zoom to a random patch of sky
+and then later will pan, still zoomed way in, over to the object.
+So be sure this is always set to substantially LESS than the zoom time.
+Be sure to set it at the beginning of your script.
+The default value may be okay on any given computer
+but then may turn out to be much longer in the planetarium.
+
+========= NIGHTSHADE ON YOUR OWN COMPUTER ===============
+
 TO RUN A SCRIPT:
     m for menu
     uparrow a few times to get to scripts
@@ -14,7 +49,9 @@ Key bindings while running a script:
     7 or Ctrl-C to end a script
     K to resume
     L Fast-forward (speed up script)
-    J Slow script down 
+    J Slow script down
+
+There's no way to tell for sure when your script is running vs. paused,
 
 KEY BINDING LIST:
 h brings up a menu of (some) available keyboard commands, but a lot are missing.
@@ -162,3 +199,7 @@ culture for me; I think western-color is, but I'm not sure,
 nightshade isn't telling me. But if I go to the Language tab in
 Configuration I can switch to Western and then I see my new
 constellation line.
+
+Unfortunately none of this helps with the planetarium, because we
+don't have access to the computer where nightshade is running, so we
+can't add files. Hopefully we'll be able to fix this eventually.
