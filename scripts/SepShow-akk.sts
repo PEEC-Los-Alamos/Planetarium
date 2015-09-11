@@ -4,7 +4,7 @@ clear
 # set normal defaults
 zoom auto initial duration 1
 deselect
-flag atmosphere on
+flag atmosphere off
 flag landscape off
 flag star_twinkle off
 flag show_tui_datetime on
@@ -15,6 +15,9 @@ set max_mag_star_name 2
 set max_mag_nebula_name 9
 set sky_culture western
 timerate rate 1
+
+set heading 0 duration 1
+wait duration 1
 
 # auto_move_duration seems to be how long it takes nightshade
 # to move to center an object while zooming it.
@@ -34,13 +37,10 @@ set auto_move_duration 1
 # Maximum:       8:47
 # Leaves umbra: 10:27
 
-set moon_scale 5
+set moon_scale 10
 flag moon_scaled on
 date local 2015-09-27T18:48:00    # moonrise, already in penumbra
 timerate rate 0
-
-# Wait to start the show:
-script action pause
 
 # Run through the eclipse:
 timerate rate 240
@@ -162,14 +162,18 @@ script action pause
 # image name m6-m7 alpha 0 duration 3
 # image name m22 alpha 0 duration 3
 
+deselect
 image name lagoon-trifid action drop
 image name m6-m7 action drop
 image name m22 action drop
 
 wait duration 2
 
-###################################################
-# Big Dipper, Polaris, Cassiopeia, Mizar and M51.
+# ###################################################
+# # Big Dipper, Polaris, Cassiopeia, Mizar and M51.
+
+set heading 180 duration 4
+wait duration 4
 
 # Show the Big Dipper, for orientation purposes.
 select constellation UMa
@@ -191,8 +195,6 @@ select
 select constellation Cas
 wait duration 5
 
-flag constellation_drawing off
-
 # Talk about Cassiopeia and cicumpolar constellations:
 timerate rate 1500
 flag object_trails on
@@ -201,9 +203,12 @@ timerate rate 1
 script action pause
 
 # Back to original time.
+flag constellation_drawing off
 date local 2015-09-11T21:00
 deselect
-# zoom auto initial
+
+zoom auto initial duration 3
+wait duration 3
 
 # Select Mizar
 select constellation UMa
@@ -226,7 +231,7 @@ script action pause
 # flag track_object on
 
 # Zoom in to show that Mizar is itself a double:
-zoom fov .5 duration 3
+zoom fov 0.8 duration 3
 
 # PAUSE to talk about double stars in general:
 script action pause
@@ -252,7 +257,7 @@ select nebula M13
 wait duration 2
 # M13 from Portscan via Wikimedia Commons:
 # https://commons.wikimedia.org/wiki/File:Cumulo-globular-m13.JPG
-image action load name m13 filename images/1024px-Cumulo-globular-m13.JPG alpha 1 coordinate_system dome scale 35 altitude 75 azimuth 200
+image action load name m13 filename images/1024px-Cumulo-globular-m13.JPG alpha 1 coordinate_system dome scale 35 altitude 65 azimuth 345
 
 # PAUSE to talk:
 script action pause
@@ -260,7 +265,9 @@ script action pause
 deselect
 image name m51 action drop
 image name m13 action drop
-wait duration 3
+
+# set heading 0 duration 3
+# wait duration 3
 
 ###################################################
 # The Summer Triangle
@@ -291,7 +298,7 @@ wait duration 2
 
 # Dumbell nebula, from Fryns on Wikimedia Commons:
 # https://commons.wikimedia.org/wiki/File:M27_Zoom.jpg
-image action load name m27 filename images/1024px-M27_Zoom.jpg alpha 1 coordinate_system dome scale 30 altitude 45 azimuth 105
+image action load name m27 filename images/1024px-M27_Zoom.jpg alpha 1 coordinate_system dome scale 30 altitude 45 azimuth 75
 
 # PAUSE to talk:
 script action pause
@@ -303,7 +310,7 @@ wait duration 5
 flag constellation_drawing off
 select nebula M57
 wait duration 2
-image action load name m57 filename images/Hubble_ring_m57.jpg alpha 1 coordinate_system dome scale 15 altitude 75 azimuth 270
+image action load name m57 filename images/Hubble_ring_m57.jpg alpha 1 coordinate_system dome scale 15 altitude 65 azimuth 5
 
 # PAUSE to talk:
 script action pause
@@ -318,7 +325,7 @@ wait duration 2
 
 # M11 from Rawastrodata via Wikimedia Commons:
 # https://commons.wikimedia.org/wiki/File:The_Wild_Duck_Cluster_M11.jpg
-image action load name m11 filename images/The_Wild_Duck_Cluster_M11.jpg alpha 1 coordinate_system dome scale 25 altitude 27 azimuth 200
+image action load name m11 filename images/The_Wild_Duck_Cluster_M11.jpg alpha 1 coordinate_system dome scale 25 altitude 55 azimuth 260
 
 # PAUSE to talk:
 script action pause
@@ -343,7 +350,7 @@ wait duration 2
 
 # M31 from Adam Evans via Wikimedia Commons:
 # https://commons.wikimedia.org/wiki/File:Andromeda_Galaxy_%28with_h-alpha%29.jpg
-image action load name m31 filename images/Andromeda_Galaxy_h-alpha.jpg alpha 1 coordinate_system dome scale 45 altitude 55 azimuth 80
+image action load name m31 filename images/Andromeda_Galaxy_h-alpha.jpg alpha 1 coordinate_system dome scale 45 altitude 50 azimuth 10
 
 # PAUSE to talk about M31 -- and point out the Milky Way,
 # a very similar galaxy!
