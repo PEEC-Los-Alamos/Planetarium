@@ -1,0 +1,350 @@
+# script for September short planetarium show -- Akkana Peck
+clear
+
+# set normal defaults
+zoom auto initial duration 1
+deselect
+flag atmosphere off
+flag landscape off
+flag star_twinkle off
+flag show_tui_datetime on
+flag cardinal_points on
+flag constellation_pick on
+flag planet_names off
+set max_mag_star_name 2
+set max_mag_nebula_name 9
+set sky_culture western
+timerate rate 1
+
+set heading 0 duration 1
+wait duration 3
+
+# auto_move_duration seems to be how long it takes nightshade
+# to move to center an object while zooming it.
+# If it's 0, the view will jump instantly to center the object
+# before zooming.
+# If it's set to the same as or longer than the zoom duration,
+# then nightshade will zoom to a random patch of sky
+# and then later will pan, still zoomed way in, over to the object.
+# So be sure this is always set to substantially LESS than the zoom time.
+# Be sure to set it! The default value may be okay on any given computer
+# but then may turn out to be much longer in the planetarium.
+set auto_move_duration 1
+
+date local 2015-10-16T19:30
+
+sky_culture action load path asterisms
+
+# pause here, talk about planets and stars
+flag planet_names on
+# Saturn, Uranus, Neptune, Pluto and Ceres
+
+# # Now, you may notice that the planets are all in a line:
+# script action pause
+
+# flag ecliptic_line on
+
+# # That's called the ecliptic.
+# # PAUSE to talk about planets, the ecliptic and Saturn:
+# script action pause
+
+# flag ecliptic_line off
+# wait duration 1
+
+###################################################
+# Saturn.
+
+# Talk about Saturn
+select planet Saturn
+flag track_object on
+wait duration 5
+
+# Zoom in to Saturn to talk about rings and moons.
+zoom fov 0.15 duration 3
+timerate rate 1600
+wait duration 20
+
+# PAUSE to talk about Saturn:
+script action pause
+
+# Back to the whole-sky view
+timerate rate 1
+deselect
+
+# Set the date back, since we advanced it a lot while watching Saturn's moons.
+date local 2015-10-16T19:30
+
+zoom auto initial duration 3
+wait duration 5
+
+flag planet_names off
+
+# Now let's show some constellations and deep-sky objects.
+
+###################################################
+# Good stuff in the core of the Milky Way.
+# Start here because we were already showing Sgr for Saturn.
+
+select constellation Sco
+flag constellation_drawing on
+select
+select constellation Tpt
+
+# PAUSE to talk:
+script action pause
+
+deselect
+flag constellation_drawing off
+
+# With constellation lines off, talk about scanning the area
+# in binoculars or just the naked eye, and Antares.
+script action pause
+
+# Lagoon and Trifid:
+select nebula M8
+wait duration 2
+
+# Lagoon and Trifid from Ljubinko Jovanovic via Wikimedia Commons:
+image action load name lagoon-trifid filename images/1024px-The_Trifid_Nebula_and_The_Lagoon_Nebula-border.jpg alpha 1 coordinate_system dome scale 40 altitude 60 azimuth 215
+
+# PAUSE to talk:
+script action pause
+
+# Open clusters M6 and M7:
+select nebula M7
+wait duration 2
+
+# M6 and M7, screenshot (and contrast enhanced) from nightshade itself:
+image action load name m6-m7 filename images/m6-m7.png alpha 1 scale 75 coordinate_system dome scale 30 altitude 30 azimuth 240
+
+# PAUSE to talk:
+script action pause
+
+# M22:
+select nebula M22
+wait duration 2
+
+# M22, screenshot from nightshade:
+image action load name m22 filename images/m22.png alpha 1 coordinate_system dome scale 30 altitude 40 azimuth 155
+
+# PAUSE to talk:
+script action pause
+
+# Fade out all three. This doesn't work.
+# image name lagoon-trifid alpha 0 duration 3
+# image name m6-m7 alpha 0 duration 3
+# image name m22 alpha 0 duration 3
+
+deselect
+image name lagoon-trifid action drop
+image name m6-m7 action drop
+image name m22 action drop
+
+wait duration 2
+
+###################################################
+# Big Dipper, Polaris, Cassiopeia, Mizar and M51.
+wait duration 5
+set heading 180 duration 4
+wait duration 4
+
+# Show the Big Dipper, for orientation purposes.
+select constellation BDi
+flag constellation_drawing on
+
+# PAUSE to talk:
+script action pause
+
+select constellation PtS
+wait duration 3
+
+# Select Polaris
+select hp 11767
+
+# PAUSE to talk about Polaris:
+script action pause
+
+deselect
+
+select constellation BDi
+select
+select constellation Cas
+wait duration 5
+
+# Talk about Cassiopeia and cicumpolar constellations:
+# XXX This goes for half a day. Would be nice to make a full circuit.
+timerate rate 2880
+# This doesn't work, but supposedly will be possible with Nightshade NG:
+# flag object_trails on
+wait duration 30
+timerate rate 1
+script action pause
+
+# Back to original time.
+date local 2015-10-16T19:30
+deselect
+
+zoom auto initial duration 3
+select constellation BDi
+wait duration 3
+
+# Select Mizar
+select hp 65378
+wait duration 5
+flag constellation_drawing off
+wait duration 3
+
+# zoom fov 20 duration 3
+
+image action load name mizar-alcor filename images/mizar-alcor.jpg alpha 1 coordinate_system dome scale 20 altitude 37 azimuth 320 rotation 35
+
+# PAUSE to talk about Alcor and Mizar:
+script action pause
+
+# Show that Mizar is itself a double:
+image action load name mizar2 filename images/mizar2.jpg alpha 1 coordinate_system dome scale 30 altitude 60 azimuth 315 rotation 35
+
+# PAUSE to talk about double stars in general:
+script action pause
+
+image name mizar-alcor action drop
+image name mizar2 action drop
+
+deselect
+wait duration 1
+
+# Whirlpool galaxy:
+select nebula m51
+wait duration 2
+image action load name m51 filename images/711px-M51_Hubble_Remix.jpg alpha 1 coordinate_system dome scale 35 altitude 25 azimuth 290
+
+# PAUSE to talk:
+script action pause
+
+deselect
+
+# M13
+select constellation Her
+flag constellation_drawing on
+wait duration 5
+flag constellation_drawing off
+select nebula M13
+wait duration 2
+# M13 from Portscan via Wikimedia Commons:
+# https://commons.wikimedia.org/wiki/File:Cumulo-globular-m13.JPG
+image action load name m13 filename images/1024px-Cumulo-globular-m13.JPG alpha 1 coordinate_system dome scale 35 altitude 65 azimuth 345
+
+# PAUSE to talk:
+script action pause
+
+deselect
+image name m51 action drop
+image name m13 action drop
+
+# set heading 0 duration 3
+# wait duration 3
+
+###################################################
+# The Summer Triangle
+
+# Northern Cross:
+select constellation NCr
+flag constellation_drawing on
+
+# PAUSE to talk
+script action pause
+
+# Select Albireo:
+select hp 95947
+wait duration 5
+# Albireo, from Jefffisher10 on Wikimedia Commons:
+# https://en.wikipedia.org/wiki/Albireo#/media/File:Albireo_20150919.jpg
+image action load name albireo filename images/Albireo_20150919.jpg alpha 1 coordinate_system dome scale 30 altitude 65 azimuth 270
+
+# PAUSE to talk
+script action pause
+image name albireo action drop
+
+# Dumbell nebula:
+flag constellation_drawing off
+select nebula M27
+wait duration 2
+
+# Dumbell nebula, from Fryns on Wikimedia Commons:
+# https://commons.wikimedia.org/wiki/File:M27_Zoom.jpg
+image action load name m27 filename images/1024px-M27_Zoom.jpg alpha 1 coordinate_system dome scale 30 altitude 45 azimuth 75
+
+# PAUSE to talk:
+script action pause
+
+# The Ring nebula:
+select constellation Lyr
+flag constellation_drawing on
+wait duration 5
+flag constellation_drawing off
+select nebula M57
+wait duration 2
+image action load name m57 filename images/Hubble_ring_m57.jpg alpha 1 coordinate_system dome scale 15 altitude 65 azimuth 5
+
+# PAUSE to talk:
+script action pause
+
+# Show Aquila and M11 just to finish out the Summer Triangle:
+select constellation Aql
+flag constellation_drawing on
+wait duration 5
+flag constellation_drawing off
+select nebula M11
+wait duration 2
+
+# M11 from Rawastrodata via Wikimedia Commons:
+# https://commons.wikimedia.org/wiki/File:The_Wild_Duck_Cluster_M11.jpg
+image action load name m11 filename images/The_Wild_Duck_Cluster_M11.jpg alpha 1 coordinate_system dome scale 25 altitude 55 azimuth 260
+
+# PAUSE to talk:
+script action pause
+
+# Now drop those three:
+image name m57 action drop
+image name m27 action drop
+image name m11 action drop
+
+deselect
+select constellation STr
+flag constellation_drawing on
+script action pause
+
+deselect
+
+# Andromeda
+select constellation GSq
+# PAUSE to talk about the Great Square of Pegasus:
+script action pause
+
+select constellation Peg
+select
+select constellation And
+
+# Lead people's eyes to M31:
+script action pause
+
+flag constellation_drawing off
+select nebula M31
+wait duration 2
+
+# M31 from Adam Evans via Wikimedia Commons:
+# https://commons.wikimedia.org/wiki/File:Andromeda_Galaxy_%28with_h-alpha%29.jpg
+image action load name m31 filename images/Andromeda_Galaxy_h-alpha.jpg alpha 1 coordinate_system dome scale 45 altitude 50 azimuth 10
+
+# PAUSE to talk about M31 -- and point out the Milky Way,
+# a very similar galaxy!
+script action pause
+
+###############################################################
+# Finally, turn everything off.
+flag constellation_drawing off
+deselect
+
+# Leaving maybe the coolest object left, which is rather
+# similar to M31: the Milky Way!
+
