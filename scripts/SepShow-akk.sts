@@ -10,7 +10,7 @@ flag star_twinkle off
 flag show_tui_datetime on
 flag cardinal_points on
 flag constellation_pick on
-flag planet names off
+flag planet_names off
 set max_mag_star_name 2
 set max_mag_nebula_name 9
 set sky_culture western
