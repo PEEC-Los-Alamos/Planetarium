@@ -100,11 +100,11 @@ flag track_object on
 wait duration 5
 
 # Zoom in to show Saturn and the crescent moon
-zoom fov 25 duration 10
+zoom fov 25 duration 5
 script action pause
 
 # Zoom in to Saturn to talk about rings and moons.
-zoom fov 0.15 duration 10
+zoom fov 0.15 duration 8
 timerate rate 1600
 wait duration 20
 
