@@ -99,6 +99,10 @@ select planet Saturn
 flag track_object on
 wait duration 5
 
+# Zoom in to show Saturn and the crescent moon
+zoom fov 25 duration 10
+script action pause
+
 # Zoom in to Saturn to talk about rings and moons.
 zoom fov 0.15 duration 10
 timerate rate 1600
@@ -276,9 +280,17 @@ image action load name m13 filename images/1024px-Cumulo-globular-m13.JPG alpha 
 # PAUSE to talk:
 script action pause
 
+# The Double Cluster from Rawastrodata via Wikimedia Commons:
+# https://commons.wikimedia.org/wiki/Category:Double_Cluster#/media/File:The_Double_Cluster.jpg
+
+select nebula "Chi & h Per"
+image action load name doublecl filename images/The_Double_Cluster.jpg alpha 1 coordinate_system dome scale 35 altitude 30 azimuth 8
+script action pause
+
 deselect
 image name m51 action drop
 image name m13 action drop
+image name doublecl action drop
 
 # set heading 0 duration 3
 # wait duration 3
