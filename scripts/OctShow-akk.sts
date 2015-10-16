@@ -16,9 +16,6 @@ set max_mag_nebula_name 9
 set sky_culture western
 timerate rate 1
 
-set heading 0 duration 1
-wait duration 3
-
 # auto_move_duration seems to be how long it takes nightshade
 # to move to center an object while zooming it.
 # If it's 0, the view will jump instantly to center the object
@@ -31,25 +28,68 @@ wait duration 3
 # but then may turn out to be much longer in the planetarium.
 set auto_move_duration 1
 
-date local 2015-10-16T19:30
+# Jonathan set this on the planetarium projector, to get zooms
+# to show up lower in the southern sky. It seems like this breaks
+# if heading is set to anything except 0, however.
+# set zoom_offset -0.25
 
 sky_culture action load path asterisms
 
-# pause here, talk about planets and stars
+###################################################
+# Put testing stuff here
+
+###################################################
+# Beginning of real show
+
+set heading 0 duration 1
+wait duration 3
+
+date local 2015-10-16T19:45
+
+set moon_scale 10
+flag moon_scaled on
+select object Moon
+# Pause to talk about the moon,
+# and make jokes about how it looks huge near the horizon.
+script action pause
+
+deselect
+
+image action load name moon-day3 filename images/moon/moon-day3.png alpha 1 coordinate_system dome scale 35 altitude 45 azimuth 180
+script action pause
+
+image action load name moon-day3-crisium filename images/moon/moon-day3-crisium.png alpha 1 coordinate_system dome scale 35 altitude 45 azimuth 180
+image name moon-day3 action drop
+script action pause
+
+image action load name moon-day3-gang4 filename images/moon/moon-day3-gang4.png alpha 1 coordinate_system dome scale 35 altitude 45 azimuth 180
+image name moon-day3-crisium action drop
+script action pause
+
+image action load name petavius filename images/moon/Rimae_Petavius_LO-IV-184H_LTVT.JPG alpha 1 coordinate_system dome scale 35 altitude 40 azimuth 245
+script action pause
+
+image name moon-day3-gang4 action drop
+image name petavius action drop
+set moon_scale 3
+flag moon_scaled off
+
+###################################################
+# Planets
 flag planet_names on
 # Saturn, Uranus, Neptune, Pluto and Ceres
 
-# # Now, you may notice that the planets are all in a line:
-# script action pause
+# Now, you may notice that the planets are all in a line:
+script action pause
 
-# flag ecliptic_line on
+flag ecliptic_line on
 
-# # That's called the ecliptic.
-# # PAUSE to talk about planets, the ecliptic and Saturn:
-# script action pause
+# That's called the ecliptic.
+# PAUSE to talk about planets, the ecliptic and Saturn:
+script action pause
 
-# flag ecliptic_line off
-# wait duration 1
+flag ecliptic_line off
+wait duration 1
 
 ###################################################
 # Saturn.
@@ -60,7 +100,7 @@ flag track_object on
 wait duration 5
 
 # Zoom in to Saturn to talk about rings and moons.
-zoom fov 0.15 duration 3
+zoom fov 0.15 duration 10
 timerate rate 1600
 wait duration 20
 
@@ -72,9 +112,9 @@ timerate rate 1
 deselect
 
 # Set the date back, since we advanced it a lot while watching Saturn's moons.
-date local 2015-10-16T19:30
+date local 2015-10-16T19:45
 
-zoom auto initial duration 3
+zoom auto initial duration 10
 wait duration 5
 
 flag planet_names off
@@ -144,7 +184,6 @@ wait duration 2
 
 ###################################################
 # Big Dipper, Polaris, Cassiopeia, Mizar and M51.
-wait duration 5
 set heading 180 duration 4
 wait duration 4
 
@@ -181,7 +220,7 @@ timerate rate 1
 script action pause
 
 # Back to original time.
-date local 2015-10-16T19:30
+date local 2015-10-16T19:45
 deselect
 
 zoom auto initial duration 3
@@ -247,6 +286,11 @@ image name m13 action drop
 ###################################################
 # The Summer Triangle
 
+select constellation STr
+flag constellation_drawing on
+script action pause
+deselect
+
 # Northern Cross:
 select constellation NCr
 flag constellation_drawing on
@@ -259,7 +303,7 @@ select hp 95947
 wait duration 5
 # Albireo, from Jefffisher10 on Wikimedia Commons:
 # https://en.wikipedia.org/wiki/Albireo#/media/File:Albireo_20150919.jpg
-image action load name albireo filename images/Albireo_20150919.jpg alpha 1 coordinate_system dome scale 30 altitude 65 azimuth 270
+image action load name albireo filename images/Albireo_20150919.jpg alpha 1 coordinate_system dome scale 30 altitude 50 azimuth 250
 
 # PAUSE to talk
 script action pause
