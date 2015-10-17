@@ -149,7 +149,7 @@ the home planet, then selecting the moon doesn't work and seems to
 confuse nightshade's idea of where it is, to the point where I usually
 have to restart to get things right again.
 
-RUNNING SCRIPTS FROM A LOCAL FOLDER:
+=========== RUNNING SCRIPTS FROM A LOCAL FOLDER ===========
 
 Nightshade has no provision to run scripts from a local directory,
 e.g. your home directory. The most straightforward way is to copy them
@@ -165,7 +165,20 @@ if you want it to look in a local directory, make sure there's a
 Note: in that case it will ONLY find scripts there, and won't look for
 system-installed scripts. 
 
-CHANGING CONSTELLATION/ASTERISM LINES:
+=========== USING A NEW SKY CULTURE, E.G. asterisms ===========
+
+Make a new directory inside "scripts" on your USB stick
+named "asterisms", then in your script you can do:
+
+sky_culture action load path asterisms
+
+and then you can highlight asterisms like:
+
+select constellation BDi
+
+(for the Big Dipper).
+
+=========== CHANGING CONSTELLATION/ASTERISM LINES ===========
 
 The numbers in constellationship.fab in each sky_cultures directory
 are Hipparchus (I think) star numbers. I got this from the source
@@ -200,6 +213,3 @@ nightshade isn't telling me. But if I go to the Language tab in
 Configuration I can switch to Western and then I see my new
 constellation line.
 
-Unfortunately none of this helps with the planetarium, because we
-don't have access to the computer where nightshade is running, so we
-can't add files. Hopefully we'll be able to fix this eventually.
