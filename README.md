@@ -1,2 +1,3 @@
 # Planetarium
-Documentation and scripts for the PEEC planetarium and its Nightshade software
+Documentation and scripts for the Pajarito Environmental Education Center's
+planetarium and its Nightshade software.
