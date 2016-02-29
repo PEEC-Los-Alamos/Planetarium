@@ -149,21 +149,45 @@ the home planet, then selecting the moon doesn't work and seems to
 confuse nightshade's idea of where it is, to the point where I usually
 have to restart to get things right again.
 
+=========== SELECTING NEBULAE ===========
+
+Nightshade has a fixed list of names it knows how to select.
+Unfortunately, you can't just select any M or NGC object.
+It can't even select M42 or M57!
+You have to use the name from their undocumented list of names.
+I think the list is the same one that's in src/translations.h,
+and the same as the names that autocomplete if you do a search in
+nightshade's search box: so try searching for your nebula interactively,
+find out what it autocompletes to, and use that as the string you
+select in your script. For example:
+select nebula "M27"
+select nebula "Ring Nebula"
+select nebula "M42/M43"
+
+Why the Ring is referred to only by name but the Dumbbell only by number
+is a mystery for the ages. And maybe it'll all be different in
+Nightshade-NG.
+
 =========== RUNNING SCRIPTS FROM A LOCAL FOLDER ===========
 
-Nightshade has no provision to run scripts from a local directory,
-e.g. your home directory. The most straightforward way is to copy them
-into the system directory under /opt or /usr/local, wherever
-Nightshade is installed.
+Nightshade when it's running on your home machine has no provision to
+run scripts from a local directory, e.g. your home directory.
+The most straightforward solution is to copy them into the system
+directory under /opt or /usr/local, wherever Nightshade is installed.
 
-But from main.cpp: If ./data/ssystem.ini exists and is readable under
-the current directory, then Nightshade will look for scripts (and
-other data) in ./data/scripts else it uses
+If you use asterisms, images or other media in your scripts, you don't
+have to all of them separately: you can link from Nightshade's system
+data/scripts directory to your images or asterisms directory, then
+Nightshade will be able to use all the files there.
+
+But from main.cpp: it looks like ./data/ssystem.ini exists and is
+readable under the current directory, then Nightshade will look for
+scripts (and other data) in ./data/scripts; otherwise it uses
 /usr/local/share/nightshade/data/scripts/ (or equivalent in /opt). So
-if you want it to look in a local directory, make sure there's a
-./data/scripts under the current directory when you start nightshade.
+in theory, if you want it to look in a local directory, make sure there's
+a ./data/scripts under the current directory when you start nightshade.
 Note: in that case it will ONLY find scripts there, and won't look for
-system-installed scripts. 
+system-installed scripts.
 
 =========== USING A NEW SKY CULTURE, E.G. asterisms ===========
 
@@ -178,7 +202,7 @@ select constellation BDi
 
 (for the Big Dipper).
 
-=========== CHANGING CONSTELLATION/ASTERISM LINES ===========
+=========== CHANGING/ADDING CONSTELLATION/ASTERISM LINES ===========
 
 The numbers in constellationship.fab in each sky_cultures directory
 are Hipparchus (I think) star numbers. I got this from the source
@@ -213,3 +237,15 @@ nightshade isn't telling me. But if I go to the Language tab in
 Configuration I can switch to Western and then I see my new
 constellation line.
 
+============ Questions we still have about Nightshade =============
+
+1) how to input specific radiants for meteor showers?
+2) how to keep all constellation lines from showing up when you have selected
+and shown a particular one and then you select an object that does not lie on
+the (previously) selected constellation's lines?
+3) is it possible to backspace a script in progress without starting over, or
+to start a script midway through?
+4) can we get the Large Magellanic Cloud labelled?
+5) can we set magnitude limits for the labelling of solar system objects so
+that the distant dwarf planets don't appear?
+6) how about subroutines or control structures (do-loops) within scripts?
