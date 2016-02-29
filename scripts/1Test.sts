@@ -1,0 +1,61 @@
+#
+# This is a place to put StratoScript tests while developing a show.
+# It's named so that it will show up first in the scripts list, so
+# you can test short segments with m <downarrow> m
+# without having to arrow through the whole list of loaded scripts.
+# Test segments here, then move them into your regular script file.
+#
+
+# set normal defaults
+
+clear
+
+flag atmosphere off
+flag landscape off
+flag star_twinkle off
+flag show_tui_datetime on
+flag cardinal_points on
+flag constellation_pick on
+flag ecliptic_line off
+flag object_trails off
+flag planet_names off
+flag nebulae off
+flag nebula_names off
+set max_mag_star_name 1.7
+set max_mag_nebula_name 7
+set auto_move_duration 10
+set sky_culture western
+set star_limiting_mag 7
+set zoom_offset -0.5
+timerate rate 1
+
+wait duration 2
+
+######################################################################
+# Add test segments here. Don't forget to set the date.
+######################################################################
+
+date local 2016-03-04T22:00:00
+
+########## Orion nebula ###############################
+select constellation Ori
+flag constellation_drawing on
+script action pause
+
+flag constellation_drawing off
+select nebula M42/M43
+script action pause
+
+# Rawastrodata on Wikimedia Commons
+# https://commons.wikimedia.org/wiki/File:The_Orion_Nebula_M42.jpg
+image action load name m42 filename "images//The_Orion_Nebula_M42.jpg" coordinate_system dome alpha 1 scale 50 altitude 28 azimuth 200
+script action pause
+
+# Rogelio Bernal Andreo on Wikimedia Commons
+# https://en.wikipedia.org/wiki/Orion's_Belt#/media/File:Orion_Head_to_Toe.jpg
+image action load name orion filename "images//Orion_Head_to_Toe.jpg" coordinate_system dome alpha 1 scale 50 altitude 70 azimuth 185
+script action pause
+
+deselect
+image name orion action drop
+image name m42 action drop
