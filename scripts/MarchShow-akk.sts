@@ -21,9 +21,6 @@ set sky_culture western
 set star_limiting_mag 7
 set zoom_offset -0.5
 
-# Make the Milky Way especially obvious:
-set milky_way_intensity 3
-
 flag moon_scaled off
 
 # set to evening of March 4th
@@ -170,6 +167,10 @@ image name m42 action drop
 
 ########## Spring galaxies ###############################
 # Show how galaxies are clustered away from the Milky Way
+
+# Make the Milky Way especially obvious:
+set milky_way_intensity 3
+
 timerate rate 600
 wait duration 5
 timerate rate 1
@@ -245,7 +246,7 @@ wait duration 4
 
 # Hewholooks on Wikimedia Commons
 # https://commons.wikimedia.org/wiki/File:LeoTripletHunterWilson.jpg
-image action load name leo_trio filename "images/LeoTripletHunterWilson.jpg" coordinate_system dome alpha 1 scale 50 altitude 40 azimuth 230
+image action load name leo_trio filename "images/LeoTripletHunterWilson.jpg" coordinate_system dome alpha 1 scale 50 altitude 40 azimuth 200
 script action pause
 
 image name leo_trio action drop
@@ -263,6 +264,54 @@ script action pause
 
 image name m81-m82 action drop
 deselect
+set milky_way_intensity 3
 
 
+date local 2016-03-04T20:00:00
+zoom auto initial
+timerate rate 1
+wait duration 5
+set zoom_offset -0.3
 
+########## Jupiter ###############################
+# Show Jupiter's moons and a Galilean moon/shadow transit.
+
+flag cardinal_points off
+flag planet_names on
+select planet Jupiter
+wait duration 4
+select planet Jupiter pointer off
+flag track_object on
+wait duration 5
+
+# Zoom in to show the dance of Jupiter's moons
+flag planet_names off
+zoom fov .10 duration 10
+wait duration 10
+# This isn't actually a wait -- it just gets us to the end
+# of the 5-second zoom we just did.
+flag planet_names on
+date local 2016-03-21T09:30:00
+timerate rate 2500
+
+wait duration 12
+flag planet_names off
+script action pause
+# Point out the GRS
+
+wait duration 8
+# Point out Io and Europa's shadows
+
+script action pause
+
+date local 2016-03-04T20:00:00
+timerate rate 1
+
+flag track_object off
+zoom auto initial duration 10
+wait duration 10
+
+# Turn the pointer back on since we're returning control to the operator
+# (maybe not necessary?)
+select pointer on
+flag cardinal_points on
