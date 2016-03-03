@@ -20,127 +20,65 @@ set auto_move_duration 10
 set sky_culture western
 set star_limiting_mag 7
 set zoom_offset -0.5
+set milky_way_intensity 1
+# Los Alamos -- since it might get reset if the script has been partially run
+# moveto latitude 35.55 longitude -106.27 duration 10
 
 flag moon_scaled off
 
-# set to evening of March 4th
-date local 2016-03-04T22:00:00
 timerate rate 1
-wait duration 2
 # script action pause
-######################################
-
-# select the visible zodiac constellations
-select constellation Tau
-flag constellation_drawing on
-wait duration 1
-select constellation Gem
-wait duration 1
-select constellation Cnc
-wait duration 1
-select constellation Leo
-wait duration 1
-select constellation Vir
-wait duration 1
-select constellation Ari
-script action pause
-
-flag ecliptic_line on
-script action pause
-
-flag equator_line on
-script action pause
-flag constellation_names on
-
-# select the rest of the zodiac constellations 
-select constellation Lib
-select constellation Sco
-select constellation Sgr
-select constellation Aqr
-select constellation Cap
-select constellation Psc
-select constellation Ari
-script action pause
-
-# rotate the sky to noon the next day to bring the sun into view
-timerate rate 3600
-wait duration 15
-timerate rate 0
-script action pause
-
-flag constellation_drawing off
-flag constellation_names off
-select planet Sun pointer off
-# flag cardinal_points off
-wait duration 10
-flag track_object on
-
-# show the movement of the Sun towards and past the equator for the equinox
-timerate rate 86400
-wait duration 30
-timerate rate 0
-
-deselect
-wait duration 10
-flag cardinal_points on
-flag ecliptic_line off
-flag equator_line off
 
 ######################################
 # March 2016 eclipse sequence
 flag moon_scaled off
 
 # show map of where we're going
-image action load name map filename "images/March eclipse map.png" coordinate_system dome alpha 1 scale 50 altitude 30 azimuth 180
+image action load name map filename "images/March eclipse map.png" coordinate_system dome alpha 1 scale 70 altitude 30 azimuth 180
 
 # set to March 9th, 90 minutes before totality
-date utc 2016-03-09T00:10:00
-wait duration 5
-
 # move to coordinates of Woleai
+date utc 2016-03-09T00:10:00
 moveto latitude 7.3732 longitude 143.9051 duration 10
 wait duration 20
 
 # drop the map
 image name map action drop
 
-flag ecliptic_line on
-flag planet_names on
-
 select planet Sun pointer off
-wait duration 10
 flag track_object on
-wait duration 10
-zoom fov 7 duration 5 duration 5
-flag ecliptic_line off
-flag planet_names off
-timerate rate 60  # 60 seconds per second
-wait duration 60
-timerate rate 0
-flag atmosphere on
-timerate rate 60  # 60 seconds per second
-wait duration 32
-timerate rate 0
-flag atmosphere off
-wait duration 30
-flag atmosphere on
-timerate rate 60  # 60 seconds per second
-wait duration 30
-timerate rate 0
-flag atmosphere off
-timerate rate 60  # 60 seconds per second
-wait duration 60
-timerate rate 0
 wait duration 5
+zoom fov 7 duration 5 duration 5
+timerate rate 150
+wait duration 17
+flag atmosphere on
+wait duration 20
 
+script action pause
+# Luc Viatour on Wikimedia Commons
+# https://commons.wikimedia.org/wiki/File:Solar_eclipse_1999_4.jpg
+image action load name totality filename "images/Solar_eclipse_1999_4.jpg" coordinate_system dome alpha 1 scale 70 altitude 90 azimuth 0
+
+wait duration 20
+
+script action pause
+
+image name totality action drop
+flag atmosphere off
 deselect
 
-zoom auto out
+zoom auto out duration 8
 wait duration 10
 
-moveto latitude 35.55 longitude -106.27 duration 10
-
 # end March 2016 eclipse sequence
+
+########## Back to tonight in Los Alamos ####################
+
+date local 2016-03-04T20:30:00
+timerate rate 1
+moveto latitude 35.55 longitude -106.27 duration 10
+zoom auto initial duration 8
+wait duration 8
 
 ########## Orion nebula ###############################
 select constellation Ori
@@ -149,16 +87,15 @@ script action pause
 
 flag constellation_drawing off
 select nebula M42/M43
-script action pause
 
 # Rawastrodata on Wikimedia Commons
 # https://commons.wikimedia.org/wiki/File:The_Orion_Nebula_M42.jpg
-image action load name m42 filename "images//The_Orion_Nebula_M42.jpg" coordinate_system dome alpha 1 scale 50 altitude 28 azimuth 200
+image action load name m42 filename "images//The_Orion_Nebula_M42.jpg" coordinate_system dome alpha 1 scale 50 altitude 25 azimuth 225
 script action pause
 
 # Rogelio Bernal Andreo on Wikimedia Commons
 # https://en.wikipedia.org/wiki/Orion's_Belt#/media/File:Orion_Head_to_Toe.jpg
-image action load name orion filename "images//Orion_Head_to_Toe.jpg" coordinate_system dome alpha 1 scale 50 altitude 70 azimuth 185
+image action load name orion filename "images//Orion_Head_to_Toe.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 140 rotation 30
 script action pause
 
 deselect
@@ -169,37 +106,33 @@ image name m42 action drop
 # Show how galaxies are clustered away from the Milky Way
 
 # Make the Milky Way especially obvious:
-set milky_way_intensity 3
+set milky_way_intensity 4
 
 timerate rate 600
 wait duration 5
 timerate rate 1
-script action pause
-
 flag nebulae on
 flag nebula_names on
 set max_mag_nebula_name 11
+wait duration 10
+
+flag constellation_drawing on
+flag constellation_names on
+select constellation Vir
 script action pause
 
 flag nebula_names off
 set max_mag_nebula_name 9
 
-flag constellation_drawing on
-
 # How to find Virgo:
 select constellation UMa
-flag constellation_drawing on
-script action pause
-
 select constellation Boo
-script action pause
-
-select constellation Vir
 script action pause
 
 # Virgo galaxies:
 
 flag constellation_drawing off
+flag constellation_names off
 deselect
 
 # Show the Virgo cluster
@@ -246,7 +179,7 @@ wait duration 4
 
 # Hewholooks on Wikimedia Commons
 # https://commons.wikimedia.org/wiki/File:LeoTripletHunterWilson.jpg
-image action load name leo_trio filename "images/LeoTripletHunterWilson.jpg" coordinate_system dome alpha 1 scale 50 altitude 40 azimuth 200
+image action load name leo_trio filename "images/LeoTripletHunterWilson.jpg" coordinate_system dome alpha 1 scale 50 altitude 40 azimuth 170
 script action pause
 
 image name leo_trio action drop
@@ -254,27 +187,21 @@ deselect
 
 select constellation Uma
 flag constellation_drawing on
-wait duration 5
 flag constellation_drawing off
-select nebula M81
 script action pause
 
+select nebula M81
+wait duration 4
 image action load name m81-m82 filename "images/m81m82_zmaritsch.jpg" coordinate_system dome alpha 1 scale 50 altitude 60 azimuth 180
 script action pause
 
 image name m81-m82 action drop
 deselect
-set milky_way_intensity 3
-
-
-date local 2016-03-04T20:00:00
-zoom auto initial
-timerate rate 1
-wait duration 5
-set zoom_offset -0.3
+set milky_way_intensity 2
 
 ########## Jupiter ###############################
 # Show Jupiter's moons and a Galilean moon/shadow transit.
+set zoom_offset -0.3
 
 flag cardinal_points off
 flag planet_names on
@@ -315,3 +242,37 @@ wait duration 10
 # (maybe not necessary?)
 select pointer on
 flag cardinal_points on
+
+######################################
+
+# Rotate the sky to show some morning planets for March 5th
+timerate rate 600   # ten minutes per second
+wait duration 35 -- should get us to 05:20 approximately
+timerate rate 1
+
+wait duration 15
+flag planet_names on
+wait duration 15
+flag ecliptic_line on
+wait duration 15
+
+select constellation Leo
+select constellation Vir
+select constellation Lib
+select constellation Sco
+select constellation Sgr
+flag constellation_drawing on
+wait duration 20
+flag constellation_drawing off
+flag ecliptic_line off
+
+flag planet_names off
+flag star_names off
+
+flag atmosphere on
+timerate rate 600
+wait duration 40 --- until about noon, then lights up
+timerate rate 0
+
+# set back to the time the show will be ending
+date local 2016-03-04T20:00:00
