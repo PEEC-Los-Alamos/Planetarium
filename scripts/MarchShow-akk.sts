@@ -243,18 +243,14 @@ wait duration 10
 select pointer on
 flag cardinal_points on
 
-######################################
+########### Morning planets ###########################
 
-# Rotate the sky to show some morning planets for March 5th
-timerate rate 600   # ten minutes per second
-wait duration 35 -- should get us to 05:20 approximately
-timerate rate 1
-
-wait duration 15
 flag planet_names on
-wait duration 15
+timerate rate 1900   # half hour per second
+wait duration 5
+
 flag ecliptic_line on
-wait duration 15
+wait duration 5
 
 select constellation Leo
 select constellation Vir
@@ -262,17 +258,29 @@ select constellation Lib
 select constellation Sco
 select constellation Sgr
 flag constellation_drawing on
-wait duration 20
-flag constellation_drawing off
-flag ecliptic_line off
+flag constellation_names on
+wait duration 5
 
+timerate rate 600
+wait duration 8
+
+# Now turn the atmosphere on, so the dome will gradually lighten
+flag atmosphere on
+wait duration 10
+
+flag constellation_drawing off
+flag constellation_names off
+flag ecliptic_line off
 flag planet_names off
 flag star_names off
+wait duration 15
 
-flag atmosphere on
-timerate rate 600
-wait duration 40 --- until about noon, then lights up
-timerate rate 0
+timerate rate 1
+script action pause
+
+# Can leave the script here for questions, with the lights on --
+# but hitting Continue will go back to the current time, at night
 
 # set back to the time the show will be ending
 date local 2016-03-04T20:00:00
+flag atmosphere off
