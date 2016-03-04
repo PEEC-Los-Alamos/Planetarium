@@ -59,22 +59,22 @@ script action pause
 # https://commons.wikimedia.org/wiki/File:Solar_eclipse_1999_4.jpg
 image action load name totality filename "images/Solar_eclipse_1999_4.jpg" coordinate_system dome alpha 1 scale 70 altitude 90 azimuth 0
 
-wait duration 20
+wait duration 16
 # At this point, local time is 3/8/2016 7:32:47 pm.
 # But event at PEEC will go until 8:30, so speed up the last hour even more.
 timerate rate 300
-wait duration 12
+wait duration 10
 
 script action pause
 # End of eclipse segment: local time 2016-03-08T08:32:49
 # zoom fov 7, flag atmosphere on and we're tracking the sun.
 
 image name totality action drop
-flag atmosphere off
-deselect
+# flag atmosphere off
+# deselect
 
-zoom auto out duration 8
-wait duration 10
+# zoom auto out duration 8
+# wait duration 10
 
 # end March 2016 eclipse sequence
 
@@ -162,14 +162,13 @@ deselect
 # Make the Milky Way especially obvious:
 set milky_way_intensity 4
 
-timerate rate 600
-wait duration 5
+timerate rate 1000
+wait duration 6
+
 timerate rate 1
 flag nebulae on
 flag nebula_names on
 set max_mag_nebula_name 11
-wait duration 10
-
 flag constellation_drawing on
 flag constellation_names on
 select constellation Vir
@@ -195,7 +194,7 @@ deselect
 # Show the Virgo cluster
 # ESO
 # https://en.wikipedia.org/wiki/File:ESO-M87.jpg
-image action load name virgo filename "images//ESO-M87.jpg" coordinate_system dome alpha 1 scale 50 altitude 50 azimuth 110
+image action load name virgo filename "images//ESO-M87.jpg" coordinate_system dome alpha 1 scale 50 altitude 35 azimuth 110
 script action pause
 
 # Joseph D. Schulman on Wikimedia Commons:
@@ -218,6 +217,10 @@ image action load name M98 filename "images/M-98.jpg" coordinate_system dome alp
 # https://upload.wikimedia.org/wikipedia/commons/0/07/Messier_87_Hubble_WikiSky.jpg
 image action load name M87 filename "images/Messier_87_Hubble_WikiSky.jpg" coordinate_system dome alpha 1 scale 50 altitude 30 azimuth 170
 
+# Ken Crawford via Wikimedia Commons
+# https://commons.wikimedia.org/wiki/File:Needle_Galaxy_4565.jpeg
+image action load name N4565 filename "images/Needle_Galaxy_4565.jpg" coordinate_system dome alpha 1 scale 50 altitude 70 azimuth 170
+
 script action pause
 image name virgo action drop
 image name M87 action drop
@@ -225,6 +228,7 @@ image name M91 action drop
 image name M100 action drop
 image name M99 action drop
 image name M98 action drop
+image name N4565 action drop
 
 select constellation Leo
 flag constellation_drawing on
@@ -330,7 +334,7 @@ flag cardinal_points on
 ########### Morning planets ###########################
 
 flag planet_names on
-timerate rate 1900   # half hour per second
+timerate rate 1700   # half hour per second
 wait duration 5
 
 flag ecliptic_line on
@@ -345,12 +349,12 @@ flag constellation_drawing on
 flag constellation_names on
 wait duration 5
 
-timerate rate 600
+timerate rate 400
 wait duration 8
 
 # Now turn the atmosphere on, so the dome will gradually lighten
 flag atmosphere on
-wait duration 10
+wait duration 20
 
 flag constellation_drawing off
 flag constellation_names off
