@@ -1,0 +1,20 @@
+Compiling nightshade-11.12.1 on Debian Testing:
+
+apt-get install libboost-system-dev libsdl-pango1 libsdl-pango-dev libboost-iostreams-dev libboost-regex-dev libboost-filesystem-dev libboost-date-time-dev libgraphicsmagick++1-dev libsdl1.2-dev
+(You may need other libraries too; this is the what I needed on top of
+what I already had.)
+
+On sid, in addition I had to do:
+ln -s libboost_system.so.1.49.0 /usr/lib/libboost_system.so
+ln -s /usr/lib/i386-linux-gnu/libboost_filesystem.so.1.55.0 /usr/lib/libboost_filesystem.so
+ln -s /usr/lib/i386-linux-gnu/libboost_regex.so.1.54.0 /usr/lib/libboost_regex.so
+Curiously, I didn't need this on stretch.
+
+Download fastdb from tarball, from http://www.garret.ru/fastdb.html
+Build it: ./configure && make && sudo make install
+
+Build nightshade-11.12.1: ./configure && make && sudo make install
+
+By default, this will install to /usr/local. So you may need
+LD_LIBRARY_PATH=/usr/local/lib
+to run it.
