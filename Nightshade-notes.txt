@@ -164,9 +164,12 @@ select nebula "M27"
 select nebula "Ring Nebula"
 select nebula "M42/M43"
 
-Why the Ring is referred to only by name but the Dumbbell only by number
-is a mystery for the ages. And maybe it'll all be different in
+Why the Ring is referred to only by name but the Dumbbell and the Pleiades
+only by number is a mystery for the ages. And maybe it'll all be different in
 Nightshade-NG.
+
+How do you find out? I think it's using the list in src/translations.h
+(search for "Nebulae"). Which is in a completely random order.
 
 =========== RUNNING SCRIPTS FROM A LOCAL FOLDER ===========
 
