@@ -99,11 +99,6 @@ script action pause
 deselect
 image name doublecl action drop
 
-# Turn the pointer back on since we're returning control to the operator
-# (maybe not necessary?)
-select pointer on
-flag cardinal_points on
-
 ########## Jupiter ###############################
 
 # Io:            Sun Apr 03 2016 08:11:33 GMT-0600 (MDT)
@@ -152,3 +147,9 @@ wait duration 10
 
 # Date back to tonight
 date local 2016-03-31T20:00:00
+
+# Turn the pointer back on since we're returning control to the operator
+# (maybe not necessary?)
+select pointer on
+flag cardinal_points on
+
