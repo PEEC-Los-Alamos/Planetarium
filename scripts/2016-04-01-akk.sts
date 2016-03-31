@@ -44,6 +44,32 @@ meteors zhr 1500
 # wait duration 60
 # Leave meteors on, to continue throughout the show
 
+########## Zodiacal light ###############################
+image action load name zodi filename "images//zodiacal-light.png" coordinate_system dome alpha 1 scale 64 altitude 36 azimuth 272 rotation -3 alpha 1
+script action pause
+
+# Sadly, nightshade ignores duration argument, so you can't drop or change
+# alpha gradually. We'll have to do it by hand:
+image name zodi alpha .9
+wait duration .8
+image name zodi alpha .8
+wait duration .8
+image name zodi alpha .7
+wait duration .8
+image name zodi alpha .6
+wait duration .8
+image name zodi alpha .5
+wait duration .8
+image name zodi alpha .4
+wait duration .8
+image name zodi alpha .3
+wait duration .8
+image name zodi alpha .2
+wait duration .8
+image name zodi alpha .1
+wait duration .8
+image name zodi action drop
+
 ########## Orion nebula ###############################
 select constellation Ori
 flag constellation_drawing on
@@ -216,11 +242,6 @@ script action pause
 deselect
 image name doublecl action drop
 
-# Turn the pointer back on since we're returning control to the operator
-# (maybe not necessary?)
-select pointer on
-flag cardinal_points on
-
 ########## Jupiter ###############################
 
 # Io:            Sun Apr 03 2016 08:11:33 GMT-0600 (MDT)
@@ -266,6 +287,11 @@ timerate rate 1
 flag track_object off
 zoom auto initial duration 10
 wait duration 10
+
+# Turn the pointer back on since we're returning control to the operator
+# (maybe not necessary?)
+select pointer on
+flag cardinal_points on
 
 ########### Morning/future planets ###################
 
@@ -314,6 +340,7 @@ image action load name orbits filename "images/oppositions/mars_oppositions.jpg"
 script action pause
 image name orbits action drop
 
-image action load name orbits filename "images/oppositions/mars-sizes.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 235
+image action load name orbits filename "images/oppositions/mars-sizes.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 235al na'ir
+
 script action pause
 image name orbits action drop
