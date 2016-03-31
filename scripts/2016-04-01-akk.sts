@@ -22,15 +22,27 @@ set zoom_offset -0.5
 set milky_way_intensity 1
 
 timerate rate 1
-# script action pause
-
-# Set the date to tonight.
-date local 2016-04-01T20:00:00
 
 flag ecliptic_line off
 flag equator_line off
 zoom auto initial duration 4
 wait duration 4
+
+# Set the date to tonight.
+date local 2016-04-01T20:00:00
+
+########## Lyrid Meteor Shower April 22 ###############
+# Don't bother to change the time and show Lyra --
+# stratoscript can't define meteor shower radiants anyway.
+# Supposedly in NG they will add ra and dec arguments.
+
+# There's really not much to say about the Lyrids, especially since
+# we're just a day after the full moon.
+
+# Lyrid ZHR is only 15, but multiply it by 100
+meteors zhr 1500
+# wait duration 60
+# Leave meteors on, to continue throughout the show
 
 ########## Orion nebula ###############################
 select constellation Ori
@@ -42,12 +54,12 @@ select nebula M42/M43
 
 # Rawastrodata on Wikimedia Commons
 # https://commons.wikimedia.org/wiki/File:The_Orion_Nebula_M42.jpg
-image action load name m42 filename "images//The_Orion_Nebula_M42.jpg" coordinate_system dome alpha 1 scale 50 altitude 25 azimuth 225
+image action load name m42 filename "images//The_Orion_Nebula_M42.jpg" coordinate_system dome alpha 1 scale 50 altitude 25 azimuth 250
 script action pause
 
 # Rogelio Bernal Andreo on Wikimedia Commons
 # https://en.wikipedia.org/wiki/Orion's_Belt#/media/File:Orion_Head_to_Toe.jpg
-image action load name orion filename "images//Orion_Head_to_Toe.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 140 rotation 30
+image action load name orion filename "images//Orion_Head_to_Toe.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 160 rotation 30
 script action pause
 
 image name orion action drop
@@ -74,6 +86,8 @@ set milky_way_intensity 4
 timerate rate 1000
 wait duration 6
 
+sky_culture action load path asterisms
+
 timerate rate 1
 flag nebulae on
 flag nebula_names on
@@ -87,18 +101,29 @@ flag nebula_names off
 set max_mag_nebula_name 9
 
 # How to find Virgo:
-select constellation UMa
+
+# First, find the Big Dipper and pointer stars:
+select constellation BDi
+script action pause
+select constellation PtS
+script action pause
+
+select constellation Arc
 select constellation Boo
-select hp 32349
+select hp 69673
 flag star_names on
 script action pause
+
+select constellation Spi
+select hp 65474
+script action pause
+
 flag star_names off
-
-# Virgo galaxies:
-
 flag constellation_drawing off
 flag constellation_names off
 deselect
+
+# Virgo galaxies:
 
 # Show the Virgo cluster
 # ESO
@@ -155,7 +180,7 @@ script action pause
 image name leo_trio action drop
 deselect
 
-select constellation Uma
+select constellation BDi
 flag constellation_drawing on
 script action pause
 flag constellation_drawing off
@@ -174,12 +199,7 @@ set milky_way_intensity 2
 # Pleiades
 select nebula "M45"
 # NASA, ESA, AURA/Caltech, Palomar Observatory via Wikimedia Commons
-########## Other deep-sky objects ###############################
-
-# Pleiades
-select nebula "M45"
-# NASA, ESA, AURA/Caltech, Palomar Observatory via Wikimedia Commons
-image action load name doublecl filename images/Pleiades_large.jpg alpha 1 coordinate_system dome scale 35 altitude 50 azimuth 180
+image action load name doublecl filename images/Pleiades_large.jpg alpha 1 coordinate_system dome scale 35 altitude 50 azimuth 255
 
 script action pause
 # Talk about: What's the nearest cluster? Pleiades? no. Hyades? no. Big Dipper!
@@ -190,7 +210,7 @@ image name pleiades action drop
 # https://commons.wikimedia.org/wiki/Category:Double_Cluster#/media/File:The_Double_Cluster.jpg
 
 select nebula "Chi & h Per"
-image action load name doublecl filename images/The_Double_Cluster.jpg alpha 1 coordinate_system dome scale 35 altitude 60 azimuth 180
+image action load name doublecl filename images/The_Double_Cluster.jpg alpha 1 coordinate_system dome scale 35 altitude 50 azimuth 270
 script action pause
 
 deselect
@@ -277,20 +297,23 @@ deselect
 # Mars opposition: May 22  dist: 47 million miles
 # conjunction, July 2017: 245 million miles
 
-image action load name orbits filename "images/oppositions/orbits-2016-04-01.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 180
+flag planet_names on
+script action pause
+
+image action load name orbits filename "images/oppositions/orbits-2016-04-01.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 235
 script action pause
 image name orbits action drop
-image action load name orbits filename "images/oppositions/saturndistances.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 180
+image action load name orbits filename "images/oppositions/saturndistances.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 235
 script action pause
 image name orbits action drop
-image action load name orbits filename "images/oppositions/marsdistances.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 180
+image action load name orbits filename "images/oppositions/marsdistances.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 235
 script action pause
 image name orbits action drop
 
-image action load name orbits filename "images/oppositions/mars_oppositions.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 180
+image action load name orbits filename "images/oppositions/mars_oppositions.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 235
 script action pause
 image name orbits action drop
 
-image action load name orbits filename "images/oppositions/mars-sizes.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 180
+image action load name orbits filename "images/oppositions/mars-sizes.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 235
 script action pause
 image name orbits action drop
