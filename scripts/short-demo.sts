@@ -1,0 +1,154 @@
+# Short 10-minute demo of the planetarium
+clear
+
+# set normal defaults
+flag atmosphere off
+flag landscape off
+flag star_twinkle off
+flag show_tui_datetime on
+flag cardinal_points on
+flag constellation_pick on
+flag ecliptic_line off
+flag object_trails off
+flag planet_names off
+flag nebulae off
+flag nebula_names off
+set max_mag_star_name 1.7
+set max_mag_nebula_name 7
+set auto_move_duration 10
+set sky_culture western
+set star_limiting_mag 7
+set zoom_offset -0.5
+set milky_way_intensity 1
+
+timerate rate 1
+
+flag ecliptic_line off
+flag equator_line off
+zoom auto initial duration 4
+wait duration 4
+
+# Set the date to tonight.
+date local 2016-03-31T20:00:00
+
+########## Lyrid Meteor Shower April 22 ###############
+# Don't bother to change the time and show Lyra --
+# stratoscript can't define meteor shower radiants anyway.
+# Supposedly in NG they will add ra and dec arguments.
+
+# There's really not much to say about the Lyrids, especially since
+# we're just a day after the full moon.
+
+# Lyrid ZHR is only 15, but multiply it by 100
+meteors zhr 1500
+# wait duration 60
+# Leave meteors on, to continue throughout the show
+
+########## Orion nebula ###############################
+select constellation Ori
+flag constellation_drawing on
+script action pause
+
+flag constellation_drawing off
+select nebula M42/M43
+
+# Rawastrodata on Wikimedia Commons
+# https://commons.wikimedia.org/wiki/File:The_Orion_Nebula_M42.jpg
+image action load name m42 filename "images//The_Orion_Nebula_M42.jpg" coordinate_system dome alpha 1 scale 50 altitude 25 azimuth 250
+script action pause
+
+# Rogelio Bernal Andreo on Wikimedia Commons
+# https://en.wikipedia.org/wiki/Orion's_Belt#/media/File:Orion_Head_to_Toe.jpg
+image action load name orion filename "images//Orion_Head_to_Toe.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 160 rotation 30
+script action pause
+
+image name orion action drop
+image name m42 action drop
+
+# Don't forget Sirius
+select constellation Ori
+select constellation CMa
+flag constellation_drawing on
+select hp 32349
+flag star_names on
+script action pause
+
+flag star_names off
+flag constellation_drawing off
+deselect
+
+########## Other deep-sky objects ###############################
+
+# Pleiades
+select nebula "M45"
+# NASA, ESA, AURA/Caltech, Palomar Observatory via Wikimedia Commons
+image action load name doublecl filename images/Pleiades_large.jpg alpha 1 coordinate_system dome scale 35 altitude 50 azimuth 255
+
+script action pause
+# Talk about: What's the nearest cluster? Pleiades? no. Hyades? no. Big Dipper!
+deselect
+image name pleiades action drop
+
+# The Double Cluster from Rawastrodata via Wikimedia Commons:
+# https://commons.wikimedia.org/wiki/Category:Double_Cluster#/media/File:The_Double_Cluster.jpg
+
+select nebula "Chi & h Per"
+image action load name doublecl filename images/The_Double_Cluster.jpg alpha 1 coordinate_system dome scale 35 altitude 50 azimuth 270
+script action pause
+
+deselect
+image name doublecl action drop
+
+# Turn the pointer back on since we're returning control to the operator
+# (maybe not necessary?)
+select pointer on
+flag cardinal_points on
+
+########## Jupiter ###############################
+
+# Io:            Sun Apr 03 2016 08:11:33 GMT-0600 (MDT)
+# Io and Europa: Tue Apr 05 2016 02:51:33 GMT-0600 (MDT)
+# Io, with Ganymede following: Wed Apr 06 2016 21:41:33 GMT-0600 (MDT)
+# Io, Europa, and Io's shadow: Fri Apr 22 2016 20:11:33 GMT-0600 (MDT)
+
+# Show Jupiter's moons and a Galilean moon/shadow transit.
+set zoom_offset -0.3
+
+flag cardinal_points off
+flag planet_names on
+select planet Jupiter
+wait duration 4
+select planet Jupiter pointer off
+flag track_object on
+wait duration 5
+
+# Zoom in to show the dance of Jupiter's moons
+flag planet_names off
+zoom fov .10 duration 10
+wait duration 10
+# This isn't actually a wait -- it just gets us to the end
+# of the 5-second zoom we just did.
+flag planet_names on
+# date local 2016-03-21T09:30:00
+date local 2016-04-22T12:00:00
+timerate rate 2500
+# Wait duration 12 at this point will skip forward 8:18
+
+wait duration 11
+flag planet_names off
+script action pause
+# this ends up at 4/23 3:18
+
+wait duration 8
+# Point out Io and Europa's shadows
+
+script action pause
+
+timerate rate 1
+
+flag track_object off
+zoom auto initial duration 10
+wait duration 10
+
+# Date back to tonight
+date local 2016-03-31T20:00:00
