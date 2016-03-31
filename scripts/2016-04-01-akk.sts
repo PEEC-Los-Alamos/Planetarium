@@ -1,0 +1,296 @@
+# script for April 1 planetarium show -- Akkana Peck
+clear
+
+# set normal defaults
+flag atmosphere off
+flag landscape off
+flag star_twinkle off
+flag show_tui_datetime on
+flag cardinal_points on
+flag constellation_pick on
+flag ecliptic_line off
+flag object_trails off
+flag planet_names off
+flag nebulae off
+flag nebula_names off
+set max_mag_star_name 1.7
+set max_mag_nebula_name 7
+set auto_move_duration 10
+set sky_culture western
+set star_limiting_mag 7
+set zoom_offset -0.5
+set milky_way_intensity 1
+
+timerate rate 1
+# script action pause
+
+# Set the date to tonight.
+date local 2016-04-01T20:00:00
+
+flag ecliptic_line off
+flag equator_line off
+zoom auto initial duration 4
+wait duration 4
+
+########## Orion nebula ###############################
+select constellation Ori
+flag constellation_drawing on
+script action pause
+
+flag constellation_drawing off
+select nebula M42/M43
+
+# Rawastrodata on Wikimedia Commons
+# https://commons.wikimedia.org/wiki/File:The_Orion_Nebula_M42.jpg
+image action load name m42 filename "images//The_Orion_Nebula_M42.jpg" coordinate_system dome alpha 1 scale 50 altitude 25 azimuth 225
+script action pause
+
+# Rogelio Bernal Andreo on Wikimedia Commons
+# https://en.wikipedia.org/wiki/Orion's_Belt#/media/File:Orion_Head_to_Toe.jpg
+image action load name orion filename "images//Orion_Head_to_Toe.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 140 rotation 30
+script action pause
+
+image name orion action drop
+image name m42 action drop
+
+# Don't forget Sirius
+select constellation Ori
+select constellation CMa
+flag constellation_drawing on
+select hp 32349
+flag star_names on
+script action pause
+
+flag star_names off
+flag constellation_drawing off
+deselect
+
+########## Spring galaxies ###############################
+# Show how galaxies are clustered away from the Milky Way
+
+# Make the Milky Way especially obvious:
+set milky_way_intensity 4
+
+timerate rate 1000
+wait duration 6
+
+timerate rate 1
+flag nebulae on
+flag nebula_names on
+set max_mag_nebula_name 11
+flag constellation_drawing on
+flag constellation_names on
+select constellation Vir
+script action pause
+
+flag nebula_names off
+set max_mag_nebula_name 9
+
+# How to find Virgo:
+select constellation UMa
+select constellation Boo
+select hp 32349
+flag star_names on
+script action pause
+flag star_names off
+
+# Virgo galaxies:
+
+flag constellation_drawing off
+flag constellation_names off
+deselect
+
+# Show the Virgo cluster
+# ESO
+# https://en.wikipedia.org/wiki/File:ESO-M87.jpg
+image action load name virgo filename "images//ESO-M87.jpg" coordinate_system dome alpha 1 scale 50 altitude 35 azimuth 110
+script action pause
+
+# Joseph D. Schulman on Wikimedia Commons:
+# https://en.wikipedia.org/wiki/Messier_91#/media/File:Messier_91_%28M91%29.jpg
+image action load name M91 filename "images/Messier_91.jpg" coordinate_system dome alpha 1 scale 50 altitude 40 azimuth 240
+
+# Adam Block/Mount Lemmon SkyCenter/University of Arizona
+# https://commons.wikimedia.org/wiki/File:M99s.jpg
+image action load name M99 filename "images/M99s.jpg" coordinate_system dome alpha 1 scale 50 altitude 35 azimuth 85
+
+# ESO by way of Wikimedia Commons
+# https://en.wikipedia.org/wiki/Messier_100#/media/File:Messier_100_%E2%80%94_Grand_Design_Splendour.jpg
+image action load name M100 filename "images/Messier_100_Grand_Design_Splendour.jpg" coordinate_system dome alpha 1 scale 50 altitude 60 azimuth 300
+
+# Astrofotografía via Wikimedia Commons
+# https://commons.wikimedia.org/wiki/File:M-98.jpg
+image action load name M98 filename "images/M-98.jpg" coordinate_system dome alpha 1 scale 50 altitude 50 azimuth 50 rotation 65
+
+# HST via Wikimedia Commons
+# https://upload.wikimedia.org/wikipedia/commons/0/07/Messier_87_Hubble_WikiSky.jpg
+image action load name M87 filename "images/Messier_87_Hubble_WikiSky.jpg" coordinate_system dome alpha 1 scale 50 altitude 30 azimuth 170
+
+# Ken Crawford via Wikimedia Commons
+# https://commons.wikimedia.org/wiki/File:Needle_Galaxy_4565.jpeg
+image action load name N4565 filename "images/Needle_Galaxy_4565.jpg" coordinate_system dome alpha 1 scale 50 altitude 70 azimuth 170
+
+script action pause
+image name virgo action drop
+image name M87 action drop
+image name M91 action drop
+image name M100 action drop
+image name M99 action drop
+image name M98 action drop
+image name N4565 action drop
+
+select constellation Leo
+flag constellation_drawing on
+script action pause
+
+flag constellation_drawing off
+select nebula M65
+wait duration 4
+
+# Hewholooks on Wikimedia Commons
+# https://commons.wikimedia.org/wiki/File:LeoTripletHunterWilson.jpg
+image action load name leo_trio filename "images/LeoTripletHunterWilson.jpg" coordinate_system dome alpha 1 scale 50 altitude 40 azimuth 170
+script action pause
+
+image name leo_trio action drop
+deselect
+
+select constellation Uma
+flag constellation_drawing on
+script action pause
+flag constellation_drawing off
+
+select nebula M81
+wait duration 4
+image action load name m81-m82 filename "images/m81m82_zmaritsch.jpg" coordinate_system dome alpha 1 scale 50 altitude 60 azimuth 180
+script action pause
+
+image name m81-m82 action drop
+deselect
+set milky_way_intensity 2
+
+########## Other deep-sky objects ###############################
+
+# Pleiades
+select nebula "M45"
+# NASA, ESA, AURA/Caltech, Palomar Observatory via Wikimedia Commons
+########## Other deep-sky objects ###############################
+
+# Pleiades
+select nebula "M45"
+# NASA, ESA, AURA/Caltech, Palomar Observatory via Wikimedia Commons
+image action load name doublecl filename images/Pleiades_large.jpg alpha 1 coordinate_system dome scale 35 altitude 50 azimuth 180
+
+script action pause
+# Talk about: What's the nearest cluster? Pleiades? no. Hyades? no. Big Dipper!
+deselect
+image name pleiades action drop
+
+# The Double Cluster from Rawastrodata via Wikimedia Commons:
+# https://commons.wikimedia.org/wiki/Category:Double_Cluster#/media/File:The_Double_Cluster.jpg
+
+select nebula "Chi & h Per"
+image action load name doublecl filename images/The_Double_Cluster.jpg alpha 1 coordinate_system dome scale 35 altitude 60 azimuth 180
+script action pause
+
+deselect
+image name doublecl action drop
+
+# Turn the pointer back on since we're returning control to the operator
+# (maybe not necessary?)
+select pointer on
+flag cardinal_points on
+
+########## Jupiter ###############################
+
+# Io:            Sun Apr 03 2016 08:11:33 GMT-0600 (MDT)
+# Io and Europa: Tue Apr 05 2016 02:51:33 GMT-0600 (MDT)
+# Io, with Ganymede following: Wed Apr 06 2016 21:41:33 GMT-0600 (MDT)
+# Io, Europa, and Io's shadow: Fri Apr 22 2016 20:11:33 GMT-0600 (MDT)
+
+# Show Jupiter's moons and a Galilean moon/shadow transit.
+set zoom_offset -0.3
+
+flag cardinal_points off
+flag planet_names on
+select planet Jupiter
+wait duration 4
+select planet Jupiter pointer off
+flag track_object on
+wait duration 5
+
+# Zoom in to show the dance of Jupiter's moons
+flag planet_names off
+zoom fov .10 duration 10
+wait duration 10
+# This isn't actually a wait -- it just gets us to the end
+# of the 5-second zoom we just did.
+flag planet_names on
+# date local 2016-03-21T09:30:00
+date local 2016-04-22T12:00:00
+timerate rate 2500
+# Wait duration 12 at this point will skip forward 8:18
+
+wait duration 11
+flag planet_names off
+script action pause
+# this ends up at 4/23 3:18
+
+wait duration 8
+# Point out Io and Europa's shadows
+
+script action pause
+
+timerate rate 1
+
+flag track_object off
+zoom auto initial duration 10
+wait duration 10
+
+########### Morning/future planets ###################
+
+date local 2016-04-02T04:00:00
+flag planet_names on
+select constellation Sco
+flag constellation_drawing on
+select hp 80763
+# set max_mag_star_name 3
+flag star_names on
+# Antares is mag 1.5 if you click on it, but nightshade won't show
+# its name unless you set the mag much dimmer than that:
+set max_mag_star_name 1.3
+script action pause
+flag constellation_drawing off
+deselect
+
+########### Upcoming Mars and Saturn oppositions ##################
+
+# http://www.nakedeyeplanets.com/mars-oppositions.htm
+# http://astrobob.areavoices.com/astrobob/images/Mars_Oppositions_2003_18_final.jpg
+# which is from http://astrobob.areavoices.com/2010/01/27/mars-at-the-top-of-its-game-tonight/
+# http://www.mattastro.com/mars/images/mars_oppositions.jpg
+# which is from http://astronomy-calendar.silk.co/page/Mars%20reaches%20opposition%20for%202014,%20shining%20at%20magnitude%20-1.5. (doesn't work for me)
+# Saturn opposition: June 3,
+# Saturn distances maybe: 795 million miles vs 1,074 million (from TNP)
+# from xephem: 8.379966e+08 mi at opposition = 838 million miles
+# 9.3020876e+08 at superior conjunction      = 930 million miles
+# Mars opposition: May 22  dist: 47 million miles
+# conjunction, July 2017: 245 million miles
+
+image action load name orbits filename "images/oppositions/orbits-2016-04-01.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 180
+script action pause
+image name orbits action drop
+image action load name orbits filename "images/oppositions/saturndistances.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 180
+script action pause
+image name orbits action drop
+image action load name orbits filename "images/oppositions/marsdistances.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 180
+script action pause
+image name orbits action drop
+
+image action load name orbits filename "images/oppositions/mars_oppositions.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 180
+script action pause
+image name orbits action drop
+
+image action load name orbits filename "images/oppositions/mars-sizes.jpg" coordinate_system dome alpha 1 scale 75 altitude 48 azimuth 180
+script action pause
+image name orbits action drop
