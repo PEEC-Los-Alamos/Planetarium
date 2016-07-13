@@ -252,3 +252,22 @@ to start a script midway through?
 5) can we set magnitude limits for the labelling of solar system objects so
 that the distant dwarf planets don't appear?
 6) how about subroutines or control structures (do-loops) within scripts?
+
+============ Nightshade scripting wishlist =============
+
+- Maddening/unpredictable moves and zooms
+- How to look down on the current body -- doc says it's possible
+  but doesn't say how.
+- Subroutines
+- Time control: start from / run to a specific time, instead of having
+  to multiply out the current timerate to get seconds
+- Consistency (or at least documentation) on how to show one constellation,
+  vs. several, vs. all, with or without bodies or nebulae being shown.
+  ("Select" has very little documentation.)
+- A way to turn off Haumea and Makemake.
+- Meteor showers, with radiant (comets would be nice too)
+- Consistent nebula selection (see above)
+- Better control over running scripts, e.g. start at a specific point,
+  go back and try something again.
+- Longitude of GRS
+- Labels for other objects, like the LMC.
