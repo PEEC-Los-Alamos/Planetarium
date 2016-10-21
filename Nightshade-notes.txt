@@ -42,7 +42,7 @@ TO RUN A SCRIPT:
     uparrow a few times to get to scripts
     rightarrow
     downarrow to choose a script
-    m 
+    m
 
 Key bindings while running a script:
     6 To pause/unpause a script
@@ -141,7 +141,7 @@ Looking back at earth, the moon, etc.
 LOOKING DOWN ON A PLANET:
 The user guide says:
 
-    "At very high altitudes you can look down on your home planet" 
+    "At very high altitudes you can look down on your home planet"
 
 but it doesn't give any hints how to do that, and I (Akkana) can't
 seem to get this to work no matter what I try. If I set the moon to be
@@ -215,7 +215,7 @@ numbers in the Lyr line in constellationship.fab:
 
 Lyr 5  91262 91971 91971 92420 92420 93194 93194 92791 92791 91971
 
-The first number is the number of line segments; then each pair of 
+The first number is the number of line segments; then each pair of
 numbers represents one line segment.
 
 If you click on a star in Nightshade it will give you the Hipparchos
@@ -229,7 +229,7 @@ starts, and find out that's 91971. Then I click on epsilon, and it's
 enough for the purpose of constellation lines.)
 
 So that means I want a new line going from 91971 to 91926.
-So I edit /data/sky_cultures/western/constellationship.fab and 
+So I edit /data/sky_cultures/western/constellationship.fab and
 change that Lyr line to:
 
 Lyr 6  91262 91971 91971 92420 92420 93194 93194 92791 92791 91971 91971 91926
@@ -251,23 +251,63 @@ to start a script midway through?
 4) can we get the Large Magellanic Cloud labelled?
 5) can we set magnitude limits for the labelling of solar system objects so
 that the distant dwarf planets don't appear?
-6) how about subroutines or control structures (do-loops) within scripts?
+6) how about subroutines or control structures (loops) within scripts?
 
-============ Nightshade scripting wishlist =============
+============ wishlist =============
 
-- Maddening/unpredictable moves and zooms
-- How to look down on the current body -- doc says it's possible
-  but doesn't say how.
-- Subroutines
-- Time control: start from / run to a specific time, instead of having
-  to multiply out the current timerate to get seconds
+Nightshade wishlist:
+
+- Subroutines in scripts (if/then and loops would be great too)
+- More predictable moves and zooms.
+  E.g. a selected object should always stay centered during a zoom
+  regardless of how long the zoom takes, not pan to unpredictable places
+  and make the audience barf. :-)
+- Time control in scripts: start from / run to a specific time, instead
+  of needing to convert start time - end time to seconds, divide by
+  the current timerate and re-do that every time a delay is changed.
 - Consistency (or at least documentation) on how to show one constellation,
-  vs. several, vs. all, with or without bodies or nebulae being shown.
-  ("Select" has very little documentation.)
-- A way to turn off Haumea and Makemake.
+  vs. several, vs. all, with or without bodies or nebulae being shown,
+  both in scripts and live. ("Select" does lots of different things,
+  and it's easy to do something like deselect a planet and have all the
+  constellation lines suddenly appear.)
+- In live UI (console): shortcuts to show common groups of constellations,
+  e.g. zodiacal constellations or galactic center constellations.
+- A way to highlight certain constellations, orbits etc. by color,
+  e.g. show all constellations but make the zodiacal ones red
+  instead of yellow -- both live and in scripts.
+- A way to turn off objects like Haumea and Makemake
+- Turn on planet names by groups, e.g. show only naked-eye planets,
+  turn on outer planets, include dwarf planets like Makemake.
+  (Pluto should be grouped with outer planets like Neptune,
+  not only with Haumea and Makemake.)
+- A way to look down on the a body -- the doc says it's possible
+  but doesn't say how. Also, a way to be above the solar system
+  looking down on planetary orbits. (Looks like this is already in NG.)
 - Meteor showers, with radiant (comets would be nice too)
-- Consistent nebula selection (see above)
+- Consistent nebula selection: have ALL M numbers (e.g. M42, M57)
+  and also some aliases for names like Ring nebula.
+- ALL Messier objects available as individual object, including M43
+  and M55, and other important objects like the LMC.
 - Better control over running scripts, e.g. start at a specific point,
-  go back and try something again.
-- Longitude of GRS
-- Labels for other objects, like the LMC.
+  step back and try something again.
+- More stars: at least as many as in old Nightshade, including double
+  stars like Sirius B, Epsilon Lyrae double-double.
+- Longitude of GRS: the home version of Nightshade (non-NG) has the
+  GRS at a different place from the planetarium version. I haven't
+  verified which one is right, but we need a way to make sure they're
+  the same so we can preview shows while writing them, and it would
+  be good to have a way to update the longitude since it changes.
+- A way of running "universal console" at home, so we can practice with
+  the interface at home without needing to schedule planetarium time
+  and drive to the planetarium.
+- A version that we can compile/run on our home computers!
+  (All three platforms.) On Linux, NightshadeNG currently doesn't
+  compile (syntax errors); on Mac, haven't gotten past the dependencies
+  yet. I don't think anyone here has tried on Windows.
+
+Wishlist for playing media:
+- a progress bar with an indication of time/length
+- pause, fast-forward and rewind
+- show lengths of videos in the menu: currently the only way to find
+  out is to play all the way to the end and time with a stopwatch.
+
