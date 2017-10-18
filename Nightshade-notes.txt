@@ -9,6 +9,9 @@ TO PREPARE A USB STICK FOR THE PLANETARIUM:
 Scripts have to be in a folder named "scripts" on the USB stick
 for nightshade to see them.
 
+If you have images, put them in a subdirectory "images" inside the
+"scripts" folder. Likewise sky cultures.
+
 The web control panel has run, stop, pause buttons, which is handy
 because you can see whether your script is running or paused (which
 you can't tell when you're testing a script at home);
@@ -148,6 +151,22 @@ seem to get this to work no matter what I try. If I set the moon to be
 the home planet, then selecting the moon doesn't work and seems to
 confuse nightshade's idea of where it is, to the point where I usually
 have to restart to get things right again.
+
+Testing external_viewer:
+If you want to play videos at home, you can test it by creating an
+executable script in Nightshade's installed data directory, e.g.
+/usr/local/share/nightshade/data/script_external_viewer,
+containing something like this:
+
+#!/bin/sh
+if [ "$1" = "start" ]; then mplayer -fs -osdlevel 0 $2 ; fi
+if [ "$1" = "stop" ]; then killall mplayer ; fi
+
+See this thread:
+https://answers.launchpad.net/nightshade/+question/101610
+
+That will play fullscreen, but you won't be able to test the size
+or position of your videos.
 
 =========== SELECTING NEBULAE ===========
 
