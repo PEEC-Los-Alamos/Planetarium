@@ -30,6 +30,7 @@ timerate rate 1
 flag star_twinkle on
 flag planet_names on
 wait duration 5
+flag planet_names off
 
 
 ###################################################
@@ -65,8 +66,9 @@ flag star_names on
 script action pause
 
 # Turn off the Summer Triangle then bring back the Northern Cross.
-deselect
 flag constellation_drawing off
+deselect
+
 select constellation NCr
 flag constellation_drawing on
 
@@ -89,7 +91,6 @@ image action load name ring filename images/Hubble_ring_m57.jpg alpha 1 coordina
 
 # PAUSE to talk:
 script action pause
-# deselect
 
 select constellation Aql
 flag constellation_drawing on
@@ -136,8 +137,8 @@ wait duration 2
 select constellation And
 
 script action pause
-deselect
 flag constellation_drawing off
+deselect
 
 # Hercules/Corona Borealis Great Wall
 select constellation Her
@@ -146,9 +147,9 @@ select constellation CrB
 flag constellation_drawing on
 script action pause
 
-deselect
 flag constellation_drawing off
 flag constellation_names off
+deselect
 
 # Deneb
 select hp 102098
@@ -166,9 +167,9 @@ image name albireo action drop
 
 # P Cygni
 select hp 100044
-script action pause
+wait duration 3
 
-image action load name pcyg filename images/P_Cygni_Profile.png alpha 1 coordinate_system dome scale 50 altitude 50 azimuth 180
+image action load name pcyg filename images/P_Cygni_Profile.png alpha 1 coordinate_system dome scale 60 altitude 40 azimuth 180
 script action pause
 image name pcyg action drop
 deselect
@@ -177,13 +178,13 @@ deselect
 # No HIP designation
 
 # Pick one of the following two artist's renditions:
-image action load name sscyg filename images/image_1102-ss-cygni-binary-star.jpg alpha 1 coordinate_system dome scale 50 altitude 50 azimuth 180
-# image action load name sscyg filename images/SS-Cygni-dwarf-nova-diagram-NASA_S.jpg alpha 1 coordinate_system dome scale 50 altitude 50 azimuth 180
+image action load name sscyg filename images/image_1102-ss-cygni-binary-star.jpg alpha 1 coordinate_system dome scale 60 altitude 50 azimuth 180
+# image action load name sscyg filename images/SS-Cygni-dwarf-nova-diagram-NASA_S.jpg alpha 1 coordinate_system dome scale 60 altitude 50 azimuth 180
 script action pause
 image name sscyg action drop
 
 # Show the light curve, while telling the AAVSO story:
-image action load name sscyg filename images/sscyg.jpg alpha 1 coordinate_system dome scale 50 altitude 50 azimuth 180
+image action load name sscyg filename images/sscyg.jpg alpha 1 coordinate_system dome scale 60 altitude 40 azimuth 180
 script action pause
 image name sscyg action drop
 
@@ -192,19 +193,19 @@ image name sscyg action drop
 
 # Cygnus X
 # By NASA - http://www.nasa.gov/mission_pages/spitzer/multimedia/pia15253.html, Public Domain, https://commons.wikimedia.org/w/index.php?curid=19475200
-image action load name cygX filename images/1024px-Cygnus_X.jpg alpha 1 coordinate_system dome scale 50 altitude 50 azimuth 180
+image action load name cygX filename images/1024px-Cygnus_X.jpg alpha 1 coordinate_system dome scale 60 altitude 40 azimuth 180
 script action pause
 image name cygX action drop
 
 # Cygnus X-1 is just to the left of Eta Cyg
 # Image by NASA/Marshall Space Flight Center - Article: NASA Marshall scientists capture historic, first focused high-energy X-ray images of astronomical objects., Public Domain, https://commons.wikimedia.org/w/index.php?curid=3800884
 select hp 98110
-image action load name cygX filename images/Cygnus_x1_xray.jpg alpha 1 coordinate_system dome scale 50 altitude 50 azimuth 180
+image action load name cygX filename images/Cygnus_x1_xray.jpg alpha 1 coordinate_system dome scale 60 altitude 50 azimuth 180
 script action pause
 image name cygX action drop
 
 # By ESA - European Homepage for the NASA/ESA Hubble Space Telescope: [1], Copyrighted free use, https://commons.wikimedia.org/w/index.php?curid=6707568
-image action load name cygX filename images/1024px-Cygnus_X-1.png alpha 1 coordinate_system dome scale 50 altitude 50 azimuth 180
+image action load name cygX filename images/1024px-Cygnus_X-1.png alpha 1 coordinate_system dome scale 60 altitude 50 azimuth 180
 script action pause
 image name cygX action drop
 deselect
@@ -212,7 +213,7 @@ deselect
 # Cygnus A, radio galaxy
 # 19h 59m 28.3566    +40° 44\u2032 02.096
 # By The original uploader was Mhardcastle at English Wikipedia - Made by the uploader from publicly available VLA data., CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=4637786
-image action load name cygA filename images/3c405.jpg alpha 1 coordinate_system dome scale 50 altitude 50 azimuth 180
+image action load name cygA filename images/3c405.jpg alpha 1 coordinate_system dome scale 60 altitude 50 azimuth 180
 script action pause
 image name cygA action drop
 deselect
@@ -220,38 +221,43 @@ deselect
 # M39 open cluster
 select nebula M39
 wait duration 2
-image action load name m39 filename images/m39_noao.jpg alpha 1 coordinate_system dome scale 50 altitude 50 azimuth 180
+image action load name m39 filename images/m39_noao.jpg alpha 1 coordinate_system dome scale 60 altitude 50 azimuth 180
 script action pause
 image name m39 action drop
 deselect
 
 # Cygnus OB-2, a young maybe-globular cluster
 # By Nick Wright - Transferred from en.wikipedia to Commons by Hekerui., CC BY 3.0, https://commons.wikimedia.org/w/index.php?curid=22162669
-image action load name ob2 filename images/800px-CygOB2_med.jpg alpha 1 coordinate_system dome scale 50 altitude 50 azimuth 180
+image action load name ob2 filename images/800px-CygOB2_med.jpg alpha 1 coordinate_system dome scale 60 altitude 50 azimuth 180
 script action pause
 image name ob2 action drop
 
 # NGC 6826, the Blinking Planetary
 # By Bruce Balick (University of Washington), Jason Alexander (University of Washington), Arsen Hajian (U.S. Naval Observatory), Yervant Terzian (Cornell University), Mario Perinotto (University of Florence, Italy), Patrizio Patriarchi (Arcetri Observatory, Italy) and NASA - http://hubblesite.org/newscenter/archive/releases/1997/38/image/d/, Public Domain, https://commons.wikimedia.org/w/index.php?curid=1577513
-image action load name blinking filename images/800px-NGC_6826HSTFull.jpg alpha 1 coordinate_system dome scale 50 altitude 50 azimuth 180
+image action load name blinking filename images/800px-NGC_6826HSTFull.jpg alpha 1 coordinate_system dome scale 60 altitude 50 azimuth 180
 script action pause
 image name blinking action drop
 
 # North American and Pelican Nebulae
+
+# North American and Pelican Nebulae
 # https://commons.wikimedia.org/wiki/File:NGC7000_North_America_Nebula.jpg
-image action load name northeam filename images/NGC7000_North_America_Nebula.jpg alpha 1 coordinate_system dome scale 50 altitude 30 azimuth 180
+image action load name northamsm filename images/NGC7000_North_America_Nebula.jpg alpha 1 coordinate_system equatorial scale 8 xpos 44.51 ypos 314.8 rotation -5
+script action pause
+
+image action load name northeam filename images/NGC7000_North_America_Nebula.jpg alpha 1 coordinate_system dome scale 60 altitude 30 azimuth 180
 script action pause
 
 # In different wavelengths
-# https://commons.wikimedia.org/wiki/File:North_America_Nebula_Disappears.jpg
-image action load name northeam2 filename images/North_America_Nebula_Disappears.jpg alpha 1 coordinate_system dome scale 50 altitude 60 azimuth 140
-script action pause
 # https://commons.wikimedia.org/wiki/File:North_america_nebula_ngc7000.jpg
-image action load name northeam3 filename images/800px-North_america_nebula_ngc7000.jpg alpha 1 coordinate_system dome scale 50 altitude 60 azimuth 220
+image action load name northeam3 filename images/800px-North_america_nebula_ngc7000.jpg alpha 1 coordinate_system dome scale 50 altitude 50 azimuth 230
+script action pause
+# https://commons.wikimedia.org/wiki/File:North_America_Nebula_Disappears.jpg
+image action load name northeam2 filename images/North_America_Nebula_Disappears.jpg alpha 1 coordinate_system dome scale 65 altitude 50 azimuth 130
 script action pause
 
 # And in close-up:
-image action load name northeam4 filename images/Cygnus-Wall.jpg alpha 1 coordinate_system dome scale 50 altitude 50 azimuth 280
+image action load name northeam4 filename images/Cygnus-Wall.jpg alpha 1 coordinate_system dome scale 80 altitude 40 azimuth 180
 script action pause
 
 image name northeam action drop
@@ -259,22 +265,34 @@ image name northeam2 action drop
 image name northeam3 action drop
 image name northeam4 action drop
 
+# Pelican
+image action load name pelican filename images/PelicanNebula.jpg alpha 1 coordinate_system dome scale 60 altitude 35 azimuth 145
+script action pause
+
+image action load name pelican2 filename images/PelicanNebula1_shahar_f.jpg alpha 1 coordinate_system dome scale 65 altitude 35 azimuth 230
+script action pause
+
+image name pelican action drop
+image name pelican2 action drop
+
+image name northamsm action drop
+
 # Cygnus Rift
-image action load name rift filename images/Cygnus-Wall.jpg alpha 1 coordinate_system dome scale 50 altitude 65 azimuth 180
-image action load name rift2 filename images/Great_Rift_SMALL.jpg alpha 1 coordinate_system dome scale 50 altitude 25 azimuth 180
+image action load name rift filename images/Cygnus-Wall.jpg alpha 1 coordinate_system dome scale 60 altitude 25 azimuth 240
+image action load name rift2 filename images/Great_Rift_SMALL.jpg alpha 1 coordinate_system dome scale 60 altitude 25 azimuth 120
 script action pause
 image name rift action drop
 image name rift2 action drop
 
 # Crescent nebula
 # https://en.wikipedia.org/wiki/Crescent_Nebula#/media/File:CrescentBicolorHunterWilson.jpg
-image action load name crescent filename images/CrescentBicolorHunterWilson.jpg alpha 1 coordinate_system dome scale 50 altitude 50 azimuth 180
+image action load name crescent filename images/CrescentBicolorHunterWilson.jpg alpha 1 coordinate_system dome scale 60 altitude 50 azimuth 180
 script action pause
 image name crescent action drop
 
 # Soap Bubble Nebula
 # By Wikiletman - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=53775009
-image action load name soap filename images/800px-Soap_Bubble_Nebula.jpg alpha 1 coordinate_system dome scale 50 altitude 50 azimuth 180
+image action load name soap filename images/800px-Soap_Bubble_Nebula.jpg alpha 1 coordinate_system dome scale 60 altitude 50 azimuth 180
 script action pause
 image name soap action drop
 
@@ -282,10 +300,9 @@ image name soap action drop
 
 # Fireworks Galaxy (NGC 6946)
 # https://apod.nasa.gov/apod/ap120109.html
-image action load name fireworks filename images/NGC6946-Subaru-GendlerL.jpg alpha 1 coordinate_system dome scale 50 altitude 50 azimuth 180
+image action load name fireworks filename images/NGC6946-Subaru-GendlerL.jpg alpha 1 coordinate_system dome scale 60 altitude 50 azimuth 180
 script action pause
 image name fireworks action drop
-
 
 ############################################
 # The Veil
@@ -294,17 +311,23 @@ image name fireworks action drop
 # https://commons.wikimedia.org/wiki/File:Veil_Nebula_(Heic0712g).jpg
 # See also https://commons.wikimedia.org/wiki/Category:Veil_Nebula
 
-# In coordinate_system equatorial, xpos is declination, ypos is RA, weirdly.
-image action load name veil filename images/Veil_Nebula_Heic0712g1600.jpg alpha 1 coordinate_system equatorial scale 5 xpos 30.75 ypos 311
+image action load name veilsm filename images/Veil_Nebula_Heic0712g1600.jpg alpha 1 coordinate_system equatorial scale 5 xpos 30.75 ypos 311
 script action pause
-image name veil action drop
-image action load name veil filename images/Veil_Nebula_Heic0712g1600.jpg alpha 1 coordinate_system equatorial scale 75 xpos 30.75 ypos 311
+
+image action load name veil filename images/Veil_Nebula_Heic0712g1600.jpg alpha 1 coordinate_system dome scale 45 azimuth 180 altitude 35
+script action pause
+image action load name veile filename images/veil-western.jpg alpha 1 coordinate_system dome scale 80 azimuth 110 altitude 50
+image action load name veilw filename images/veil-eastern.jpg alpha 1 coordinate_system dome scale 80 azimuth 250 altitude 50
 script action pause
 
 external_viewer filename videos/VeilNebula-6vw0VnyfjaA.mp4 coordinate_system dome scale 60 rotation 0 altitude 45 azimuth 0 action play
 wait duration 120
 external_viewer action stop
-
 script action pause
+
+image name veilw action drop
+image name veile action drop
+image name veilsm action drop
 image name veil action drop
 
+flag planet_names on
