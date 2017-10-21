@@ -44,7 +44,8 @@ flag planet_names off
 # Beginning of show
 
 ###################################################
-# The Summer Triangle
+
+sky_culture action load path asterisms
 
 select constellation Cyg
 flag constellation_drawing on
@@ -52,33 +53,40 @@ flag constellation_names on
 script action pause
 deselect
 
-sky_culture action load path asterisms
+# Other nearby constellations:
 
-# Nothern Cross
-select constellation NCr
-flag constellation_drawing on
+# Cepheus, and Delta Cephei
+select constellation Cep
+# Nightshade can't select delta Cephei, go figure.
+# select hp 110991
 script action pause
 
-# Summer Triangle
-select constellation STr
-flag constellation_drawing on
-flag star_names on
+select constellation Peg
+wait duration 2
+select constellation And
+image action load name m31sm filename images/Andromeda_Galaxy_h-alpha.jpg alpha 1 coordinate_system equatorial scale 7 xpos 41.25 ypos 3
+script action pause
+image action load name m31 filename images/Andromeda_Galaxy_h-alpha.jpg alpha 1 coordinate_system dome scale 55 altitude 30 azimuth 95
+script action pause
+image name m31sm action drop
+image name m31 action drop
+
+select constellation Dra
+wait duration 2
+select constellation Vul
 script action pause
 
-# Turn off the Summer Triangle then bring back the Northern Cross.
-flag constellation_drawing off
-deselect
+# Dumbell nebula, from Fryns on Wikimedia Commons:
+# https://commons.wikimedia.org/wiki/File:M27_Zoom.jpg
+image action load name dumbell filename images/1024px-M27_Zoom.jpg alpha 1 coordinate_system dome scale 30 altitude 40 azimuth 240
+script action pause
+image name dumbell action drop
 
-select constellation NCr
-flag constellation_drawing on
-
-# Deneb
-select hp 102098
+select constellation Lac
 script action pause
 
 select constellation Lyr
 flag constellation_drawing on
-select hp 91262
 
 # The Ring nebula.
 # For some reason, selecting the ring nebula causes all the constellations
@@ -91,54 +99,7 @@ image action load name ring filename images/Hubble_ring_m57.jpg alpha 1 coordina
 
 # PAUSE to talk:
 script action pause
-
-select constellation Aql
-flag constellation_drawing on
-select hp 97649
-wait duration 2
-
-# M11 from Rawastrodata via Wikimedia Commons:
-# https://commons.wikimedia.org/wiki/File:The_Wild_Duck_Cluster_M11.jpg
-image action load name m11 filename images/The_Wild_Duck_Cluster_M11.jpg alpha 1 coordinate_system dome scale 25 altitude 25 azimuth 210
-script action pause
-
-# Dumbell nebula, from Fryns on Wikimedia Commons:
-# https://commons.wikimedia.org/wiki/File:M27_Zoom.jpg
-image action load name dumbell filename images/1024px-M27_Zoom.jpg alpha 1 coordinate_system dome scale 30 altitude 63 azimuth 145
-
-script action pause
-
-
-# ... which is really in Vulpecula
-select constellation Vul
-flag constellation_drawing on
-script action pause
-# select constellation Sge
-# flag constellation_drawing on
-# script action pause
-
-# select nebula M27
-
-# Done with images
 image name ring action drop
-image name dumbell action drop
-image name m11 action drop
-
-
-# Other nearby constellations
-select constellation Cep
-wait duration 2
-select constellation Dra
-wait duration 2
-select constellation Lac
-wait duration 2
-select constellation Peg
-wait duration 2
-select constellation And
-
-script action pause
-flag constellation_drawing off
-deselect
 
 # Hercules/Corona Borealis Great Wall
 select constellation Her
@@ -150,10 +111,44 @@ script action pause
 flag constellation_drawing off
 flag constellation_names off
 deselect
+select constellation Cyg
+flag constellation_drawing on
+flag constellation_names on
+script action pause
+
+# Nothern Cross
+flag constellation_drawing off
+flag constellation_names off
+deselect
+select constellation NCr
+flag constellation_drawing on
+flag constellation_names on
+script action pause
 
 # Deneb
 select hp 102098
+flag star_names on
 script action pause
+
+# Vega
+select hp 91262
+script action pause
+
+# Altair
+select hp 97649
+script action pause
+
+# Summer Triangle
+select constellation STr
+flag constellation_drawing on
+script action pause
+
+flag constellation_drawing off
+flag constellation_names off
+deselect
+
+select constellation NCr
+flag constellation_drawing on
 
 # Albireo:
 select hp 95947
@@ -163,16 +158,18 @@ wait duration 2
 image action load name albireo filename images/Albireo_20150919.jpg alpha 1 coordinate_system dome scale 30 altitude 50 azimuth 250
 
 script action pause
+
+flag constellation_drawing off
+deselect
+select constellation NCr
+flag constellation_drawing on
 image name albireo action drop
 
 # P Cygni
-select hp 100044
-wait duration 3
-
+# select hp 100044
 image action load name pcyg filename images/P_Cygni_Profile.png alpha 1 coordinate_system dome scale 60 altitude 40 azimuth 180
 script action pause
 image name pcyg action drop
-deselect
 
 # SS Cygni
 # No HIP designation
@@ -190,6 +187,10 @@ image name sscyg action drop
 
 # Somehow highlight KIC 9832227 here.
 # RA 19h 29m 15.948 Dec +46° 37\u2032 19.89
+# By ESO/L. CalÃ§ada - http://www.eso.org/public/images/eso1540a/, CC BY 4.0, https://commons.wikimedia.org/w/index.php?curid=45344066
+image action load name kic filename images/contact-double.jpg alpha 1 coordinate_system dome scale 60 altitude 40 azimuth 180
+script action pause
+image name kic action drop
 
 # Cygnus X
 # By NASA - http://www.nasa.gov/mission_pages/spitzer/multimedia/pia15253.html, Public Domain, https://commons.wikimedia.org/w/index.php?curid=19475200
@@ -208,7 +209,15 @@ image name cygX action drop
 image action load name cygX filename images/1024px-Cygnus_X-1.png alpha 1 coordinate_system dome scale 60 altitude 50 azimuth 180
 script action pause
 image name cygX action drop
+flag constellation_drawing off
 deselect
+select constellation NCr
+flag constellation_drawing on
+
+# Cygnus X-3, quark star
+image action load name cygx3 filename images/Cyg0060.00002_print.jpg alpha 1 coordinate_system dome scale 75 altitude 50 azimuth 180
+script action pause
+image name cygx3 action drop
 
 # Cygnus A, radio galaxy
 # 19h 59m 28.3566    +40° 44\u2032 02.096
@@ -216,15 +225,17 @@ deselect
 image action load name cygA filename images/3c405.jpg alpha 1 coordinate_system dome scale 60 altitude 50 azimuth 180
 script action pause
 image name cygA action drop
-deselect
 
 # M39 open cluster
-select nebula M39
-wait duration 2
+# select nebula M39
+# wait duration 2
 image action load name m39 filename images/m39_noao.jpg alpha 1 coordinate_system dome scale 60 altitude 50 azimuth 180
 script action pause
 image name m39 action drop
+flag constellation_drawing off
 deselect
+select constellation NCr
+flag constellation_drawing on
 
 # Cygnus OB-2, a young maybe-globular cluster
 # By Nick Wright - Transferred from en.wikipedia to Commons by Hekerui., CC BY 3.0, https://commons.wikimedia.org/w/index.php?curid=22162669
@@ -278,7 +289,7 @@ image name pelican2 action drop
 image name northamsm action drop
 
 # Cygnus Rift
-image action load name rift filename images/Cygnus-Wall.jpg alpha 1 coordinate_system dome scale 60 altitude 25 azimuth 240
+image action load name rift filename images/800px-Dark_Rift_2012.jpg alpha 1 coordinate_system dome scale 60 altitude 25 azimuth 240
 image action load name rift2 filename images/Great_Rift_SMALL.jpg alpha 1 coordinate_system dome scale 60 altitude 25 azimuth 120
 script action pause
 image name rift action drop
