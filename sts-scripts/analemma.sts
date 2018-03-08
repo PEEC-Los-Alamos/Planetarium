@@ -1,0 +1,95 @@
+# A brief introduction to the analemma show.
+# Most of the show is on the slide projector.
+
+clear
+
+deselect
+
+date local 2018-02-23T20:00
+
+flag track_object off
+flag atmosphere off
+set heading 0 duration 1
+zoom auto initial duration 1
+flag landscape off
+flag show_tui_datetime on
+flag cardinal_points on
+flag constellation_pick on
+flag constellation_drawing off
+flag ecliptic_line off
+flag object_trails off
+flag planet_names off
+flag nebulae off
+flag nebula_names off
+set max_mag_star_name 1.7
+set max_mag_nebula_name 7
+# set auto_move_duration 10
+set sky_culture western
+set star_limiting_mag 7
+set zoom_offset -0.5
+timerate rate 1
+flag star_twinkle on
+flag planet_names on
+script action pause
+
+# Turn off all distractions but leave the stars.
+# We'll start the slide show now.
+flag star_twinkle off
+flag planet_names off
+script action pause
+
+# Turn the atmosphere on so it'll get bright as the sun rises
+flag atmosphere on
+
+timerate rate 3600
+# 1 hr/sec, should be 14 seconds to get to noon tomorrow.
+# But wait duration 14 actually takes us to 9:25:48, 11.43 hours.
+# So the timerate is actually 2939.14 times actual. Go figure!
+# If we correct for that and use 17.15, it goes to 12:35:10,
+# not noon, so it's nonlinear. duration 16.6 takes us to 12:03.
+wait duration 16.6
+# Now we're rouoghly at noon tomorrow
+
+# select planet Sun
+timerate rate 1
+script action pause
+
+# Move to the winter solstice.
+# Hopefully the sun is still selected.
+date local 2017-12-21T12:00
+script action pause
+
+# Move to the summer solstice. That's in daylight savings time.
+date local 2018-06-21T13:00
+script action pause
+
+# Turn off the atmosphere to make it dark again.
+flag atmosphere off
+script action pause
+
+# Show both high and low suns:
+image action load name hilowsun filename images/high-low-sun.png alpha 1 coordinate_system dome scale 48.5 altitude 53.5 azimuth 180
+script action pause
+image name hilowsun action drop
+
+# Then show the analemma and how it overlays:
+image action load name analemma filename images/Analemma-Los-Alamos.png alpha 1 coordinate_system dome scale 48.5 altitude 53.5 azimuth 180
+script action pause
+
+# Drop the analemma image; we'll go back to showing slides for a while.
+image name analemma action drop
+
+# Done with script. Optionally we could show a labeled analemma image,
+# but actually it works just as well putting it in the slide show.
+# To show it here, uncomment the rest:
+
+# script action pause
+
+# # Switch to a labeled analemma image:
+# image action load name analemma filename images/Analemma-Los-Alamos-labeled.png alpha 1 coordinate_system dome scale 48.5 altitude 53.5 azimuth 180
+# script action pause
+
+# # Done with script, show everything else as a slide show.
+# date local 2018-02-23T20:00
+# image name analemma action drop
+
