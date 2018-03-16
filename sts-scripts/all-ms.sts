@@ -1,0 +1,125 @@
+# Show how many nebulae there are:
+wait duration 1
+
+# Nebulae that nightshade won't select:
+# Galaxies: M32 M109 M110
+# Open clusters: M18 M21 M23 M25 M26 M29 M39 M52 M103
+# Nebulae: M57
+# Globulars: M14 M19 M28 M55 M56 M62 M69 M70 M71 M75 M80 M107
+
+# Galaxies
+wait duration .2
+select nebula M31
+wait duration .2
+# select nebula M32
+# wait duration .2
+select nebula M51
+wait duration .2
+select nebula M63
+wait duration .2
+select nebula M81
+wait duration .2
+select nebula M82
+wait duration .2
+select nebula M94
+wait duration .2
+select nebula M101
+wait duration .2
+select nebula M108
+wait duration .2
+# select nebula M109
+# wait duration .2
+# select nebula M110
+# wait duration .2
+
+# Open Clusters
+select nebula M6
+wait duration .2
+select nebula M7
+wait duration .2
+select nebula M11
+wait duration .2
+select nebula M16
+wait duration .2
+# select nebula M18
+# wait duration .2
+# select nebula M21
+# wait duration .2
+# select nebula M23
+# wait duration .2
+# select nebula M25
+# wait duration .2
+# select nebula M26
+# wait duration .2
+# select nebula M29
+# wait duration .2
+select nebula M34
+wait duration .2
+# select nebula M39
+# wait duration .2
+# select nebula M52
+# wait duration .2
+# select nebula M103
+# wait duration .2
+
+# Nebulae
+select nebula M6
+wait duration .2
+select nebula M8
+wait duration .2
+select nebula M16
+wait duration .2
+select nebula M17
+wait duration .2
+select nebula M20
+wait duration .2
+select nebula M27
+wait duration .2
+# select nebula M57
+# wait duration .2
+select nebula M76
+wait duration .2
+select nebula M97
+wait duration .2
+
+# Globulars
+select nebula M4
+wait duration .2
+select nebula M9
+wait duration .2
+select nebula M10
+wait duration .2
+select nebula M12
+wait duration .2
+select nebula M13
+wait duration .2
+# select nebula M14
+# wait duration .2
+# select nebula M19
+# wait duration .2
+select nebula M22
+wait duration .2
+# select nebula M28
+# wait duration .2
+select nebula M54
+wait duration .2
+# select nebula M55
+# wait duration .2
+# select nebula M56
+# wait duration .2
+# select nebula M62
+# wait duration .2
+# select nebula M69
+# wait duration .2
+# select nebula M70
+# wait duration .2
+# select nebula M71
+# wait duration .2
+# select nebula M75
+# wait duration .2
+# select nebula M80
+# wait duration .2
+select nebula M92
+wait duration .2
+# select nebula M107
+# wait duration .2

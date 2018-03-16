@@ -1,0 +1,282 @@
+# script for March planetarium show -- Galen Gisler
+# show equinox sequence
+# includes Coma and Virgo Clusters, galaxy focus
+# with March eclipse sequence, about 25 minutes
+# Note: to watch script during show, invert screen colors
+clear
+
+# set normal defaults
+flag atmosphere off
+flag landscape off
+flag star_twinkle off
+flag show_tui_datetime on
+flag cardinal_points on
+flag constellation_pick on
+flag ecliptic_line off
+flag object_trails off
+flag planet_names off
+set max_mag_star_name 1.7
+set max_mag_nebula_name 7
+set auto_move_duration 10
+set sky_culture western
+set star_limiting_mag 7
+set zoom_offset -0.5
+flag moon_scaled off
+
+
+# set to evening of March 4th
+date local 2016-03-04T21:00:00
+timerate rate 0
+wait duration 30
+
+######################################
+
+# select the visible zodiac constellations
+select constellation Tau
+flag constellation_drawing on
+wait duration 10
+select constellation Gem
+wait duration 10
+select constellation Cnc
+wait duration 10
+select constellation Leo
+wait duration 10
+select constellation Vir
+wait duration 10
+select constellation Ari
+wait duration 30
+flag ecliptic_line on
+wait duration 30
+flag equator_line on
+wait duration 30
+flag constellation_names on
+
+# select the rest of the zodiac constellations 
+select constellation Lib
+select constellation Sco
+select constellation Sgr
+select constellation Aqr
+select constellation Cap
+select constellation Psc
+select constellation Ari
+wait duration 10
+
+# rotate the sky to noon the next day to bring the sun into view
+timerate rate 1800 
+wait duration 30
+timerate rate 0
+wait duration 30
+
+flag constellation_drawing off
+flag constellation_names off
+select planet Sun pointer off
+flag cardinal_points off
+wait duration 10
+flag track_object on
+
+# show the movement of the Sun towards and past the equator for the equinox
+timerate rate 86400
+wait duration 30
+timerate rate 0
+
+deselect
+wait duration 10
+flag cardinal_points on
+flag ecliptic_line off
+flag equator_line off
+
+# come back to evening of March 4th
+date local 2016-03-04T21:00:00
+timerate rate 0
+
+# turn on the galactic grid to talk about galaxy season
+flag galactic_grid on
+
+# rotate the sky until the Milky Way hugs the horizon, about 2 am
+timerate rate 1800
+wait duration 10
+timerate rate 0
+wait duration 10
+
+# select some Virgo Cluster galaxies
+select nebula M87   # Virgo A, giant elliptical, radio galaxy
+wait duration 5
+flag track_object on
+wait duration 5
+zoom fov 7 duration 5
+wait duration 10
+deselect
+wait duration 10
+zoom auto out
+wait duration 10
+
+select nebula M98   # spiral, outskirts of cluster
+wait duration 5
+flag track_object on
+wait duration 5
+zoom fov 7 duration 5
+wait duration 10
+deselect
+wait duration 10
+zoom auto out
+wait duration 10
+
+select nebula M86   # large elliptical
+wait duration 5
+flag track_object on
+wait duration 5
+zoom fov 7 duration 5
+wait duration 10
+deselect
+wait duration 10
+zoom auto out
+wait duration 10
+
+select nebula M49   # giant elliptical, center of a subgroup
+wait duration 5
+flag track_object on
+wait duration 5
+zoom fov 7 duration 5
+wait duration 10
+deselect
+wait duration 10
+zoom auto out
+wait duration 10
+
+
+# show where the Coma cluster of galaxies is
+select constellation Com
+flag constellation_drawing on
+flag constellation_names on
+wait duration 10
+flag constellation_drawing off
+flag constellation_names off
+flag galactic_grid off
+select hp 63405 pointer off
+wait duration 5
+flag track_object on
+wait duration 5
+zoom fov 7 duration 5
+wait duration 10
+deselect
+wait duration 10
+zoom auto out
+wait duration 10
+
+# visit the M81 group
+select nebula M81
+wait duration 5
+flag track_object on
+wait duration 5
+zoom fov 7 duration 5
+wait duration 10
+deselect
+wait duration 10
+zoom auto out
+wait duration 10
+
+select nebula M82
+wait duration 5
+flag track_object on
+wait duration 5
+zoom fov 7 duration 5
+wait duration 10
+deselect
+wait duration 10
+zoom auto out
+wait duration 10
+
+
+######################################
+# insert March 2016 eclipse sequence
+flag moon_scaled off
+
+# show map of where we're going
+image action load name map filename "figs/March eclipse map.png" coordinate_system dome alpha 1 scale 50 altitude 30 azimuth 180
+
+# set to March 9th, 90 minutes before totality
+date utc 2016-03-09T00:10:00
+wait duration 5
+
+# move to coordinates of Woleai
+moveto latitude 7.3732 longitude 143.9051 duration 10
+wait duration 20
+
+# drop the map
+image name map action drop
+
+flag ecliptic_line on
+flag planet_names on
+
+select planet Sun pointer off
+wait duration 10
+flag track_object on
+wait duration 10
+zoom fov 7 duration 5 duration 5
+flag ecliptic_line off
+flag planet_names off
+timerate rate 60  # 60 seconds per second
+wait duration 60
+timerate rate 0
+flag atmosphere on
+timerate rate 60  # 60 seconds per second
+wait duration 32
+timerate rate 0
+flag atmosphere off
+wait duration 30
+flag atmosphere on
+timerate rate 60  # 60 seconds per second
+wait duration 30
+timerate rate 0
+flag atmosphere off
+timerate rate 60  # 60 seconds per second
+wait duration 60
+timerate rate 0
+wait duration 5
+
+deselect
+
+zoom auto out
+wait duration 10
+
+moveto latitude 35.55 longitude -106.27 duration 10
+
+# end March 2016 eclipse sequence
+######################################
+
+######################################
+
+# Rotate the sky to show some morning planets for March 5th
+date local 2016-03-04T22:00:00
+timerate rate 0
+flag atmosphere on
+timerate rate 600   # ten minutes per second
+wait duration 44 -- should get us to 05:20 approximately
+timerate rate 0
+
+wait duration 15
+flag planet_names on
+wait duration 15
+flag ecliptic_line on
+wait duration 15
+
+select constellation Leo
+select constellation Vir
+select constellation Lib
+select constellation Sco
+select constellation Sgr
+flag constellation_drawing on
+wait duration 20
+flag constellation_drawing off
+flag ecliptic_line off
+
+flag planet_names off
+flag star_names off
+
+flag atmosphere on
+timerate rate 600
+wait duration 40 --- until about noon, then lights up
+timerate rate 0
+
+######################################
+
