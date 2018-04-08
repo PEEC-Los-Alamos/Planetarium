@@ -1,0 +1,64 @@
+# OctInnerPlanetTrails.sts -- Paul
+# Uses the "New Solar System Observer" from Raul Martinez Morales - www.astrodidactico.com
+# Shows trails of inner planets through September and October 2015
+# Can be adapted for other dates
+################################
+
+clear
+flag landscape off
+flag atmosphere off
+flag show_tui_datetime on
+body action clear
+
+body action load name  "New Solar System Observer" parent Sun  radius 1  halo false  color 0.,0.,0.  lighting false albedo 0.  coord_func ell_orbit   orbit_Epoch 2451545.0   orbit_Period 999000000 orbit_SemiMajorAxis 0. orbit_Eccentricity 0  orbit_Inclination 0  orbit_AscendingNode 0  orbit_LongOfPericenter 0  orbit_MeanLongitude 0  rot_obliquity 0 rot_periode 100000000000000  hidden true
+set home_planet "New Solar System Observer"
+select planet Sun pointer off
+flag track_object on
+moveto lat 90 lon 0 alt 10000000000000 duration 5
+wait duration 5
+flag planet_orbits on
+flag planet_names on
+wait duration 10
+
+zoom fov 4 duration 25
+date local 2015-10-01T00:00:00
+timerate rate 0
+wait duration 5
+timerate rate 86400
+flag planet_orbits off
+flag planet_names on
+flag object_trails on
+wait duration 60
+timerate rate 0
+wait duration 10
+flag object_trails off
+wait duration 10
+
+date local 2015-10-01T13:00:00 duration 5
+set home_planet Earth
+zoom auto out
+moveto lat 35.5 lon -105 alt 0 duration 5
+wait duration 5
+select planet Sun pointer off
+flag track_object on
+flag equator_line off
+flag tropic_lines off
+flag ecliptic_line on
+timerate rate 86400
+flag planet_orbits off
+flag object_trails on
+wait duration 20
+flag ecliptic_line off
+flag equator_line off
+flag tropic_lines off
+wait duration 40
+
+timerate rate 0
+wait duration 10
+
+flag track_object off
+flag equator_line off
+flag tropic_lines off
+flag ecliptic_line off
+flag planet_names off
+flag object_trails off
