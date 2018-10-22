@@ -10,7 +10,12 @@ Scripts have to be in a folder named "scripts" on the USB stick
 for nightshade to see them.
 
 If you have images, put them in a subdirectory "images" inside the
-"scripts" folder. Likewise sky cultures.
+"scripts" folder. Likewise sky cultures: subdirectory sky-cultures.
+It's not clear how to put videos on a USB stick so that sts scripts
+can see them: nothing I've found has worked.
+
+If you just want to play a video outside a script, just put it at
+the top level of the stick.
 
 The web control panel has run, stop, pause buttons, which is handy
 because you can see whether your script is running or paused (which
@@ -38,7 +43,26 @@ Be sure to set it at the beginning of your script.
 The default value may be okay on any given computer
 but then may turn out to be much longer in the planetarium.
 
-========= NIGHTSHADE ON YOUR OWN COMPUTER ===============
+Showing images specific sky coordinates:
+
+In coordinate_system equatorial, contrary to the documentation, ra and dec
+are ignored. Instead, use ypos for RA, xpos for dec -- but xpos needs to
+be in degrees, not hours. scale is the size you want the image to be
+in degrees.
+(In NightshadeNG, use ra and dec with equatorial.)
+
+In coordinate_system J2000, you can use ra and dec; but images in J2000
+will not rotate with the sky, but will stay fixed on the dome as though
+you'd used dome coordinates. scale is some fraction of 1 and I don't
+understand what it represents (the documentation doesn't mention it).
+(In Nightshade NG, images in J2000 do rotate with the dome, and
+use degrees for scale.)
+
+There's no telling what part of the image these coordinates are specifying:
+center, upper left, lower right or something else. It doesn't seem
+consistent from image to image.
+
+========= NIGHTSHADE ON YOUR OWN COMPUTER (legacy, not NG) ==========
 
 TO RUN A SCRIPT:
     m for menu
