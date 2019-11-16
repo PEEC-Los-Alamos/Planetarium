@@ -11,35 +11,38 @@
 # Output is an STS script.
 #
 
-import collections
 from math import radians, degrees, sin, cos, atan2, sqrt
 import sys
 
-coordinates = collections.OrderedDict ([
-    ( 'Apollo 15',          (.5, 23.5) ),
-    ( 'Moltke',             (-0.5, 24.2) ),
-    ( 'Tycho',              (-43.25, -11.2) ),
-    ( 'Orientale',          (-20, -90) ),
-    ( 'Hortensius',         (7.75, -27.8) ),
-    ( 'Rumker',             (41, -58.1) ),
+# The sites to fly to, in order:
+# ( name,  lat, lon, alt )
+# lat, lon are in decimal degrees; alt is in km.
+# 5 or 50 km is a good altitude for most features.
+coordinates = [
+    ( 'Apollo 15',             .5,    23.5,   10 ),
+    ( 'Moltke',              -0.5,    24.2,   10 ),
+    ( 'Tycho',              -43.25,  -11.2,   10 ),
+    ( 'Orientale',          -20,     -90,     60 ),
+    ( 'Hortensius',           7.75,  -27.8,   10 ),
+    ( 'Rumker',              41,     -58.1,   10 ),
 
-    ( 'Schroter\'s Valley', (24.2, -49.75) ),
-    ( 'Schroter fly',       (25.7, -49.8) ),
-    ( 'Schroter fly',       (26, -51) ),
-    ( 'Schroter fly',       (26.15, -51.7) ),
-    ( 'Schroter fly',       (25.8, -52) ),
+    ( 'Schroter\'s Valley',  24.2,   -49.75,  10 ),
+    ( 'Schroter\'s Valley',  25.7,   -49.8,   10 ),
+    ( 'Schroter\'s Valley',  26,     -51,     10 ),
+    ( 'Schroter\'s Valley',  26.15,  -51.7,   10 ),
+    ( 'Schroter\'s Valley',  25.8,   -52,     10 ),
 
-    ( 'Hadley Rille',       (26, 3) ),
-    ( 'Ariadaeus',          (7.75, 10) ),
-    ( 'Ariadaus fly',       (5, 17.6) ),
+    ( 'Hadley Rille',        26,       3,     10 ),
+    ( 'Ariadaeus',            7.75,   10,     10 ),
+    ( 'Ariadaus',             5,      17.6,   10 ),
 
-    ( 'Catena Davy',        (-11.15, -6.5) ),
+    ( 'Catena Davy',        -11.15,   -6.5,   10 ),
 
-    ( 'Straight Wall',      (-20, -8.25) ),
-    ( 'Straight Wall fly',  (-23.7, -7.3) ),
+    ( 'Straight Wall',      -20, -     8.25,  10 ),
+    ( 'Straight Wall',      -23.7,    -7.3,   10 ),
 
-    ( 'Reiner Gamma',       (7.75, -59) )
-])
+    ( 'Reiner Gamma',         7.75,  -59,     40 )
+]
 
 
 def flyfromto(lat1, lon1, lat2, lon2):
@@ -75,40 +78,45 @@ def flyfromto(lat1, lon1, lat2, lon2):
 
     return degrees(d7_init_heading_rad), degrees(d8_final_heading_rad)
 
-def nightshadefromto(lat1, lon1, lat2, lon2, name):
+def nightshadefromto(oldfeature, newfeature):
     '''Generate nightshade commands to fly from one point to the other.'''
 
+    name1, lat1, lon1, alt1 = oldfeature
+    name2, lat2, lon2, alt2 = newfeature
+
     init_heading, final_heading = flyfromto(lat1, lon1, lat2, lon2)
-    if name.endswith(" fly"):
-        alt = '10km'
-        cmt = 'Cruise around'
-        # Eventually, adjust speed too
-    else:
-        alt = '10km'
-        cmt = 'Fly to'
 
-    # Make duration dependent on distance
-    print('''text action drop name caption
+    # Drop the previous caption before starting to fly, unless
+    # the new caption is the same, in which case, keep it.
+    if name1 and name2 != name1:
+        print('text action drop name caption\n', file=outfp)
 
-# %s %s: (%f %f)
+    # XXX Make duration dependent on distance
+
+    print('''# Turn to point to %s: (%f %f)
 moveto alt %s lat %f lon %f heading %f pitch -10 duration 5
 wait duration 5
-moveto alt %s lat %f lon %f heading %f pitch -10 duration 20
-wait duration 20
-text action load alpha 1 coordinate_system dome altitude 9 azimuth 180 font_size 2 r 1 g 1 b 0 name caption string "%s"
 
-script action pause''' % (cmt, name, lat2, lon2,
-       alt, lat1, lon1, init_heading,
-       alt, lat2, lon2, init_heading,
-       name),
+# Fly to %s: (%f %f)
+moveto alt %s lat %f lon %f heading %f pitch -10 duration 20
+wait duration 20''' % (name2, lat2, lon2,
+                       alt1, lat1, lon1, init_heading,
+                       name2, lat2, lon2,
+                       alt2, lat2, lon2, init_heading),
           file=outfp)
+
+    if name2 and name2 != name1:
+          print('text action load alpha 1 coordinate_system dome altitude 9 azimuth 180 font_size 2 r 1 g 1 b 0 name caption string "%s"\n' % name2)
+
+    print('script action pause', file=outfp)
 
 if __name__ == '__main__':
     outfp = sys.stdout
 
     # Initial point to fly to before starting the trip
-    from_lat = 0
-    from_lon = 0
+    init_lat = 0
+    init_lon = 0
+    init_alt = 3500
 
     #
     # Begin script
@@ -130,18 +138,14 @@ date local 2019-09-13T23:00:00
 select object moon
 flyto object moon duration 20
 wait duration 20
-moveto alt 3500km lat %f lon %f heading 0 pitch -90 duration 20
+moveto alt %fkm lat %f lon %f heading 0 pitch -90 duration 20
 wait duration 20
-''' % (from_lat, from_lon),
+''' % (init_alt, init_lat, init_lon),
           file=outfp)
 
-    lastplace = None
+    lastplace = (None, init_lat, init_lon, init_alt)
     for place in coordinates:
-        if lastplace:
-            from_lat, from_lon = coordinates[lastplace]
-        nightshadefromto(from_lat, from_lon,
-                         coordinates[place][0], coordinates[place][1],
-                         place)
+        nightshadefromto(lastplace, place)
         lastplace = place
 
     #
