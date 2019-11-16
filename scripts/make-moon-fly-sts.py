@@ -15,33 +15,35 @@ from math import radians, degrees, sin, cos, atan2, sqrt
 import sys
 
 # The sites to fly to, in order:
-# ( name,  lat, lon, alt )
+# ( name,  lat, lon, alt, duration )
 # lat, lon are in decimal degrees; alt is in km.
 # 5 or 50 km is a good altitude for most features.
+# Duration is how long the flight should take in seconds;
+# what's reasonable depends on distance. Set to 0 to accept a default.
 coordinates = [
-    ( 'Apollo 15',             .5,    23.5,   10 ),
-    ( 'Moltke',              -0.5,    24.2,   10 ),
-    ( 'Tycho',              -43.25,  -11.2,   10 ),
-    ( 'Orientale',          -20,     -90,     60 ),
-    ( 'Hortensius',           7.75,  -27.8,   10 ),
-    ( 'Rumker',              41,     -58.1,   10 ),
+    ( 'Apollo 15',             .5,    23.5,   10,  0 ),
+    ( 'Moltke',              -0.5,    24.2,   10,  0 ),
+    ( 'Tycho',              -43.25,  -11.2,   10,  0 ),
+    ( 'Orientale',          -20,     -90,     60,  0 ),
+    ( 'Hortensius',           7.75,  -27.8,   10,  0 ),
+    ( 'Rumker',              41,     -58.1,   10,  0 ),
 
-    ( 'Schroter\'s Valley',  24.2,   -49.75,  10 ),
-    ( 'Schroter\'s Valley',  25.7,   -49.8,   10 ),
-    ( 'Schroter\'s Valley',  26,     -51,     10 ),
-    ( 'Schroter\'s Valley',  26.15,  -51.7,   10 ),
-    ( 'Schroter\'s Valley',  25.8,   -52,     10 ),
+    ( 'Schroter\'s Valley',  24.2,   -49.75,  10,  0 ),
+    ( 'Schroter\'s Valley',  25.7,   -49.8,   10, 10 ),
+    ( 'Schroter\'s Valley',  26,     -51,     10, 10 ),
+    ( 'Schroter\'s Valley',  26.15,  -51.7,   10, 10 ),
+    ( 'Schroter\'s Valley',  25.8,   -52,     10, 10 ),
 
-    ( 'Hadley Rille',        26,       3,     10 ),
-    ( 'Ariadaeus',            7.75,   10,     10 ),
-    ( 'Ariadaus',             5,      17.6,   10 ),
+    ( 'Hadley Rille',        26,       3,     10,  0 ),
+    ( 'Ariadaeus',            7.75,   10,     10,  0 ),
+    ( 'Ariadaeus',            5,      17.6,   10, 25 ),
 
-    ( 'Catena Davy',        -11.15,   -6.5,   10 ),
+    ( 'Catena Davy',        -11.15,   -6.5,   10,  0 ),
 
-    ( 'Straight Wall',      -20, -     8.25,  10 ),
-    ( 'Straight Wall',      -23.7,    -7.3,   10 ),
+    ( 'Straight Wall',      -20, -     8.25,  10,  0 ),
+    ( 'Straight Wall',      -23.7,    -7.3,   10, 25 ),
 
-    ( 'Reiner Gamma',         7.75,  -59,     40 )
+    ( 'Reiner Gamma',         7.75,  -59,     40,  0 )
 ]
 
 
@@ -78,11 +80,34 @@ def flyfromto(lat1, lon1, lat2, lon2):
 
     return degrees(d7_init_heading_rad), degrees(d8_final_heading_rad)
 
+
+MOON_RADIUS_MI = 1079
+
+def haversine_distance(latitude_1, longitude_1, latitude_2, longitude_2):
+    """
+    Haversine distance between two points.
+    From https://github.com/tkrajina/gpxpy/blob/master/gpxpy/geo.py
+    Implemented from http://www.movable-type.co.uk/scripts/latlong.html
+    Returns distance in miles.
+    """
+    d_lat = radians(latitude_1 - latitude_2)
+    d_lon = radians(longitude_1 - longitude_2)
+    lat1 = radians(latitude_1)
+    lat2 = radians(latitude_2)
+
+    a = sin(d_lat / 2) * sin(d_lat / 2) + \
+        sin(d_lon / 2) * sin(d_lon / 2) * \
+        cos(lat1) * cos(lat2)
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+    return MOON_RADIUS_MI * c
+
+
 def nightshadefromto(oldfeature, newfeature):
     '''Generate nightshade commands to fly from one point to the other.'''
 
-    name1, lat1, lon1, alt1 = oldfeature
-    name2, lat2, lon2, alt2 = newfeature
+    name1, lat1, lon1, alt1, duration1 = oldfeature
+    name2, lat2, lon2, alt2, duration2 = newfeature
 
     init_heading, final_heading = flyfromto(lat1, lon1, lat2, lon2)
 
@@ -91,18 +116,23 @@ def nightshadefromto(oldfeature, newfeature):
     if name1 and name2 != name1:
         print('text action drop name caption\n', file=outfp)
 
-    # XXX Make duration dependent on distance
+    # Make duration dependent on distance.
+    # A reasonable speed is 300 miles in 20 seconds.
+    if not duration2:
+        dist = haversine_distance(lat1, lon1, lat2, lon2)
+        duration2 = 20 * dist / 300
 
     print('''# Turn to point to %s: (%f %f)
 moveto alt %s lat %f lon %f heading %f pitch -10 duration 5
 wait duration 5
 
 # Fly to %s: (%f %f)
-moveto alt %s lat %f lon %f heading %f pitch -10 duration 20
-wait duration 20''' % (name2, lat2, lon2,
+moveto alt %s lat %f lon %f heading %f pitch -10 duration %f
+wait duration %d''' % (name2, lat2, lon2,
                        alt1, lat1, lon1, init_heading,
                        name2, lat2, lon2,
-                       alt2, lat2, lon2, init_heading),
+                       alt2, lat2, lon2, init_heading,
+                       duration2, duration2),
           file=outfp)
 
     if name2 and name2 != name1:
@@ -117,6 +147,7 @@ if __name__ == '__main__':
     init_lat = 0
     init_lon = 0
     init_alt = 3500
+    init_duration = 20
 
     #
     # Begin script
@@ -138,12 +169,12 @@ date local 2019-09-13T23:00:00
 select object moon
 flyto object moon duration 20
 wait duration 20
-moveto alt %fkm lat %f lon %f heading 0 pitch -90 duration 20
+moveto alt %fkm lat %f lon %f heading 0 pitch -90 duration %s
 wait duration 20
-''' % (init_alt, init_lat, init_lon),
+''' % (init_alt, init_lat, init_lon, init_duration),
           file=outfp)
 
-    lastplace = (None, init_lat, init_lon, init_alt)
+    lastplace = (None, init_lat, init_lon, init_alt, init_duration)
     for place in coordinates:
         nightshadefromto(lastplace, place)
         lastplace = place
