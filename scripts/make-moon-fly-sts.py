@@ -120,23 +120,19 @@ def nightshadefromto(oldfeature, newfeature):
     # A reasonable speed is 300 miles in 20 seconds.
     if not duration2:
         dist = haversine_distance(lat1, lon1, lat2, lon2)
-        duration2 = 20 * dist / 300
+        duration2 = int(20 * dist / 300)
 
-    print('''# Turn to point to %s: (%f %f)
-moveto alt %s lat %f lon %f heading %f pitch -10 duration 5
+    print(f'''# Turn to point to {name2}: ({lat2} {lon2})
+moveto alt {alt1}km lat {lat1} lon {lon1} heading {init_heading} pitch -10 duration 5
 wait duration 5
 
-# Fly to %s: (%f %f)
-moveto alt %s lat %f lon %f heading %f pitch -10 duration %f
-wait duration %d''' % (name2, lat2, lon2,
-                       alt1, lat1, lon1, init_heading,
-                       name2, lat2, lon2,
-                       alt2, lat2, lon2, init_heading,
-                       duration2, duration2),
+# Fly to {name2}: {lat2}N {lon2}E
+moveto alt {alt2}km lat {lat2} lon {lon2} heading {init_heading} pitch -10 duration {duration2}
+wait duration {duration2}''',
           file=outfp)
 
     if name2 and name2 != name1:
-          print('text action load alpha 1 coordinate_system dome altitude 9 azimuth 180 font_size 2 r 1 g 1 b 0 name caption string "%s"\n' % name2)
+          print(f'text action load alpha 1 coordinate_system dome altitude 9 azimuth 180 font_size 2 r 1 g 1 b 0 name caption string "{name2}"\n')
 
     print('script action pause', file=outfp)
 
@@ -152,7 +148,7 @@ if __name__ == '__main__':
     #
     # Begin script
     #
-    print('''# Nightshade script to fly between a set of points on the moon.
+    print(f'''# Nightshade script to fly between a set of points on the moon.
 # Uses great circle headings:
 # https://en.wikipedia.org/wiki/Great-circle_navigation#Course
 
@@ -169,9 +165,9 @@ date local 2019-09-13T23:00:00
 select object moon
 flyto object moon duration 20
 wait duration 20
-moveto alt %fkm lat %f lon %f heading 0 pitch -90 duration %s
+moveto alt {init_alt}km lat {init_lat} lon {init_lon} heading 0 pitch -90 duration {init_duration}
 wait duration 20
-''' % (init_alt, init_lat, init_lon, init_duration),
+''',
           file=outfp)
 
     lastplace = (None, init_lat, init_lon, init_alt, init_duration)
