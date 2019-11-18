@@ -8,7 +8,8 @@
 # on great circle navigation,
 # https://en.wikipedia.org/wiki/Great-circle_navigation#Course
 #
-# Output is an STS script.
+# Output is an STS script, written to the filename specified,
+# or standard output.
 #
 
 from math import radians, degrees, sin, cos, atan2, sqrt
@@ -17,33 +18,35 @@ import sys
 # The sites to fly to, in order:
 # ( name,  lat, lon, alt, duration )
 # lat, lon are in decimal degrees; alt is in km.
-# 5 or 50 km is a good altitude for most features.
+# alt and duration are optional; you can omit them or set them to 0 or None.
+# alt defaults to 10; 5 - 50 km is a good altitude for most features.
 # Duration is how long the flight should take in seconds;
-# what's reasonable depends on distance. Set to 0 to accept a default.
+# Setting to 0 or None will choose a default based on the distance.
+
 coordinates = [
-    ( 'Apollo 15',             .5,    23.5,   10,  0 ),
-    ( 'Moltke',              -0.5,    24.2,   10,  0 ),
-    ( 'Tycho',              -43.25,  -11.2,   10,  0 ),
-    ( 'Orientale',          -20,     -90,     60,  0 ),
-    ( 'Hortensius',           7.75,  -27.8,   10,  0 ),
-    ( 'Rumker',              41,     -58.1,   10,  0 ),
+    ( "Apollo 15",             .5,    23.5           ),
+    ( "Moltke",              -0.5,    24.2           ),
+    ( "Tycho",              -43.25,  -11.2           ),
+    ( "Orientale",          -20,     -90,     60,  0 ),
+    ( "Hortensius",           7.75,  -27.8           ),
+    ( "Rumker",              41,     -58.1           ),
 
-    ( 'Schroter\'s Valley',  24.2,   -49.75,  10,  0 ),
-    ( 'Schroter\'s Valley',  25.7,   -49.8,   10, 10 ),
-    ( 'Schroter\'s Valley',  26,     -51,     10, 10 ),
-    ( 'Schroter\'s Valley',  26.15,  -51.7,   10, 10 ),
-    ( 'Schroter\'s Valley',  25.8,   -52,     10, 10 ),
+    ( "Schroter's Valley",   24.2,   -49.75          ),
+    ( "Schroter's Valley",   25.7,   -49.8,   10, 10 ),
+    ( "Schroter's Valley",   26,     -51,     10, 10 ),
+    ( "Schroter's Valley",   26.15,  -51.7,   10, 10 ),
+    ( "Schroter's Valley",   25.8,   -52,     10, 10 ),
 
-    ( 'Hadley Rille',        26,       3,     10,  0 ),
-    ( 'Ariadaeus',            7.75,   10,     10,  0 ),
-    ( 'Ariadaeus',            5,      17.6,   10, 25 ),
+    ( "Hadley Rille",        26,       3             ),
+    ( "Ariadaeus",            7.75,   10             ),
+    ( "Ariadaeus",            5,      17.6,   10, 25 ),
 
-    ( 'Catena Davy',        -11.15,   -6.5,   10,  0 ),
+    ( "Catena Davy",        -11.15,   -6.5           ),
 
-    ( 'Straight Wall',      -20, -     8.25,  10,  0 ),
-    ( 'Straight Wall',      -23.7,    -7.3,   10, 25 ),
+    ( "Straight Wall",      -20, -     8.25          ),
+    ( "Straight Wall",      -23.7,    -7.3,   10, 25 ),
 
-    ( 'Reiner Gamma',         7.75,  -59,     40,  0 )
+    ( "Reiner Gamma",         7.75,  -59,     40,  0 )
 ]
 
 
@@ -103,24 +106,48 @@ def haversine_distance(latitude_1, longitude_1, latitude_2, longitude_2):
     return MOON_RADIUS_MI * c
 
 
+def unpack_vals(feature):
+    '''Return name, lat, lon, alt, duration,
+       calculating appropriate defaults for alt and duration if needed.
+    '''
+    name = feature[0]
+    lat = feature[1]
+    lon = feature[2]
+
+    # Default altitude is 10 km
+    if len(feature) > 3 and feature[3]:
+        alt = feature[3]
+    else:
+        alt = 10
+
+    # Set duration to None if not specified;, so the default
+    # can be calculated relative to the previous point.
+    if len(feature) > 4 and feature[4]:
+        duration = feature[4]
+    else:
+        duration = None
+
+    return name, lat, lon, alt, duration
+
+
 def nightshadefromto(oldfeature, newfeature):
     '''Generate nightshade commands to fly from one point to the other.'''
 
-    name1, lat1, lon1, alt1, duration1 = oldfeature
-    name2, lat2, lon2, alt2, duration2 = newfeature
+    name1, lat1, lon1, alt1, duration1 = unpack_vals(oldfeature)
+    name2, lat2, lon2, alt2, duration2 = unpack_vals(newfeature)
 
     init_heading, final_heading = flyfromto(lat1, lon1, lat2, lon2)
+
+    # Default duration depends on distance.
+    # A reasonable speed is 300 miles in 20 seconds.
+    if not duration2:
+        dist = haversine_distance(lat1, lon1, lat2, lon2)
+        duration2 = int(20 * dist / 300)
 
     # Drop the previous caption before starting to fly, unless
     # the new caption is the same, in which case, keep it.
     if name1 and name2 != name1:
         print('text action drop name caption\n', file=outfp)
-
-    # Make duration dependent on distance.
-    # A reasonable speed is 300 miles in 20 seconds.
-    if not duration2:
-        dist = haversine_distance(lat1, lon1, lat2, lon2)
-        duration2 = int(20 * dist / 300)
 
     print(f'''# Turn to point to {name2}: ({lat2} {lon2})
 moveto alt {alt1}km lat {lat1} lon {lon1} heading {init_heading} pitch -10 duration 5
@@ -132,12 +159,19 @@ wait duration {duration2}''',
           file=outfp)
 
     if name2 and name2 != name1:
-          print(f'text action load alpha 1 coordinate_system dome altitude 9 azimuth 180 font_size 2 r 1 g 1 b 0 name caption string "{name2}"\n')
+          print(f'text action load alpha 1 coordinate_system dome altitude 9 azimuth 180 font_size 2 r 1 g 1 b 0 name caption string "{name2}"\n',
+                file=outfp)
 
     print('script action pause', file=outfp)
 
+#
+# Main entry point
+#
 if __name__ == '__main__':
-    outfp = sys.stdout
+    if len(sys.argv) > 1:
+        outfp = open(sys.argv[1], 'w')
+    else:
+        outfp = sys.stdout
 
     # Initial point to fly to before starting the trip
     init_lat = 0
@@ -176,7 +210,7 @@ wait duration 20
         lastplace = place
 
     #
-    # End script
+    # End script by retreating to show the whole moon
     #
     print('''
 text action drop name caption
