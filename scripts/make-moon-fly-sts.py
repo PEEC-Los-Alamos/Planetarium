@@ -24,29 +24,31 @@ import sys
 # Setting to 0 or None will choose a default based on the distance.
 
 coordinates = [
-    ( "Apollo 15",             .5,    23.5           ),
-    ( "Moltke",              -0.5,    24.2           ),
-    ( "Tycho",              -43.25,  -11.2           ),
-    ( "Orientale",          -20,     -90,     60,  0 ),
-    ( "Hortensius",           7.75,  -27.8           ),
-    ( "Rumker",              41,     -58.1           ),
+    #  Name                  Lat      Lon    Alt  Dur
+    # -----                  ---      ---    ---  ---
+    ( "Apollo 15",             .5,    23.5           ),    # Rukl 22
+    ( "Moltke",              -0.4,    23.9           ),    # Rukl 46
+    ( "Tycho",              -42.2,    -8.5,   20     ),    # Rukl 64
+    ( "Orientale",          -13,     -72,     60,  0 ),    # Rukl 39-50
+    ( "Hortensius",           7.5,   -28.7           ),    # Rukl 30
+    ( "Rumker",              40,     -56             ),    # Rukl 8
 
-    ( "Schroter's Valley",   24.2,   -49.75          ),
-    ( "Schroter's Valley",   25.7,   -49.8,   10, 10 ),
-    ( "Schroter's Valley",   26,     -51,     10, 10 ),
-    ( "Schroter's Valley",   26.15,  -51.7,   10, 10 ),
-    ( "Schroter's Valley",   25.8,   -52,     10, 10 ),
+    ( "Schroter's Valley",   26.5,   -54,     60     ),    # Rukl 18
+    ( "Schroter's Valley",   25,     -52.5,   10,  6 ),
+    ( "Schroter's Valley",   26.1,   -51.75,  10, 10 ),
+    ( "Schroter's Valley",   25.4,   -49.8,   10, 10 ),
+    ( "Schroter's Valley",   23.5,   -49.8,   10, 10 ),
 
-    ( "Hadley Rille",        26,       3             ),
-    ( "Ariadaeus",            7.75,   10             ),
+    ( "Hadley Rille",        25.9,     2.25          ),    # Rukl 22
+    ( "Ariadaeus",            7.75,   10             ),    # Rukl 34
     ( "Ariadaeus",            5,      17.6,   10, 25 ),
 
-    ( "Catena Davy",        -11.15,   -6.5           ),
+    ( "Catena Davy",        -10.9,   -5.75           ),    # Rukl 43
 
-    ( "Straight Wall",      -20, -     8.25          ),
+    ( "Straight Wall",      -20,     -8.25           ),    # Rukl 54
     ( "Straight Wall",      -23.7,    -7.3,   10, 25 ),
 
-    ( "Reiner Gamma",         7.75,  -59,     40,  0 )
+    ( "Reiner Gamma",         7.2,   -58,     40,  0 )     # Rukl 28
 ]
 
 
