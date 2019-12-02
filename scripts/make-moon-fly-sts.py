@@ -27,28 +27,55 @@ coordinates = [
     #  Name                  Lat      Lon    Alt  Dur
     # -----                  ---      ---    ---  ---
     ( "Apollo 15",             .5,    23.5           ),    # Rukl 22
-    ( "Moltke",              -0.4,    23.9           ),    # Rukl 46
+    ( "Moltke",              -0.4,    23.9,    0,  6 ),    # Rukl 46
     ( "Tycho",              -42.2,    -8.5,   20     ),    # Rukl 64
-    ( "Orientale",          -13,     -72,     60,  0 ),    # Rukl 39-50
-    ( "Hortensius",           7.5,   -28.7           ),    # Rukl 30
-    ( "Rumker",              40,     -56             ),    # Rukl 8
 
+    # Mare Oriental *should* be super cool, but Nightshade
+    # doesn't seem to have the data for it so you can't see
+    # the structure at all.
+    # ( "Mare Orientale",     -13,     -72,    100,  0 ),    # Rukl 39-50
+
+    # I couldn't find a good angle that showed the dome field
+    # around either Hortensius or the Marius Hills.
+    # Marius is very dark in Nightshade at full moon;
+    # Hortensius has reasonable light but the domes don't show.
+    ( "Hortensius",           7,     -28             ),    # Rukl 30
+    # ( "Marius Hills",        11,     -58,      0     ),    # Rukl 29
+
+    # Rumker isn't very good in Nightshade either,
+    # partly because it's too dark over there.
+    ( "Rumker",              40,     -56,      5     ),    # Rukl 8
+
+    # Fly to Schroter's Valley and then fly along it.
+    # I recommend editing the script to remove the various pauses
+    # during this sequence -- pause only after the turn toward
+    # the third coordinate -- but this script isn't flexible enough
+    # to allow specifying that here.
     ( "Schroter's Valley",   26.5,   -54,     60     ),    # Rukl 18
-    ( "Schroter's Valley",   25,     -52.5,   10,  6 ),
-    ( "Schroter's Valley",   26.1,   -51.75,  10, 10 ),
-    ( "Schroter's Valley",   25.4,   -49.8,   10, 10 ),
-    ( "Schroter's Valley",   23.5,   -49.8,   10, 10 ),
+    ( "Schroter's Valley",   25,     -52.5,   10,  5 ),
+    ( "Schroter's Valley",   26.1,   -51.75,  10,  8 ),
+    ( "Schroter's Valley",   25.4,   -49.8,   10,  8 ),
 
+    # At a duration of 25, Hadley Rille doesn't show up until you
+    # stop above it, but longer than that is just too long to take.
+    # It might work to tweak the STS script afterward to fly fast
+    # to an intermediate point, then slowly the last few degrees,
+    # but I haven't tested that yet.
     ( "Hadley Rille",        25.9,     2.25          ),    # Rukl 22
-    ( "Ariadaeus",            7.75,   10             ),    # Rukl 34
-    ( "Ariadaeus",            5,      17.6,   10, 25 ),
 
+    # Fly to and then along Ariadaeus.
+    ( "Ariadaeus Rille",      7.75,   10             ),    # Rukl 34
+    ( "Ariadaeus Rille",      6,      15,     10, 18 ),
+
+    # Catena Davy shows up really well in Nightshade, but it's
+    # off to the right. Might look a little better if you add a
+    # turn to look in the right direction.
     ( "Catena Davy",        -10.9,   -5.75           ),    # Rukl 43
 
     ( "Straight Wall",      -20,     -8.25           ),    # Rukl 54
-    ( "Straight Wall",      -23.7,    -7.3,   10, 25 ),
+    ( "Straight Wall",      -22.2,    -7.5,   10,  9 ),
 
-    ( "Reiner Gamma",         7.2,   -58,     40,  0 )     # Rukl 28
+    ( "Reiner Gamma",         6.5,   -57,     50,  0 )     # Rukl 28
 ]
 
 
@@ -140,11 +167,13 @@ def nightshadefromto(oldfeature, newfeature):
 
     init_heading, final_heading = flyfromto(lat1, lon1, lat2, lon2)
 
+    turn_duration = 2
+
     # Default duration depends on distance.
     # A reasonable speed is 300 miles in 20 seconds.
     if not duration2:
         dist = haversine_distance(lat1, lon1, lat2, lon2)
-        duration2 = int(20 * dist / 300)
+        duration2 = int(2 * dist / 70)
 
     # Drop the previous caption before starting to fly, unless
     # the new caption is the same, in which case, keep it.
@@ -152,8 +181,8 @@ def nightshadefromto(oldfeature, newfeature):
         print('text action drop name caption\n', file=outfp)
 
     print(f'''# Turn to point to {name2}: ({lat2} {lon2})
-moveto alt {alt1}km lat {lat1} lon {lon1} heading {init_heading} pitch -10 duration 5
-wait duration 5
+moveto alt {alt1}km lat {lat1} lon {lon1} heading {init_heading} pitch -10 duration {turn_duration}
+wait duration {turn_duration}
 
 # Fly to {name2}: {lat2}N {lon2}E
 moveto alt {alt2}km lat {lat2} lon {lon2} heading {init_heading} pitch -10 duration {duration2}
@@ -161,7 +190,9 @@ wait duration {duration2}''',
           file=outfp)
 
     if name2 and name2 != name1:
-          print(f'text action load alpha 1 coordinate_system dome altitude 9 azimuth 180 font_size 2 r 1 g 1 b 0 name caption string "{name2}"\n',
+          print(f'''text action load alpha 1 coordinate_system dome altitude 9 azimuth 180 font_size 2 r 1 g 1 b 0 name caption string "{name2}"\n
+image action drop name MoonPlaces
+image action load name MoonPlaces filename moonplaces/all.png alpha 1 coordinate_system dome altitude 20 azimuth 75 scale 40''',
                 file=outfp)
 
     print('script action pause', file=outfp)
@@ -179,7 +210,7 @@ if __name__ == '__main__':
     init_lat = 0
     init_lon = 0
     init_alt = 3500
-    init_duration = 20
+    init_duration = 10
 
     #
     # Begin script
@@ -199,10 +230,10 @@ date local 2019-09-13T23:00:00
 
 # Select the moon and fly to where we can view the full moon
 select object moon
-flyto object moon duration 20
-wait duration 20
+flyto object moon duration {init_duration}
+wait duration {init_duration}
 moveto alt {init_alt}km lat {init_lat} lon {init_lon} heading 0 pitch -90 duration {init_duration}
-wait duration 20
+wait duration {init_duration}
 ''',
           file=outfp)
 
