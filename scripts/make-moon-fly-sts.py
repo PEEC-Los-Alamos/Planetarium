@@ -26,8 +26,8 @@ import sys
 coordinates = [
     #  Name                  Lat      Lon    Alt  Dur
     # -----                  ---      ---    ---  ---
-    ( "Apollo 15",             .5,    23.5           ),    # Rukl 22
-    ( "Moltke",              -0.4,    23.9,    0,  6 ),    # Rukl 46
+    ( "Apollo 11",            1,      23.5,    0,  8 ),    # Rukl 22
+    ( "Moltke",               0,      24,      0,  4 ),    # Rukl 46
     ( "Tycho",              -42.2,    -8.5,   20     ),    # Rukl 64
 
     # Mare Oriental *should* be super cool, but Nightshade
@@ -39,12 +39,12 @@ coordinates = [
     # around either Hortensius or the Marius Hills.
     # Marius is very dark in Nightshade at full moon;
     # Hortensius has reasonable light but the domes don't show.
-    ( "Hortensius",           7,     -28             ),    # Rukl 30
+    # ( "Hortensius",           7,     -28             ),    # Rukl 30
     # ( "Marius Hills",        11,     -58,      0     ),    # Rukl 29
 
-    # Rumker isn't very good in Nightshade either,
-    # partly because it's too dark over there.
-    ( "Rumker",              40,     -56,      5     ),    # Rukl 8
+    # Rumker isn't very good in Nightshade either, partly because
+    # it's too dark near the limb. But at least it's visible.
+    ( "Rumker",              38.3,   -54.5,    0     ),    # Rukl 8
 
     # Fly to Schroter's Valley and then fly along it.
     # I recommend editing the script to remove the various pauses
@@ -190,9 +190,8 @@ wait duration {duration2}''',
           file=outfp)
 
     if name2 and name2 != name1:
-          print(f'''text action load alpha 1 coordinate_system dome altitude 9 azimuth 180 font_size 2 r 1 g 1 b 0 name caption string "{name2}"\n
-image action drop name MoonPlaces
-image action load name MoonPlaces filename moonplaces/all.png alpha 1 coordinate_system dome altitude 20 azimuth 75 scale 40''',
+          print(f'''text action load alpha 1 coordinate_system dome altitude 9 azimuth 180 font_size 2 r 1 g 1 b 0 name caption string "{name2}"
+0''',
                 file=outfp)
 
     print('script action pause', file=outfp)
@@ -210,12 +209,12 @@ if __name__ == '__main__':
     init_lat = 0
     init_lon = 0
     init_alt = 3500
-    init_duration = 10
 
     #
     # Begin script
     #
     print(f'''# Nightshade script to fly between a set of points on the moon.
+
 # Uses great circle headings:
 # https://en.wikipedia.org/wiki/Great-circle_navigation#Course
 
@@ -225,19 +224,19 @@ flag cardinal_points off
 flag show_tui_short_obj_info off
 flag atmosphere off
 
-# Set date to a time when there's a full moon.
+# Set to any time when the moon is full.
 date local 2019-09-13T23:00:00
 
 # Select the moon and fly to where we can view the full moon
 select object moon
-flyto object moon duration {init_duration}
-wait duration {init_duration}
-moveto alt {init_alt}km lat {init_lat} lon {init_lon} heading 0 pitch -90 duration {init_duration}
-wait duration {init_duration}
+flyto object moon duration 8
+wait duration 8
+moveto alt 3500km lat 0 lon 0 heading 0 pitch -90 duration 4
+wait duration 4
 ''',
           file=outfp)
 
-    lastplace = (None, init_lat, init_lon, init_alt, init_duration)
+    lastplace = (None, init_lat, init_lon, init_alt, 0)
     for place in coordinates:
         nightshadefromto(lastplace, place)
         lastplace = place
@@ -248,9 +247,19 @@ wait duration {init_duration}
     print('''
 text action drop name caption
 
-# At the end of the script, retreat back to view the whole full moon again.
-moveto alt 3500km lat 0.0 lon 0.0 heading 0 pitch -90 duration 20
+# At the end of the script, go back to Earth, or at least try.
+# In practice this seems to put us over on the dark side, with a
+# huge but dark moon taking up the bottom foreground.
+# I don't know how to actually go back to Earth.
+
+image action drop
+body action clear
+
+set home_planet Earth
+moveto lat 35.88722 lon -106.32611 alt 2225  heading 180 pitch 45 land duration 20
 wait duration 20
+
+body action clear
 
 # end of script''',
           file=outfp)
